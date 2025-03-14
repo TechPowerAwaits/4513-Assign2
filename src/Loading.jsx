@@ -7,7 +7,7 @@ function Loading() {
       <img
         src={loadingImg}
         alt="Loading..."
-        className="motion-safe:animate-spin mt-8.5 ml-auto mr-auto"
+        className="motion-safe:animate-[spin_1.5s_infinite] mt-8.5 ml-auto mr-auto"
       />
     </div>
   );
