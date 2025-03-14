@@ -3,7 +3,7 @@ import loadingImg from "./assets/Loading.png";
 function Loading() {
   return (
     <div>
-      <h2 className="text-xl font-bold text-center">Loading...</h2>
+      <h2 className="text-2xl font-bold text-center">Loading...</h2>
       <img
         src={loadingImg}
         alt="Loading..."
