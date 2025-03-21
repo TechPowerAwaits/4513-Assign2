@@ -17,14 +17,9 @@ function Login(props) {
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover space-y-3">
       <Header />
       <Status msg={msg} isErr={loginErr} />
-      <form
-        onSubmit={handleSubmit}
-        className="text-yellow-400 bg-green-700 py-1.5"
-      >
-        <fieldset className="grid grid-cols-2 space-y-3">
-          <legend className="col-span-full text-center font-bold text-xl">
-            Login
-          </legend>
+      <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
+        <h2 className="text-center font-bold text-xl">Login</h2>
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 space-y-3">
           <label htmlFor="username">Username:</label>
           <input
             autoFocus
@@ -58,8 +53,8 @@ function Login(props) {
           >
             Login
           </button>
-        </fieldset>
-      </form>
+        </form>
+      </section>
       <section className="bg-blue-700 text-yellow-400 text-center">
         <h2 className="text-xl font-bold">Image Credits:</h2>
         Photo by{" "}
