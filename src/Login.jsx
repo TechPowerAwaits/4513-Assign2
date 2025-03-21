@@ -11,7 +11,7 @@ function Login(props) {
     "No account is associated with the given username and password.";
   const [msg, setMsg] = useState(defaultMsg);
   const [loginErr, setLoginErr] = useState(false);
-  const [isGuest, setGuest] = useState(false);
+  const [isGuest, setGuest] = useState(true);
 
   return (
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover space-y-3">
