@@ -2,20 +2,21 @@
 
 import { useState } from "react";
 import Header from "./Header";
+import Status from "./Status";
 
 function Login(props) {
   const defaultMsg =
     "Registration is not yet supported. Please login as a guest.";
+  const errMsg =
+    "No account is associated with the given username and password.";
   const [msg, setMsg] = useState(defaultMsg);
+  const [loginErr, setLoginErr] = useState(false);
   const [isGuest, setGuest] = useState(false);
 
   return (
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover space-y-3">
       <Header />
-      <section className="bg-blue-700 text-yellow-400 text-center">
-        <h2 className="text-xl font-bold">Status:</h2>
-        {msg}
-      </section>
+      <Status msg={msg} isErr={loginErr} />
       <form
         onSubmit={handleSubmit}
         className="text-yellow-400 bg-green-700 py-1.5"
@@ -76,11 +77,9 @@ function Login(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (isGuest) {
-      props.handler(true);
-    } else {
-      setMsg("No account is associated with the given username and password.");
-    }
+    props.handler(isGuest);
+    setLoginErr(!isGuest);
+    setMsg(isGuest ? defaultMsg : errMsg);
   }
 
   function toggleGuest() {
