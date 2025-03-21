@@ -1,6 +1,7 @@
 // https://react.dev/reference/react/useActionState
 
 import { useState } from "react";
+import Header from "./Header";
 
 function Login(props) {
   const defaultMsg =
@@ -10,9 +11,7 @@ function Login(props) {
 
   return (
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover space-y-3">
-      <h1 className="bg-blue-700 text-yellow-400 text-2xl font-bold text-center">
-        Welcome to Art Browser!
-      </h1>
+      <Header />
       <section className="bg-blue-700 text-yellow-400 text-center">
         <h2 className="text-xl font-bold">Status:</h2>
         {msg}
