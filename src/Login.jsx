@@ -16,7 +16,6 @@ function Login(props) {
   return (
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover space-y-3">
       <Header />
-      <Status msg={msg} isErr={loginErr} />
       <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
         <h2 className="text-center font-bold text-xl">Login</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-2 space-y-3">
@@ -37,7 +36,7 @@ function Login(props) {
             type="password"
             name="password"
           />
-          <fieldset>
+          <fieldset className="col-span-full">
             <input
               checked={isGuest}
               value="guest"
@@ -47,6 +46,11 @@ function Login(props) {
             ></input>
             <label htmlFor="isGuest">Login as Guest</label>
           </fieldset>
+          <Status
+            className="col-span-full mx-auto"
+            msg={msg}
+            isErr={loginErr}
+          />
           <button
             className="col-span-full bg-blue-700 hover:bg-blue-400"
             type="submit"
