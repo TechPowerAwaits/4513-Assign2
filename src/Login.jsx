@@ -3,8 +3,6 @@
 import { useState } from "react";
 
 function Login(props) {
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
   const [msg, setMsg] = useState("");
   const [isGuest, setGuest] = useState(false);
 
@@ -23,8 +21,6 @@ function Login(props) {
             disabled={isGuest}
             type="text"
             name="username"
-            value={user}
-            onChange={handleUser}
           />
           <label htmlFor="password">Password:</label>
           <input
@@ -33,8 +29,6 @@ function Login(props) {
             disabled={isGuest}
             type="password"
             name="password"
-            value={pass}
-            onChange={handlePass}
           />
           <input
             checked={isGuest}
@@ -59,15 +53,6 @@ function Login(props) {
       </a>
     </article>
   );
-
-  // Can use single handler if we use name attributes.
-  function handleUser(e) {
-    setUser(e.target.value);
-  }
-
-  function handlePass(e) {
-    setPass(e.target.value);
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
