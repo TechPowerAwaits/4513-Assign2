@@ -1,3 +1,5 @@
+// https://react.dev/reference/react/useActionState
+
 import { useState } from "react";
 
 function Login(props) {
@@ -7,7 +9,7 @@ function Login(props) {
   const [isGuest, setGuest] = useState(false);
 
   return (
-    <article>
+    <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover">
       <h1>Welcome to Art Browser!</h1>
       <section>{msg}</section>
       <form onSubmit={handleSubmit}>
@@ -47,6 +49,14 @@ function Login(props) {
           </button>
         </fieldset>
       </form>
+      Photo by{" "}
+      <a href="https://unsplash.com/@brooklyngrace?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+        brooklyn
+      </a>{" "}
+      on{" "}
+      <a href="https://unsplash.com/photos/people-in-the-street-painting-MO5qO9xpZhA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+        Unsplash
+      </a>
     </article>
   );
 
