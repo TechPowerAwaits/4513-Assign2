@@ -22,7 +22,7 @@ function Login() {
       >
         <label htmlFor="username">Username:</label>
         <FormField.Text.User
-          autoFocus
+          required
           disabled={isGuest}
           onChange={(e) => setUsername(e.target.value)}
           name="username"
