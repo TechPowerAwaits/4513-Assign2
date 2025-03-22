@@ -43,6 +43,10 @@ function FormField({
   );
 }
 
+/********/
+/* Text */
+/********/
+
 FormField.Text = function (props) {
   return <FormField type="text" {...props}></FormField>;
 };
@@ -50,21 +54,20 @@ FormField.Text = function (props) {
 FormField.Text.User = function (props) {
   return <FormField.Text autoComplete="username" {...props}></FormField.Text>;
 };
+
 FormField.Text.Name = function (props) {
   return <FormField.Text autoComplete="name" {...props}></FormField.Text>;
 };
+
+/************/
+/* Password */
+/************/
+
 FormField.Password = function (props) {
   return <FormField type="password" {...props}></FormField>;
 };
+
 FormField.Password.Current = function (props) {
-  return (
-    <FormField.Password
-      autoComplete="new-password"
-      {...props}
-    ></FormField.Password>
-  );
-};
-FormField.Password.New = function (props) {
   return (
     <FormField.Password
       autoComplete="current-password"
@@ -72,6 +75,20 @@ FormField.Password.New = function (props) {
     ></FormField.Password>
   );
 };
+
+FormField.Password.New = function (props) {
+  return (
+    <FormField.Password
+      autoComplete="new-password"
+      {...props}
+    ></FormField.Password>
+  );
+};
+
+/*********/
+/* Email */
+/*********/
+
 FormField.Email = function (props) {
   return <FormField type="email" autoComplete="email" {...props}></FormField>;
 };
