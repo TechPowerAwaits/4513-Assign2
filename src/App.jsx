@@ -1,16 +1,22 @@
 import { useState } from "react";
 import Loading from "./Loading";
 import Login from "./Login";
+import { AccountContext } from "./Account";
+import Header from "./Header";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [account, setAccount] = useState(null);
 
-  if (!loggedIn) return <Login handler={handleLogin} />;
-  else return <Loading />;
+  const currentView = account ? <Loading /> : <Login />;
 
-  function handleLogin(which) {
-    setLoggedIn(which);
-  }
+  return (
+    <AccountContext.Provider value={{ account, setAccount }}>
+      <main>
+        <Header />
+        {currentView}
+      </main>
+    </AccountContext.Provider>
+  );
 }
 
 export default App;

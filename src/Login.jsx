@@ -1,24 +1,27 @@
 // https://react.dev/reference/react/useActionState
 
-import { useState } from "react";
-import Header from "./Header";
+import { use, useActionState, useState } from "react";
 import Status from "./Status";
+import { Account, AccountContext, AccountStatus } from "./Account";
 
-function Login(props) {
-  const defaultMsg =
-    "Registration is not yet supported. Please login as a guest.";
-  const errMsg =
-    "No account is associated with the given username and password.";
-  const [msg, setMsg] = useState(defaultMsg);
-  const [loginErr, setLoginErr] = useState(false);
+function Login() {
+  const { setAccount } = use(AccountContext);
+  const defaultAccountStatus = new AccountStatus(
+    "Registration is not yet supported. Please login as a guest."
+  );
+
+  ///const [msg, setMsg] = useState(defaultMsg);
+  const [accountStatus, formAction, isPending] = useActionState(
+    handleSubmit,
+    defaultAccountStatus
+  );
   const [isGuest, setGuest] = useState(true);
 
   return (
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover space-y-3">
-      <Header />
       <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
         <h2 className="text-center font-bold text-xl">Login</h2>
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 space-y-3">
+        <form action={formAction} className="grid grid-cols-2 space-y-3">
           <label htmlFor="username">Username:</label>
           <input
             autoFocus
@@ -46,11 +49,16 @@ function Login(props) {
             ></input>
             <label htmlFor="isGuest">Login as Guest</label>
           </fieldset>
-          <Status
-            className="col-span-full mx-auto"
-            msg={msg}
-            isErr={loginErr}
-          />
+          {isPending ? (
+            <Loading />
+          ) : (
+            <Status
+              className="col-span-full mx-auto"
+              msg={accountStatus.message}
+              isErr={!accountStatus.success}
+            />
+          )}
+
           <button
             className="col-span-full bg-blue-700 hover:bg-blue-400"
             type="submit"
@@ -73,12 +81,27 @@ function Login(props) {
     </article>
   );
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(prevMsg, formData) {
+    let newAccount = null;
+    let newAccountStatus = defaultAccountStatus;
 
-    props.handler(isGuest);
-    setLoginErr(!isGuest);
-    setMsg(isGuest ? defaultMsg : errMsg);
+    if (isGuest) {
+      newAccount = Account.constructGuest();
+    } else {
+      newAccount = new Account(
+        formData.get("username"),
+        formData.get("password")
+      );
+    }
+
+    try {
+      await newAccount.authenticate();
+      setAccount(newAccount);
+    } catch (error) {
+      newAccountStatus = new AccountStatus(error.message, false);
+    }
+
+    return newAccountStatus;
   }
 
   function toggleGuest() {
