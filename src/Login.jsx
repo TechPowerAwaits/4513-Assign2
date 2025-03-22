@@ -1,4 +1,4 @@
-import { use, useActionState, useState } from "react";
+import { use, useState } from "react";
 import Status from "./Status";
 import { Account, AccountContext, AccountStatus } from "./Account";
 import FormField from "./FormField";
@@ -8,21 +8,31 @@ function Login() {
   const defaultAccountStatus = new AccountStatus(
     "Registration is not yet supported. Please login as a guest."
   );
-
-  const [accountStatus, formAction] = useActionState(
-    handleSubmit,
-    defaultAccountStatus
-  );
+  const [accountStatus, setAccountStatus] = useState(defaultAccountStatus);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isGuest, setGuest] = useState(false);
 
   return (
     <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
       <h2 className="text-center font-bold text-xl">Login</h2>
-      <form action={formAction} className="grid grid-cols-2 space-y-3">
+      <form
+        className="grid grid-cols-2 space-y-3"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <label htmlFor="username">Username:</label>
-        <FormField.Text.User autoFocus disabled={isGuest} name="username" />
+        <FormField.Text.User
+          autoFocus
+          disabled={isGuest}
+          onChange={(e) => setUsername(e.target.value)}
+          name="username"
+        />
         <label htmlFor="password">Password:</label>
-        <FormField.Password.Current disabled={isGuest} name="password" />
+        <FormField.Password.Current
+          disabled={isGuest}
+          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+        />
         <fieldset className="col-span-full">
           <input
             checked={isGuest}
@@ -48,17 +58,16 @@ function Login() {
     </section>
   );
 
-  async function handleSubmit(prevMsg, formData) {
+  async function handleSubmit(e) {
+    e.preventDefault();
+
     let newAccount = null;
     let newAccountStatus = defaultAccountStatus;
 
     if (isGuest) {
       newAccount = Account.constructGuest();
     } else {
-      newAccount = new Account(
-        formData.get("username"),
-        formData.get("password")
-      );
+      newAccount = new Account(username, password);
     }
 
     try {
@@ -68,7 +77,7 @@ function Login() {
       newAccountStatus = new AccountStatus(error.message, false);
     }
 
-    return newAccountStatus;
+    setAccountStatus(newAccountStatus);
   }
 }
 
