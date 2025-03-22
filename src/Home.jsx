@@ -1,9 +1,13 @@
+import { Routes, Route, Link } from "react-router";
 import Login from "./Login";
 
 function Home() {
   return (
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover space-y-3">
-      <Login />
+      <Routes>
+        <Route index element={<ChoiceButtons />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
       <section className="bg-blue-700 text-yellow-400 text-center">
         <h2 className="text-xl font-bold">Image Credits:</h2>
         Photo by{" "}
@@ -16,6 +20,18 @@ function Home() {
         </a>
       </section>
     </article>
+  );
+}
+
+function ChoiceButtons() {
+  return (
+    <section>
+      <h2>What would you like to do?</h2>
+      <button type="button">Create An Account</button>
+      <Link to="/login">
+        <button>Sign In</button>
+      </Link>
+    </section>
   );
 }
 
