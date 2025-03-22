@@ -18,67 +18,54 @@ function Login() {
   const [isGuest, setGuest] = useState(true);
 
   return (
-    <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover space-y-3">
-      <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
-        <h2 className="text-center font-bold text-xl">Login</h2>
-        <form action={formAction} className="grid grid-cols-2 space-y-3">
-          <label htmlFor="username">Username:</label>
+    <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
+      <h2 className="text-center font-bold text-xl">Login</h2>
+      <form action={formAction} className="grid grid-cols-2 space-y-3">
+        <label htmlFor="username">Username:</label>
+        <input
+          autoFocus
+          autoComplete="username"
+          className="bg-yellow-200 border-black border-2 disabled:bg-gray-400"
+          disabled={isGuest}
+          type="text"
+          name="username"
+        />
+        <label htmlFor="password">Password:</label>
+        <input
+          autoComplete="current-password"
+          className="bg-yellow-200 border-black border-2 disabled:bg-gray-400"
+          disabled={isGuest}
+          type="password"
+          name="password"
+        />
+        <fieldset className="col-span-full">
           <input
-            autoFocus
-            autoComplete="username"
-            className="bg-yellow-200 border-black border-2 disabled:bg-gray-400"
-            disabled={isGuest}
-            type="text"
-            name="username"
+            checked={isGuest}
+            value="guest"
+            type="checkbox"
+            name="isGuest"
+            onChange={toggleGuest}
+          ></input>
+          <label htmlFor="isGuest">Login as Guest</label>
+        </fieldset>
+        {isPending ? (
+          <Loading />
+        ) : (
+          <Status
+            className="col-span-full mx-auto"
+            msg={accountStatus.message}
+            isErr={!accountStatus.success}
           />
-          <label htmlFor="password">Password:</label>
-          <input
-            autoComplete="current-password"
-            className="bg-yellow-200 border-black border-2 disabled:bg-gray-400"
-            disabled={isGuest}
-            type="password"
-            name="password"
-          />
-          <fieldset className="col-span-full">
-            <input
-              checked={isGuest}
-              value="guest"
-              type="checkbox"
-              name="isGuest"
-              onChange={toggleGuest}
-            ></input>
-            <label htmlFor="isGuest">Login as Guest</label>
-          </fieldset>
-          {isPending ? (
-            <Loading />
-          ) : (
-            <Status
-              className="col-span-full mx-auto"
-              msg={accountStatus.message}
-              isErr={!accountStatus.success}
-            />
-          )}
+        )}
 
-          <button
-            className="col-span-full bg-blue-700 hover:bg-blue-400"
-            type="submit"
-          >
-            Login
-          </button>
-        </form>
-      </section>
-      <section className="bg-blue-700 text-yellow-400 text-center">
-        <h2 className="text-xl font-bold">Image Credits:</h2>
-        Photo by{" "}
-        <a href="https://unsplash.com/@brooklyngrace?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-          brooklyn
-        </a>{" "}
-        on{" "}
-        <a href="https://unsplash.com/photos/people-in-the-street-painting-MO5qO9xpZhA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-          Unsplash
-        </a>
-      </section>
-    </article>
+        <button
+          className="col-span-full bg-blue-700 hover:bg-blue-400"
+          type="submit"
+        >
+          Login
+        </button>
+      </form>
+    </section>
   );
 
   async function handleSubmit(prevMsg, formData) {

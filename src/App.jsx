@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Loading from "./Loading";
-import Login from "./Login";
 import { AccountContext } from "./Account";
 import Header from "./Header";
+import Home from "./Home";
 
 function App() {
   const [account, setAccount] = useState(null);
 
-  const currentView = account ? <Loading /> : <Login />;
+  const currentView = account ? <Loading /> : <Home />;
 
   return (
     <AccountContext.Provider value={{ account, setAccount }}>
