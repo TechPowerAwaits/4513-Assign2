@@ -1,5 +1,3 @@
-// https://react.dev/reference/react/useActionState
-
 import { use, useActionState, useState } from "react";
 import Status from "./Status";
 import { Account, AccountContext, AccountStatus } from "./Account";
@@ -11,7 +9,6 @@ function Login() {
     "Registration is not yet supported. Please login as a guest."
   );
 
-  ///const [msg, setMsg] = useState(defaultMsg);
   const [accountStatus, formAction] = useActionState(
     handleSubmit,
     defaultAccountStatus
@@ -32,7 +29,7 @@ function Login() {
             value="guest"
             type="checkbox"
             name="isGuest"
-            onChange={toggleGuest}
+            onChange={() => setGuest(!isGuest)}
           ></input>
           <label htmlFor="isGuest">Login as Guest</label>
         </fieldset>
@@ -72,10 +69,6 @@ function Login() {
     }
 
     return newAccountStatus;
-  }
-
-  function toggleGuest() {
-    setGuest(!isGuest);
   }
 }
 
