@@ -12,7 +12,7 @@ function Login() {
   );
 
   ///const [msg, setMsg] = useState(defaultMsg);
-  const [accountStatus, formAction, isPending] = useActionState(
+  const [accountStatus, formAction] = useActionState(
     handleSubmit,
     defaultAccountStatus
   );
@@ -36,16 +36,11 @@ function Login() {
           ></input>
           <label htmlFor="isGuest">Login as Guest</label>
         </fieldset>
-        {isPending ? (
-          <Loading />
-        ) : (
-          <Status
-            className="col-span-full mx-auto"
-            msg={accountStatus.message}
-            isErr={!accountStatus.success}
-          />
-        )}
-
+        <Status
+          className="col-span-full mx-auto"
+          msg={accountStatus.message}
+          isErr={!accountStatus.success}
+        />
         <button
           className="col-span-full bg-blue-700 hover:bg-blue-400"
           type="submit"
