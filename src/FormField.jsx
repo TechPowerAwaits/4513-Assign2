@@ -32,7 +32,7 @@ function FormField({
 }) {
   const invalidStyling = manualInvalidStyling
     ? ""
-    : "invalid:bg-red-200 invalid:border-red-600";
+    : "[&:user-invalid]:bg-red-200 [&:user-invalid]:border-red-600";
   return (
     <input
       className={`bg-yellow-200 border-black border-2 text-black disabled:bg-gray-400 ${invalidStyling} ${passedClasses}`}
