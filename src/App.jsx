@@ -11,7 +11,7 @@ function App() {
 
   return (
     <AccountContext.Provider value={{ account, setAccount }}>
-      <main>
+      <main className="h-dvh flex flex-col">
         <Header />
         {currentView}
       </main>

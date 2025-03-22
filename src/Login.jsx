@@ -15,7 +15,7 @@ function Login() {
 
   return (
     <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
-      <h2 className="text-center font-bold text-xl">Login</h2>
+      <h3 className="text-center font-bold text-xl">Login</h3>
       <form
         className="grid grid-cols-2 space-y-3"
         onSubmit={(e) => handleSubmit(e)}
