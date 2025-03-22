@@ -13,12 +13,6 @@ class Account {
     return new Account(Account.guestUsername, Account.guestPassword);
   }
 
-  static validEmail(email) {
-    const regex =
-      /^(\d|[a-z]|[A-Z])+([-|_|.](\d|[a-z]|[A-Z])+)*@(\d|[a-z]|[A-Z])+([-|_|.](\d|[a-z]|[A-Z])+)*.([a-z]|[A-Z])+$/;
-    return regex.test(email);
-  }
-
   constructor(username, password) {
     this.username = username;
     this.password = password;

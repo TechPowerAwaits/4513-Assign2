@@ -3,6 +3,7 @@
 import { use, useActionState, useState } from "react";
 import Status from "./Status";
 import { Account, AccountContext, AccountStatus } from "./Account";
+import FormField from "./FormField";
 
 function Login() {
   const { setAccount } = use(AccountContext);
@@ -22,22 +23,9 @@ function Login() {
       <h2 className="text-center font-bold text-xl">Login</h2>
       <form action={formAction} className="grid grid-cols-2 space-y-3">
         <label htmlFor="username">Username:</label>
-        <input
-          autoFocus
-          autoComplete="username"
-          className="bg-yellow-200 border-black border-2 disabled:bg-gray-400"
-          disabled={isGuest}
-          type="text"
-          name="username"
-        />
+        <FormField.Text.User autoFocus disabled={isGuest} name="username" />
         <label htmlFor="password">Password:</label>
-        <input
-          autoComplete="current-password"
-          className="bg-yellow-200 border-black border-2 disabled:bg-gray-400"
-          disabled={isGuest}
-          type="password"
-          name="password"
-        />
+        <FormField.Password.Current disabled={isGuest} name="password" />
         <fieldset className="col-span-full">
           <input
             checked={isGuest}
