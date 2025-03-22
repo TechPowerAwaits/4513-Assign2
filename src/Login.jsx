@@ -16,7 +16,7 @@ function Login() {
     handleSubmit,
     defaultAccountStatus
   );
-  const [isGuest, setGuest] = useState(true);
+  const [isGuest, setGuest] = useState(false);
 
   return (
     <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
