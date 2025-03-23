@@ -29,7 +29,7 @@ function Home() {
 
 function ChoiceButtons({ className: passedClasses }) {
   return (
-    <section className={passedClasses}>
+    <section className={`p-1.5 ${passedClasses}`}>
       <H.L3>What would you like to do?</H.L3>
       <button type="button">Create An Account</button>
       <Link to="/login">
