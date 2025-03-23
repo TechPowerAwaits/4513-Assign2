@@ -52,7 +52,7 @@ function Login({ className: passedClasses }) {
           isErr={!accountStatus.success}
         />
         <button
-          className="col-span-full bg-blue-700 hover:bg-blue-400"
+          className="col-span-full bg-blue-700 hover:bg-blue-400 mx-auto"
           type="submit"
         >
           Login
