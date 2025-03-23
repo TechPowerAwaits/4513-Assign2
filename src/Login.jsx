@@ -36,7 +36,7 @@ function Login({ className: passedClasses }) {
           onChange={(e) => setPassword(e.target.value)}
           name="password"
         />
-        <fieldset className="col-span-full">
+        <fieldset className="col-span-full mx-auto">
           <input
             checked={isGuest}
             value="guest"
