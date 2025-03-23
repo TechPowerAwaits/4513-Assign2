@@ -52,7 +52,13 @@ function Login({ className: passedClasses }) {
           <label htmlFor="isGuest">Login as Guest</label>
         </fieldset>
         <button
-          className="col-span-full bg-blue-700 hover:bg-blue-400 mx-auto py-3 px-4 rounded-full"
+          className="col-span-full bg-tyrian-purple hover:bg-murrey text-ut-orange mx-auto py-3 px-4 rounded-full"
+          type="submit"
+        >
+          Login
+        </button>
+        <button
+          className="col-span-full bg-spanish-orange hover:bg-ut-orange text-tyrian-purple mx-auto py-3 px-4 rounded-full"
           type="submit"
         >
           Login
