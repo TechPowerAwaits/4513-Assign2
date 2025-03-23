@@ -9,8 +9,8 @@ function Home() {
         <H.L2>Home</H.L2>
       </header>
       <Routes>
-        <Route index element={<ChoiceButtons />} />
-        <Route path="/login" element={<Login />} />
+        <Route index element={<ChoiceButtons className="mx-8" />} />
+        <Route path="/login" element={<Login className="mx-8" />} />
       </Routes>
       <footer className="bg-blue-700 text-yellow-400 text-center">
         <p className="text-xl font-bold">Image Credits:</p>
@@ -27,9 +27,9 @@ function Home() {
   );
 }
 
-function ChoiceButtons() {
+function ChoiceButtons({ className: passedClasses }) {
   return (
-    <section>
+    <section className={passedClasses}>
       <H.L3>What would you like to do?</H.L3>
       <button type="button">Create An Account</button>
       <Link to="/login">

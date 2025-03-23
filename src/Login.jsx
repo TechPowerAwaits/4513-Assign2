@@ -4,7 +4,7 @@ import { Account, AccountContext, AccountStatus } from "./Account";
 import FormField from "./FormField";
 import H from "./H";
 
-function Login() {
+function Login({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);
   const defaultAccountStatus = new AccountStatus(
     "Registration is not yet supported. Please login as a guest."
@@ -15,7 +15,9 @@ function Login() {
   const [isGuest, setGuest] = useState(false);
 
   return (
-    <section className="space-y-3 text-yellow-400 bg-green-700 py-1.5">
+    <section
+      className={`space-y-3 text-yellow-400 bg-green-700 py-1.5 ${passedClasses}`}
+    >
       <H.L3>Login</H.L3>
       <form
         className="grid grid-cols-2 space-y-3"
