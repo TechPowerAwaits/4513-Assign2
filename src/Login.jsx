@@ -36,6 +36,11 @@ function Login({ className: passedClasses }) {
           onChange={(e) => setPassword(e.target.value)}
           name="password"
         />
+        <Status
+          className="col-span-full mx-auto"
+          msg={accountStatus.message}
+          isErr={!accountStatus.success}
+        />
         <fieldset className="col-span-full mx-auto">
           <input
             checked={isGuest}
@@ -46,11 +51,6 @@ function Login({ className: passedClasses }) {
           ></input>
           <label htmlFor="isGuest">Login as Guest</label>
         </fieldset>
-        <Status
-          className="col-span-full mx-auto"
-          msg={accountStatus.message}
-          isErr={!accountStatus.success}
-        />
         <button
           className="col-span-full bg-blue-700 hover:bg-blue-400 mx-auto py-3 px-4 rounded-full"
           type="submit"
