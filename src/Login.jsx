@@ -4,6 +4,7 @@ import { Account, AccountContext, AccountStatus } from "./Account";
 import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
+import useStateStore from "./useStateStore";
 
 function Login({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);
@@ -11,9 +12,11 @@ function Login({ className: passedClasses }) {
     "Registration is not yet supported. Please login as a guest."
   );
   const [accountStatus, setAccountStatus] = useState(defaultAccountStatus);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isGuest, setGuest] = useState(false);
+  const [formValues, setFormValue, toggleFormValue] = useStateStore({
+    username: "",
+    password: "",
+    isGuest: false,
+  });
 
   return (
     <section
@@ -27,14 +30,14 @@ function Login({ className: passedClasses }) {
         <label htmlFor="username">Username:</label>
         <FormField.Text.User
           required
-          disabled={isGuest}
-          onChange={(e) => setUsername(e.target.value)}
+          disabled={formValues.isGuest}
+          onChange={(e) => setFormValue(e.target.name, e.target.value)}
           name="username"
         />
         <label htmlFor="password">Password:</label>
         <FormField.Password.Current
-          disabled={isGuest}
-          onChange={(e) => setPassword(e.target.value)}
+          disabled={formValues.isGuest}
+          onChange={(e) => setFormValue(e.target.name, e.target.value)}
           name="password"
         />
         <Status
@@ -44,11 +47,11 @@ function Login({ className: passedClasses }) {
         />
         <fieldset className="col-span-full mx-auto space-x-2">
           <input
-            checked={isGuest}
+            checked={formValues.isGuest}
             value="guest"
             type="checkbox"
             name="isGuest"
-            onChange={() => setGuest(!isGuest)}
+            onChange={(e) => toggleFormValue(e.target.name)}
           ></input>
           <label htmlFor="isGuest">Login as Guest</label>
         </fieldset>
@@ -65,10 +68,10 @@ function Login({ className: passedClasses }) {
     let newAccount = null;
     let newAccountStatus = defaultAccountStatus;
 
-    if (isGuest) {
+    if (formValues.isGuest) {
       newAccount = Account.constructGuest();
     } else {
-      newAccount = new Account(username, password);
+      newAccount = new Account(formValues.username, formValues.password);
     }
 
     try {
