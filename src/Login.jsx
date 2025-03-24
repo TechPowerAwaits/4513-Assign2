@@ -3,6 +3,7 @@ import Status from "./Status";
 import { Account, AccountContext, AccountStatus } from "./Account";
 import FormField from "./FormField";
 import H from "./H";
+import Button from "./Button";
 
 function Login({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);
@@ -51,18 +52,9 @@ function Login({ className: passedClasses }) {
           ></input>
           <label htmlFor="isGuest">Login as Guest</label>
         </fieldset>
-        <button
-          className="col-span-full bg-tyrian-purple hover:bg-murrey text-ut-orange mx-auto py-3 px-4 rounded-full"
-          type="submit"
-        >
+        <Button.Primary className="col-span-full mx-auto" type="submit">
           Login
-        </button>
-        <button
-          className="col-span-full bg-spanish-orange hover:bg-ut-orange text-tyrian-purple mx-auto py-3 px-4 rounded-full"
-          type="submit"
-        >
-          Login
-        </button>
+        </Button.Primary>
       </form>
     </section>
   );
