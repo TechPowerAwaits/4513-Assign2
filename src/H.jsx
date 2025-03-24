@@ -13,56 +13,32 @@
 
 class H {
   static L1({ children }) {
-    return (
-      <h1 className="text-yellow-400 text-3xl font-bold text-center">
-        {children}
-      </h1>
-    );
+    return <h1 className="text-3xl font-bold text-center">{children}</h1>;
   }
 
   static L2({ children }) {
-    return (
-      <h2 className="text-yellow-400 text-2xl font-bold text-center">
-        {children}
-      </h2>
-    );
+    return <h2 className="text-2xl font-bold text-center">{children}</h2>;
   }
 
   static L3({ children }) {
-    return (
-      <h3 className="text-yellow-400 text-xl font-bold text-center">
-        {children}
-      </h3>
-    );
+    return <h3 className="text-xl font-bold text-center">{children}</h3>;
   }
 
   static L4({ children }) {
-    return (
-      <h4 className="text-yellow-400 text-lg font-bold text-center">
-        {children}
-      </h4>
-    );
+    return <h4 className="text-lg font-bold text-center">{children}</h4>;
   }
 
   static L5({ children }) {
-    return (
-      <h5 className="text-yellow-400 underline font-bold text-center">
-        {children}
-      </h5>
-    );
+    return <h5 className="underline font-bold text-center">{children}</h5>;
   }
 
   static L6({ children }) {
-    return (
-      <h6 className="text-yellow-400 underline font-medium text-center">
-        {children}
-      </h6>
-    );
+    return <h6 className="underline font-medium text-center">{children}</h6>;
   }
 
   static DisplayAll() {
     return (
-      <article>
+      <article className="text-black bg-white">
         <H.L1>This is H1.</H.L1>
         <p>Lorem ipsum dolor sit amet.</p>
         <H.L2>This is H2.</H.L2>
