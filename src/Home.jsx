@@ -7,7 +7,9 @@ function Home() {
   return (
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover h-full flex flex-col justify-between">
       <header className="bg-tyrian-purple text-ut-orange border-y border-mimi-pink">
-        <H.L2>Home</H.L2>
+        <Link className="hover:text-sandy-brown" to="/">
+          <H.L2>Home</H.L2>
+        </Link>
       </header>
       <Routes>
         <Route index element={<ChoiceButtons className="mx-8" />} />
