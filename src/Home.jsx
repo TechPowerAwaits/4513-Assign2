@@ -6,14 +6,14 @@ import Button from "./Button";
 function Home() {
   return (
     <article className="bg-[url(assets/brooklyn-MO5qO9xpZhA-unsplash.jpg)] bg-no-repeat bg-cover h-full flex flex-col justify-between">
-      <header>
+      <header className="bg-tyrian-purple text-ut-orange border-y border-white">
         <H.L2>Home</H.L2>
       </header>
       <Routes>
         <Route index element={<ChoiceButtons className="mx-8" />} />
         <Route path="/login" element={<Login className="mx-8" />} />
       </Routes>
-      <footer className="bg-blue-700 text-yellow-400 text-center">
+      <footer className="bg-tyrian-purple text-ut-orange text-center">
         <p className="text-xl font-bold">Image Credits:</p>
         Photo by{" "}
         <a href="https://unsplash.com/@brooklyngrace?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
