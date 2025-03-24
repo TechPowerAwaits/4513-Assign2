@@ -8,6 +8,7 @@
   https://coolors.co/350824-9a031e-fb8b24-e36414-14667b
   https://coolors.co/350824-fb375b-fb8b24-e36414-14667b
   https://coolors.co/f9dcee-fb375b-fb8b24-e36414-14667b
+  https://coolors.co/f9dcee-fb375b-fb8b24-e36414-dcf4f9
   */
 
   --color-tyrian-purple: hsla(323, 73%, 22%, 1);
@@ -23,6 +24,7 @@
 
   --color-midnight-green: hsla(192, 72%, 21%, 1);
   --color-caribbean-current: hsla(192, 72%, 28%, 1);
+  --color-light-cyan: hsla(190, 71%, 92%, 1);
 
   --color-black: #000;
   --color-white: #fff;
