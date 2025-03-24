@@ -1,9 +1,7 @@
 /*
  * Purpose: Provides stylized versions of Section Headers.
  *
- * Details: It is not possible to override the default styling.
- *
- * Each level of section header can be accessed via H.L{level}.
+ * Details: Each level of section header can be accessed via H.L{level}.
  * For example H.L1 will be a stylized version of h1.
  *
  * A testing component, H.DisplayAll is provided. It displays all
@@ -12,28 +10,52 @@
  */
 
 class H {
-  static L1({ children }) {
-    return <h1 className="text-3xl font-bold text-center">{children}</h1>;
+  static L1({ children, className: passedClasses }) {
+    return (
+      <h1 className={`text-3xl font-bold text-center ${passedClasses}`}>
+        {children}
+      </h1>
+    );
   }
 
-  static L2({ children }) {
-    return <h2 className="text-2xl font-bold text-center">{children}</h2>;
+  static L2({ children, className: passedClasses }) {
+    return (
+      <h2 className={`text-2xl font-bold text-center ${passedClasses}`}>
+        {children}
+      </h2>
+    );
   }
 
-  static L3({ children }) {
-    return <h3 className="text-xl font-bold text-center">{children}</h3>;
+  static L3({ children, className: passedClasses }) {
+    return (
+      <h3 className={`text-xl font-bold text-center ${passedClasses}`}>
+        {children}
+      </h3>
+    );
   }
 
-  static L4({ children }) {
-    return <h4 className="text-lg font-bold text-center">{children}</h4>;
+  static L4({ children, passedClasses }) {
+    return (
+      <h4 className={`text-lg font-bold text-center ${passedClasses}`}>
+        {children}
+      </h4>
+    );
   }
 
-  static L5({ children }) {
-    return <h5 className="underline font-bold text-center">{children}</h5>;
+  static L5({ children, passedClasses }) {
+    return (
+      <h5 className={`underline font-bold text-center ${passedClasses}`}>
+        {children}
+      </h5>
+    );
   }
 
-  static L6({ children }) {
-    return <h6 className="underline font-medium text-center">{children}</h6>;
+  static L6({ children, passedClasses }) {
+    return (
+      <h6 className={`underline font-medium text-center ${passedClasses}`}>
+        {children}
+      </h6>
+    );
   }
 
   static DisplayAll() {
