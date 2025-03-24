@@ -21,7 +21,6 @@
  *    > Current -- A FormField for entering a pre-existing password.
  *    > New -- A FormField for creating a new password.
  * > Email -- A basic wrapper over Input whose type is "email".
- *    > Checked -- Provides a tooltip and pattern for checking email.
  */
 
 function FormField({
@@ -91,15 +90,6 @@ FormField.Password.New = function (props) {
 
 FormField.Email = function (props) {
   return <FormField type="email" autoComplete="email" {...props}></FormField>;
-};
-FormField.Email.Checked = function (props) {
-  return (
-    <FormField.Email
-      pattern="(\d|[a-z]|[A-Z])+([-|_|.](\d|[a-z]|[A-Z])+)*@(\d|[a-z]|[A-Z])+([-|_|.](\d|[a-z]|[A-Z])+)*.([a-z]|[A-Z])+"
-      title="[numbers or letters with -,_,.]@[numbers or letters with -,_,.].[letters]"
-      {...props}
-    ></FormField.Email>
-  );
 };
 
 export default FormField;
