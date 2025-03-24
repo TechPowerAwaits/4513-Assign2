@@ -16,11 +16,17 @@ function Home() {
       <footer className="bg-tyrian-purple text-ut-orange text-center">
         <p className="text-xl font-bold">Image Credits:</p>
         Photo by{" "}
-        <a href="https://unsplash.com/@brooklyngrace?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+        <a
+          className="underline visited:text-spanish-orange hover:text-sandy-brown"
+          href="https://unsplash.com/@brooklyngrace?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+        >
           brooklyn
         </a>{" "}
         on{" "}
-        <a href="https://unsplash.com/photos/people-in-the-street-painting-MO5qO9xpZhA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+        <a
+          className="underline visited:text-spanish-orange hover:text-sandy-brown"
+          href="https://unsplash.com/photos/people-in-the-street-painting-MO5qO9xpZhA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+        >
           Unsplash
         </a>
       </footer>
