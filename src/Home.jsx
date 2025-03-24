@@ -1,6 +1,7 @@
 import { Routes, Route, Link } from "react-router";
 import Login from "./Login";
 import H from "./H";
+import Button from "./Button";
 
 function Home() {
   return (
@@ -33,21 +34,11 @@ function ChoiceButtons({ className: passedClasses }) {
       <H.L3>What would you like to do?</H.L3>
       <menu className="flex justify-center gap-4 sm:flex-row flex-col">
         <li className="mx-auto sm:mx-0">
-          <button
-            type="button"
-            className="hover:scale-105 motion-reduce:hover:scale-100 border-2 border-transparent active:border-black hover:border-black cursor-pointer bg-tyrian-purple hover:bg-murrey text-ut-orange py-3 px-4 rounded-full"
-          >
-            Create An Account
-          </button>
+          <Button.Primary type="button">Create An Account</Button.Primary>
         </li>
         <li className="mx-auto sm:mx-0">
           <Link to="/login">
-            <button
-              type="button"
-              className="hover:scale-105 motion-reduce:hover:scale-100 border-2 border-transparent active:border-black hover:border-black cursor-pointer bg-midnight-green hover:bg-caribbean-current text-ut-orange py-3 px-4 rounded-full"
-            >
-              Sign In
-            </button>
+            <Button.Secondary type="button">Sign In</Button.Secondary>
           </Link>
         </li>
       </menu>
