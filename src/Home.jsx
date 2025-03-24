@@ -31,9 +31,19 @@ function ChoiceButtons({ className: passedClasses }) {
   return (
     <section className={`p-1.5 ${passedClasses}`}>
       <H.L3>What would you like to do?</H.L3>
-      <button type="button">Create An Account</button>
+      <button
+        type="button"
+        className="cursor-pointer bg-tyrian-purple hover:bg-murrey text-ut-orange mx-auto py-3 px-4 rounded-full"
+      >
+        Create An Account
+      </button>
       <Link to="/login">
-        <button>Sign In</button>
+        <button
+          type="button"
+          className="cursor-pointer bg-midnight-green hover:bg-caribbean-current text-ut-orange mx-auto py-3 px-4 rounded-full"
+        >
+          Sign In
+        </button>
       </Link>
     </section>
   );
