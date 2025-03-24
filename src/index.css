@@ -24,6 +24,9 @@
   --color-caribbean-current: hsla(192, 72%, 28%, 1);
   --color-light-cyan: hsla(190, 71%, 92%, 1);
 
+  /* From Tailwind's default theming. */
   --color-black: #000;
   --color-white: #fff;
+  /* gray-400 */
+  --color-gray: oklch(0.707 0.022 261.325);
 }
