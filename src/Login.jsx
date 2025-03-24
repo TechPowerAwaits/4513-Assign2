@@ -42,7 +42,7 @@ function Login({ className: passedClasses }) {
           msg={accountStatus.message}
           isErr={!accountStatus.success}
         />
-        <fieldset className="col-span-full mx-auto">
+        <fieldset className="col-span-full mx-auto space-x-2">
           <input
             checked={isGuest}
             value="guest"
