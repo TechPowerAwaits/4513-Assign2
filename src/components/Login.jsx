@@ -1,10 +1,10 @@
 import { use, useState } from "react";
 import Status from "./Status";
-import { Account, AccountContext, AccountStatus } from "./Account";
+import { Account, AccountContext, AccountStatus } from "../Account";
 import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
-import useStateStore from "./hooks/useStateStore";
+import useStateStore from "../hooks/useStateStore";
 
 function Login({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);

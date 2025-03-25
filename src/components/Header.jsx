@@ -1,5 +1,5 @@
 import H from "./H";
-import Logo from "./assets/Logo.png";
+import Logo from "../assets/Logo.png";
 
 function Header() {
   return (
