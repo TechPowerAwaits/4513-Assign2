@@ -65,11 +65,4 @@ class Account {
  */
 const AccountContext = createContext(null);
 
-class AccountStatus {
-  constructor(message, success = true) {
-    this.message = message;
-    this.success = success;
-  }
-}
-
-export { Account, AccountContext, AccountStatus };
+export { Account, AccountContext };
