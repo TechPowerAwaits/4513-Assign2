@@ -1,3 +1,7 @@
+/*
+ * Purpose: Provides the top bar of the App.
+ */
+
 import H from "./H";
 import Logo from "../assets/Logo.png";
 
