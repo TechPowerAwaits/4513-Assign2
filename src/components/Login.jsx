@@ -1,3 +1,7 @@
+/*
+ * Purpose: Provides a form for logging into the service.
+ */
+
 import { use, useState } from "react";
 import Status from "./Status";
 import { Account, AccountContext, AccountStatus } from "../contexts/Account";
