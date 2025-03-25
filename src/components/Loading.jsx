@@ -3,7 +3,7 @@
  * is loading.
  */
 
-import loadingImg from "./assets/Loading.png";
+import loadingImg from "../assets/Loading.png";
 
 /*
  * Purpose: Provides a Loading animation.
