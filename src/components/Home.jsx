@@ -1,3 +1,7 @@
+/*
+ * Purpose: Provides the main page that users will see before logging in.
+ */
+
 import { Routes, Route, Link } from "react-router";
 import Login from "./Login";
 import H from "./H";
