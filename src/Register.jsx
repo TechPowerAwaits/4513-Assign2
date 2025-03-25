@@ -4,7 +4,7 @@ import { Account, AccountContext, AccountStatus } from "./Account";
 import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
-import useStateStore from "./useStateStore";
+import useStateStore from "./hooks/useStateStore";
 
 function Register({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);
