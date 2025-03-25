@@ -20,7 +20,7 @@ function Login({ className: passedClasses }) {
 
   return (
     <section
-      className={`space-y-3 text-ut-orange bg-midnight-green p-1.5 ${passedClasses}`}
+      className={`space-y-3 text-ut-orange bg-midnight-green p-1.5 ${passedClasses ? passedClasses : ""}`}
     >
       <H.L3>Login</H.L3>
       <form
