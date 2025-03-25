@@ -40,7 +40,7 @@ function Home() {
 
 function ChoiceButtons({ className: passedClasses }) {
   return (
-    <section className={`p-1.5 ${passedClasses}`}>
+    <section className={`p-1.5 ${passedClasses ? passedClasses : ""}`}>
       <H.L3>What would you like to do?</H.L3>
       <menu className="flex justify-center gap-4 sm:flex-row flex-col">
         <li className="mx-auto sm:mx-0">
