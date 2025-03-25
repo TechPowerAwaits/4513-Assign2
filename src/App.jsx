@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Loading from "./components/Loading";
-import { AccountContext } from "./Account";
+import { AccountContext } from "./contexts/Account";
 import Header from "./components/Header";
 import Home from "./components/Home";
 
