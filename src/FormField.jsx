@@ -34,7 +34,7 @@ function FormField({
     : "[&:user-invalid]:bg-folly";
   return (
     <input
-      className={`bg-light-cyan text-black disabled:bg-gray ${invalidStyling} ${passedClasses}`}
+      className={`bg-light-cyan text-black disabled:bg-gray ${invalidStyling} ${passedClasses ? passedClasses : ""}`}
       {...props}
     >
       {children}
