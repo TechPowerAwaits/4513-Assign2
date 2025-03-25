@@ -3,8 +3,8 @@
  */
 
 import { use, useState } from "react";
-import Status from "./Status";
-import { Account, AccountContext, AccountStatus } from "../contexts/Account";
+import { Status, StatusState } from "./Status";
+import { Account, AccountContext } from "../contexts/Account";
 import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
@@ -12,11 +12,11 @@ import useStateStore from "../hooks/useStateStore";
 
 function Register({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);
-  const defaultAccountStatus = new AccountStatus(
+  const defaultRegisterStatus = new StatusState(
     "Registration is not yet supported. " +
       "No account will be created and you will be signed in as a guest."
   );
-  const [accountStatus, setAccountStatus] = useState(defaultAccountStatus);
+  const [registerStatus, setRegisterStatus] = useState(defaultRegisterStatus);
   const [formValues, setFormValue] = useStateStore({
     username: "",
     email: "",
@@ -66,11 +66,7 @@ function Register({ className: passedClasses }) {
           onChange={(e) => setFormValue(e.target.name, e.target.value)}
           name="confirmPassword"
         />
-        <Status
-          className="col-span-full mx-auto"
-          msg={accountStatus.message}
-          isErr={!accountStatus.success}
-        />
+        <Status className="col-span-full mx-auto" state={registerStatus} />
         <Button.Primary className="col-span-full mx-auto" type="submit">
           Login
         </Button.Primary>
@@ -81,15 +77,15 @@ function Register({ className: passedClasses }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let newAccountStatus = defaultAccountStatus;
+    let newRegisterStatus = defaultRegisterStatus;
 
     if (formValues.email != formValues.confirmEmail) {
-      newAccountStatus = new AccountStatus(
+      newRegisterStatus = new StatusState(
         "The Confirmation Email doesn't match the provided Email.",
         false
       );
     } else if (formValues.password != formValues.confirmPassword) {
-      newAccountStatus = new AccountStatus(
+      newRegisterStatus = new StatusState(
         "The Confirmation Password doesn't match the provided Password.",
         false
       );
@@ -100,11 +96,11 @@ function Register({ className: passedClasses }) {
         await newAccount.authenticate();
         setAccount(newAccount);
       } catch (error) {
-        newAccountStatus = new AccountStatus(error.message, false);
+        newRegisterStatus = new StatusState(error.message, false);
       }
     }
 
-    setAccountStatus(newAccountStatus);
+    setRegisterStatus(newRegisterStatus);
   }
 }
 

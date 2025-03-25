@@ -3,8 +3,8 @@
  */
 
 import { use, useState } from "react";
-import Status from "./Status";
-import { Account, AccountContext, AccountStatus } from "../contexts/Account";
+import { Status, StatusState } from "./Status";
+import { Account, AccountContext } from "../contexts/Account";
 import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
@@ -12,10 +12,10 @@ import useStateStore from "../hooks/useStateStore";
 
 function Login({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);
-  const defaultAccountStatus = new AccountStatus(
+  const defaultLoginStatus = new StatusState(
     "Registration is not yet supported. Please login as a guest."
   );
-  const [accountStatus, setAccountStatus] = useState(defaultAccountStatus);
+  const [loginStatus, setLoginStatus] = useState(defaultLoginStatus);
   const [formValues, setFormValue, toggleFormValue] = useStateStore({
     username: "",
     password: "",
@@ -44,11 +44,7 @@ function Login({ className: passedClasses }) {
           onChange={(e) => setFormValue(e.target.name, e.target.value)}
           name="password"
         />
-        <Status
-          className="col-span-full mx-auto"
-          msg={accountStatus.message}
-          isErr={!accountStatus.success}
-        />
+        <Status className="col-span-full mx-auto" state={loginStatus} />
         <fieldset className="col-span-full mx-auto space-x-2">
           <input
             checked={formValues.isGuest}
@@ -70,7 +66,7 @@ function Login({ className: passedClasses }) {
     e.preventDefault();
 
     let newAccount = null;
-    let newAccountStatus = defaultAccountStatus;
+    let newLoginStatus = defaultLoginStatus;
 
     if (formValues.isGuest) {
       newAccount = Account.constructGuest();
@@ -82,10 +78,10 @@ function Login({ className: passedClasses }) {
       await newAccount.authenticate();
       setAccount(newAccount);
     } catch (error) {
-      newAccountStatus = new AccountStatus(error.message, false);
+      newLoginStatus = new StatusState(error.message, false);
     }
 
-    setAccountStatus(newAccountStatus);
+    setLoginStatus(newLoginStatus);
   }
 }
 
