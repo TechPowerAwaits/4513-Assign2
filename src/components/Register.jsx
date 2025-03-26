@@ -68,7 +68,7 @@ function Register({ className: passedClasses }) {
         />
         <Status className="col-span-full mx-auto" state={registerStatus} />
         <Button.Primary className="col-span-full mx-auto" type="submit">
-          Login
+          Register
         </Button.Primary>
       </form>
     </section>
