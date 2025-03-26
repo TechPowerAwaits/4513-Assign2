@@ -8,7 +8,6 @@ import { Account, AccountContext } from "../contexts/Account";
 import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
-import useStateStore from "../hooks/useStateStore";
 
 function Login({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);
@@ -16,7 +15,7 @@ function Login({ className: passedClasses }) {
     "Registration is not yet supported. Please login as a guest."
   );
   const [loginStatus, setLoginStatus] = useState(defaultLoginStatus);
-  const [formValues, setFormValue, toggleFormValue] = useStateStore({
+  const [formValues, setFormValues] = useState({
     username: "",
     password: "",
     isGuest: false,
@@ -35,13 +34,13 @@ function Login({ className: passedClasses }) {
         <FormField.Text.User
           required
           disabled={formValues.isGuest}
-          onChange={(e) => setFormValue(e.target.name, e.target.value)}
+          onChange={(e) => handleFieldChange(e)}
           name="username"
         />
         <label htmlFor="password">Password:</label>
         <FormField.Password.Current
           disabled={formValues.isGuest}
-          onChange={(e) => setFormValue(e.target.name, e.target.value)}
+          onChange={(e) => handleFieldChange(e)}
           name="password"
         />
         <Status className="col-span-full mx-auto" state={loginStatus} />
@@ -51,7 +50,9 @@ function Login({ className: passedClasses }) {
             value="guest"
             type="checkbox"
             name="isGuest"
-            onChange={(e) => toggleFormValue(e.target.name)}
+            onChange={() =>
+              setFormValues({ ...formValues, isGuest: !formValues.isGuest })
+            }
           ></input>
           <label htmlFor="isGuest">Login as Guest</label>
         </fieldset>
@@ -82,6 +83,10 @@ function Login({ className: passedClasses }) {
     }
 
     setLoginStatus(newLoginStatus);
+  }
+
+  function handleFieldChange(e) {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
   }
 }
 
