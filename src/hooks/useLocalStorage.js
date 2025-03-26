@@ -21,10 +21,6 @@ const subscribe = (callback) => {
   return () => window.removeEventListener("storage", callbackCaller);
 };
 
-function testSnapshot() {
-  return "";
-}
-
 function useLocalStorage(key, initialValue) {
   console.debug("Entered local storage hook.");
   const [initialRun, setInitialRun] = useState(true);
@@ -63,7 +59,7 @@ function useLocalStorage(key, initialValue) {
     return retrievedValue;
   }, [key, prevJSON, prevObj]);
 
-  const localStorageValue = useSyncExternalStore(subscribe, testSnapshot);
+  const localStorageValue = useSyncExternalStore(subscribe, getSnapshot);
 
   if (initialRun) {
     console.debug("Setting initialValue.");
