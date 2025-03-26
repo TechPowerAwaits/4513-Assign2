@@ -13,37 +13,34 @@
  * - A function that takes in a `value` to set localStorage to.
  */
 
-import { useSyncExternalStore } from "react";
+import { useCallback, useState, useSyncExternalStore } from "react";
+
+const subscribe = (callback) => {
+  const callbackCaller = () => callback();
+  window.addEventListener("storage", callbackCaller);
+  return () => window.removeEventListener("storage", callbackCaller);
+};
 
 function useLocalStorage(key, initialValue) {
   console.debug("Entered local storage hook.");
+  const [initialRun, setInitialRun] = useState(true);
 
-  const localStorageValue = useSyncExternalStore(subscribe, getSnapshot);
+  const setLocalStorage = useCallback(
+    (value) => {
+      console.debug(`Setting localStorage key "${key}" to "${value}"`);
+      localStorage.setItem(key, JSON.stringify(value));
+    },
+    [key]
+  );
 
-  return [localStorageValue, setLocalStorage];
-
-  function setLocalStorage(value) {
-    console.debug(`Setting localStorage key "${key}" to "${initialValue}"`);
-    localStorage.setItem(key, JSON.stringify(value));
-  }
-
-  function subscribe(callback) {
-    const callbackCaller = () => callback();
-    window.addEventListener("storage", callbackCaller);
-    return () => window.removeEventListener("storage", callbackCaller);
-  }
-
-  function getSnapshot() {
-    let retrievedValue = initialValue;
+  const getSnapshot = useCallback(() => {
+    let retrievedValue = undefined;
 
     try {
       const retrievedJSON = localStorage.getItem(key);
 
       if (retrievedJSON) {
         retrievedValue = JSON.parse(retrievedJSON);
-      } else {
-        console.debug("Setting initialValue.");
-        setLocalStorage(initialValue);
       }
     } catch (error) {
       console.error(
@@ -52,7 +49,17 @@ function useLocalStorage(key, initialValue) {
     }
 
     return retrievedValue;
+  }, [key]);
+
+  const localStorageValue = useSyncExternalStore(subscribe, getSnapshot);
+
+  if (initialRun) {
+    console.debug("Setting initialValue.");
+    setLocalStorage(initialValue);
+    setInitialRun(false);
   }
+
+  return [localStorageValue, setLocalStorage];
 }
 
 export default useLocalStorage;
