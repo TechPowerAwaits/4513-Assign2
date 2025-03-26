@@ -21,9 +21,15 @@ const subscribe = (callback) => {
   return () => window.removeEventListener("storage", callbackCaller);
 };
 
+function testSnapshot() {
+  return "";
+}
+
 function useLocalStorage(key, initialValue) {
   console.debug("Entered local storage hook.");
   const [initialRun, setInitialRun] = useState(true);
+  const [prevJSON, setPrevJSON] = useState("");
+  const [prevObj, setPrevObj] = useState(undefined);
 
   const setLocalStorage = useCallback(
     (value) => {
@@ -40,7 +46,13 @@ function useLocalStorage(key, initialValue) {
       const retrievedJSON = localStorage.getItem(key);
 
       if (retrievedJSON) {
-        retrievedValue = JSON.parse(retrievedJSON);
+        if (prevJSON == retrievedJSON) {
+          retrievedValue = prevObj;
+        } else {
+          retrievedValue = JSON.parse(retrievedJSON);
+          setPrevJSON(retrievedJSON);
+          setPrevObj(retrievedValue);
+        }
       }
     } catch (error) {
       console.error(
@@ -49,9 +61,9 @@ function useLocalStorage(key, initialValue) {
     }
 
     return retrievedValue;
-  }, [key]);
+  }, [key, prevJSON, prevObj]);
 
-  const localStorageValue = useSyncExternalStore(subscribe, getSnapshot);
+  const localStorageValue = useSyncExternalStore(subscribe, testSnapshot);
 
   if (initialRun) {
     console.debug("Setting initialValue.");
