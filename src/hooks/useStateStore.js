@@ -22,15 +22,15 @@ import { useState } from "react";
  */
 function useStateStore(initialStateStore = {}) {
   const [stateStore, setStateStore] = useState(initialStateStore);
-  return [stateStore, setFormValue, toggleFormValue];
+  return [stateStore, setValue, toggleValue];
 
-  function setFormValue(name, value) {
+  function setValue(name, value) {
     const newStateStore = { ...stateStore };
     newStateStore[name] = value;
     setStateStore(newStateStore);
   }
 
-  function toggleFormValue(name) {
+  function toggleValue(name) {
     const newStateStore = { ...stateStore };
     newStateStore[name] = !newStateStore[name];
     setStateStore(newStateStore);
