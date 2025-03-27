@@ -10,12 +10,18 @@ import { useCallback, useState, useSyncExternalStore } from "react";
 
 function useLocalStorage(key, initialValue, comparisonFunc) {
   console.debug("Entered local storage hook.");
-  const syncValue = useLocalStorageExternSync(
+  const [syncValue, changedFlag, resetChangedFlag] = useLocalStorageExternSync(
     key,
     initialValue,
     comparisonFunc
   );
   const [cachedObj, setCachedObj] = useState(syncValue);
+
+  if (changedFlag) {
+    console.debug("Updating cached local storage value.");
+    setCachedObj(syncValue);
+    resetChangedFlag();
+  }
 
   const setLocalStorage = useCallback(
     (obj) => {
@@ -29,6 +35,7 @@ function useLocalStorage(key, initialValue, comparisonFunc) {
 
   return [cachedObj, setLocalStorage];
 }
+
 function getObj(key) {
   let retrievedObj = null;
 
@@ -47,6 +54,7 @@ function getObj(key) {
 
 function useLocalStorageExternSync(key, initialValue, comparisonFunc) {
   const [cachedObj, setCachedObj] = useState(initialValue);
+  const [changed, setChanged] = useState(false);
 
   const getSnapshot = useCallback(() => {
     let snapshot = cachedObj;
@@ -54,16 +62,21 @@ function useLocalStorageExternSync(key, initialValue, comparisonFunc) {
 
     if (obj && !comparisonFunc(obj, cachedObj)) {
       setCachedObj(obj);
+      setChanged(true);
       snapshot = obj;
     }
 
     return snapshot;
   }, [key, cachedObj, comparisonFunc]);
 
-  return useSyncExternalStore(subscribe, getSnapshot);
+  return [
+    useSyncExternalStore(localStorageExternSubscribe, getSnapshot),
+    changed,
+    () => setChanged(false),
+  ];
 }
 
-function subscribe(callback) {
+function localStorageExternSubscribe(callback) {
   const callbackCaller = () => callback();
   window.addEventListener("storage", callbackCaller);
   return () => window.removeEventListener("storage", callbackCaller);
