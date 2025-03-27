@@ -1,9 +1,20 @@
 import useLocalStorage from "./useLocalStorage";
+import useFetchJSON from "./useFetchJSON";
 
 const key = "gallery";
 
 function useGalleriesData() {
-  return useLocalStorage(key, [], galleryCompare);
+  const [galleryData, setGalleryData] = useLocalStorage(
+    key,
+    [],
+    galleryCompare
+  );
+  useFetchJSON(
+    "https://art-api-kafs.onrender.com/api/galleries",
+    setGalleryData
+  );
+
+  return galleryData;
 }
 
 function galleryCompare(g1, g2) {
