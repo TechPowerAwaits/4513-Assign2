@@ -4,20 +4,18 @@
  *
  * Details: It is inspired by https://usehooks.com/uselocalstorage, but uses no
  * code from the project.
- *
- * Takes in the key to be used in localStorage, an initial value to set in
- * localStorage (if a value is not set).
- *
- * Returns: An array with two elements:
- * - The value of what is contained in localStorage.
- * - A function that takes in a `value` to set localStorage to.
  */
 
 import { useCallback, useState, useSyncExternalStore } from "react";
 
 function useLocalStorage(key, initialValue, comparisonFunc) {
   console.debug("Entered local storage hook.");
-  const [cachedObj, setCachedObj] = useState(initialValue);
+  const syncValue = useLocalStorageExternSync(
+    key,
+    initialValue,
+    comparisonFunc
+  );
+  const [cachedObj, setCachedObj] = useState(syncValue);
 
   const setLocalStorage = useCallback(
     (obj) => {
@@ -29,28 +27,37 @@ function useLocalStorage(key, initialValue, comparisonFunc) {
     [key]
   );
 
-  const getSnapshot = useCallback(() => {
-    try {
-      const retrievedJSON = localStorage.getItem(key);
+  return [cachedObj, setLocalStorage];
+}
+function getObj(key) {
+  let retrievedObj = null;
 
-      if (retrievedJSON) {
-        const retrievedObj = JSON.parse(retrievedJSON);
-        if (!comparisonFunc(retrievedObj, cachedObj)) {
-          setCachedObj(retrievedObj);
-        }
-      }
-    } catch (error) {
-      console.error(
-        `Failed to get snapshot of local storage. ${error.message}`
-      );
+  try {
+    const retrievedJSON = localStorage.getItem(key);
+
+    if (retrievedJSON) {
+      retrievedObj = JSON.parse(retrievedJSON);
+    }
+  } catch (error) {
+    console.error(`Failed to get snapshot of local storage. ${error.message}`);
+  }
+
+  return retrievedObj;
+}
+
+function useLocalStorageExternSync(key, initialValue, comparisonFunc) {
+  const [cachedObj, setCachedObj] = useState(initialValue);
+
+  const getSnapshot = useCallback(() => {
+    const obj = getObj(key);
+    if (obj && !comparisonFunc(obj, cachedObj)) {
+      setCachedObj(obj);
     }
 
     return cachedObj;
   }, [key, cachedObj, comparisonFunc]);
 
-  useSyncExternalStore(subscribe, getSnapshot);
-
-  return [cachedObj, setLocalStorage];
+  return useSyncExternalStore(subscribe, getSnapshot);
 }
 
 function subscribe(callback) {
