@@ -5,8 +5,8 @@
  * Details: It is inspired by https://usehooks.com/uselocalstorage, but uses no
  * code from the project.
  *
- * Takes in the key to be used in localStorage and an initial value to set in
- * localStorage.
+ * Takes in the key to be used in localStorage, an initial value to set in
+ * localStorage (if a value is not set).
  *
  * Returns: An array with two elements:
  * - The value of what is contained in localStorage.
@@ -15,39 +15,28 @@
 
 import { useCallback, useState, useSyncExternalStore } from "react";
 
-const subscribe = (callback) => {
-  const callbackCaller = () => callback();
-  window.addEventListener("storage", callbackCaller);
-  return () => window.removeEventListener("storage", callbackCaller);
-};
-
-function useLocalStorage(key, initialValue) {
+function useLocalStorage(key, initialValue, comparisonFunc) {
   console.debug("Entered local storage hook.");
-  const [initialRun, setInitialRun] = useState(true);
-  const [prevJSON, setPrevJSON] = useState("");
-  const [prevObj, setPrevObj] = useState(undefined);
+  const [cachedObj, setCachedObj] = useState(initialValue);
 
   const setLocalStorage = useCallback(
-    (value) => {
-      console.debug(`Setting localStorage key "${key}" to "${value}"`);
-      localStorage.setItem(key, JSON.stringify(value));
+    (obj) => {
+      const objJSON = JSON.stringify(obj);
+      console.debug(`Setting localStorage key "${key}" to "${objJSON}"`);
+      localStorage.setItem(key, objJSON);
+      setCachedObj(obj);
     },
     [key]
   );
 
   const getSnapshot = useCallback(() => {
-    let retrievedValue = undefined;
-
     try {
       const retrievedJSON = localStorage.getItem(key);
 
       if (retrievedJSON) {
-        if (prevJSON == retrievedJSON) {
-          retrievedValue = prevObj;
-        } else {
-          retrievedValue = JSON.parse(retrievedJSON);
-          setPrevJSON(retrievedJSON);
-          setPrevObj(retrievedValue);
+        const retrievedObj = JSON.parse(retrievedJSON);
+        if (!comparisonFunc(retrievedObj, cachedObj)) {
+          setCachedObj(retrievedObj);
         }
       }
     } catch (error) {
@@ -56,18 +45,18 @@ function useLocalStorage(key, initialValue) {
       );
     }
 
-    return retrievedValue;
-  }, [key, prevJSON, prevObj]);
+    return cachedObj;
+  }, [key, cachedObj, comparisonFunc]);
 
-  const localStorageValue = useSyncExternalStore(subscribe, getSnapshot);
+  useSyncExternalStore(subscribe, getSnapshot);
 
-  if (initialRun) {
-    console.debug("Setting initialValue.");
-    setLocalStorage(initialValue);
-    setInitialRun(false);
-  }
+  return [cachedObj, setLocalStorage];
+}
 
-  return [localStorageValue, setLocalStorage];
+function subscribe(callback) {
+  const callbackCaller = () => callback();
+  window.addEventListener("storage", callbackCaller);
+  return () => window.removeEventListener("storage", callbackCaller);
 }
 
 export default useLocalStorage;
