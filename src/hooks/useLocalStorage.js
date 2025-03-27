@@ -49,12 +49,15 @@ function useLocalStorageExternSync(key, initialValue, comparisonFunc) {
   const [cachedObj, setCachedObj] = useState(initialValue);
 
   const getSnapshot = useCallback(() => {
+    let snapshot = cachedObj;
     const obj = getObj(key);
+
     if (obj && !comparisonFunc(obj, cachedObj)) {
       setCachedObj(obj);
+      snapshot = obj;
     }
 
-    return cachedObj;
+    return snapshot;
   }, [key, cachedObj, comparisonFunc]);
 
   return useSyncExternalStore(subscribe, getSnapshot);
