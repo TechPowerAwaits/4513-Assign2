@@ -20,31 +20,27 @@ let errorHandler = () => {};
  *
  * The content contained at the provided `url` must be JSON data.
  *
- * The passed `setFunc` should accept one parameter--the retrieved data--for
- * saving the data.
- *
  * The function will invoke the errHandler if any object contains an attribute
  * named `error`.
+ *
+ * Returns: The fetched object or null if an Error occurs.
  */
-async function fetchCachedObjFromJSON(
-  key,
-  url,
-  setFunc,
-  errHandler = errorHandler
-) {
+async function fetchCachedObjFromJSON(key, url, errHandler = errorHandler) {
+  let data = null;
+
   try {
     const cachedValue = localStorage.getItem(key);
     if (!cachedValue) {
-      await fetchObjFromJSON(url, (obj) => {
-        setFunc(obj);
-        localStorage.setItem(key, JSON.stringify(obj));
-      });
+      data = await fetchObjFromJSON(url);
+      localStorage.setItem(key, JSON.stringify(data));
     } else {
-      setFunc(cachedValue);
+      data = cachedValue;
     }
   } catch (error) {
     errHandler(error);
   }
+
+  return data;
 }
 
 /*
@@ -54,21 +50,18 @@ async function fetchCachedObjFromJSON(
  *
  * The content contained at the provided `url` must be JSON data.
  *
- * The passed `setFunc` should accept one parameter--the retrieved data--for
- * saving the data.
- *
  * The function will invoke the errHandler if any object contains an attribute
  * named `error`.
+ *
+ * Returns: The fetched object or null if an Error occurs.
  */
-async function fetchObjFromJSON(url, setFunc, errHandler = errorHandler) {
+async function fetchObjFromJSON(url, errHandler = errorHandler) {
   console.debug(`Fetching from ${url}.`);
-  try {
-    const resp = await fetch(url);
-    if (!resp.ok) {
-      throw new Error(`Fetch returned ${resp.status}`);
-    }
+  let data = null;
 
-    const data = await resp.json();
+  try {
+    const resp = await respCheckedFetch(url);
+    data = await resp.json();
 
     if (data instanceof Array) {
       data.forEach((item) => {
@@ -77,11 +70,22 @@ async function fetchObjFromJSON(url, setFunc, errHandler = errorHandler) {
     } else if (typeof data === "object") {
       objValidation(data);
     }
-
-    setFunc(data);
   } catch (error) {
     errHandler(error);
   }
+
+  return data;
+}
+
+async function respCheckedFetch(url) {
+  console.debug(`Fetching from ${url}.`);
+  const resp = await fetch(url);
+
+  if (!resp.ok) {
+    throw new Error(`Fetch returned ${resp.status}`);
+  }
+
+  return resp;
 }
 
 /*
