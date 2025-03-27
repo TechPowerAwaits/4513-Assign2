@@ -11,8 +11,7 @@ function useFetchJSON(url, setFunc) {
           throw new Error(`Fetch returned ${resp.status}`);
         }
 
-        const json = await resp.json();
-        const data = JSON.parse(json);
+        const data = await resp.json();
 
         if (data instanceof Array) {
           data.forEach((item) => {
