@@ -15,38 +15,62 @@ function App() {
   const paintingState = useState(null);
 
   useEffect(() => {
-    console.debug("Entered data hook.");
-    setErrorHandler((error) => console.error(error.message));
+    let ignore = false;
 
-    DataProvider.acquire([
-      new DataProvider(
-        "galleries",
-        import.meta.env.VITE_GALLERIES_URL ||
-          "https://art-api-kafs.onrender.com/api/galleries",
-        galleryState
-      ),
-      new DataProvider(
-        "artists",
-        import.meta.env.VITE_ARTISTS_URL ||
-          "https://art-api-kafs.onrender.com/api/artists",
-        artistState
-      ),
-      new DataProvider(
-        "genres",
-        import.meta.env.VITE_GENRES_URL ||
-          "https://art-api-kafs.onrender.com/api/genres",
-        genreState
-      ),
-      new DataProvider(
-        "paintings",
-        import.meta.env.VITE_PAINTINGS_URL ||
-          "https://art-api-kafs.onrender.com/api/paintings",
-        paintingState
-      ),
-    ]);
-  }, [artistState, galleryState, genreState, paintingState]);
+    if (!ignore && account) {
+      console.debug("Entered data hook.");
+      setErrorHandler((error) => console.error(error.message));
 
-  const currentView = account ? <Galleries /> : <Home />;
+      DataProvider.acquire([
+        new DataProvider(
+          "galleries",
+          import.meta.env.VITE_GALLERIES_URL ||
+            "https://art-api-kafs.onrender.com/api/galleries",
+          galleryState
+        ),
+        new DataProvider(
+          "artists",
+          import.meta.env.VITE_ARTISTS_URL ||
+            "https://art-api-kafs.onrender.com/api/artists",
+          artistState
+        ),
+        new DataProvider(
+          "genres",
+          import.meta.env.VITE_GENRES_URL ||
+            "https://art-api-kafs.onrender.com/api/genres",
+          genreState
+        ),
+        new DataProvider(
+          "paintings",
+          import.meta.env.VITE_PAINTINGS_URL ||
+            "https://art-api-kafs.onrender.com/api/paintings",
+          paintingState
+        ),
+      ]);
+
+      return () => {
+        ignore = true;
+      };
+    }
+  }, [artistState, galleryState, genreState, paintingState, account]);
+
+  //const currentView = account ? <Galleries /> : <Home />;
+  let currentView;
+
+  if (account) {
+    if (
+      galleryState[0] &&
+      artistState[0] &&
+      genreState[0] &&
+      paintingState[0]
+    ) {
+      currentView = <Galleries />;
+    } else {
+      currentView = <Loading />;
+    }
+  } else {
+    currentView = <Home />;
+  }
 
   return (
     <AccountContext.Provider value={{ account, setAccount }}>
