@@ -4,7 +4,7 @@
 
 import { createContext } from "react";
 
-const dataContext = createContext(null);
+const DataContext = createContext(null);
 
 /*
  * Purpose: Provides an example Gallery.
@@ -135,7 +135,7 @@ const paintingsTestData = [
 ];
 
 export {
-  dataContext,
+  DataContext,
   galleryTestData,
   artistTestData,
   genreTestData,
