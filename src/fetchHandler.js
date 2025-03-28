@@ -34,7 +34,7 @@ async function fetchCachedObjFromJSON(key, url, errHandler = errorHandler) {
       data = await fetchObjFromJSON(url);
       localStorage.setItem(key, JSON.stringify(data));
     } else {
-      data = cachedValue;
+      data = JSON.parse(cachedValue);
     }
   } catch (error) {
     errHandler(error);
