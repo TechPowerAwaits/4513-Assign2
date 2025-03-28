@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Galleries from "./components/galleries/Galleries";
 import DataProvider from "./DataProvider";
 import { setErrorHandler } from "./fetchHandler";
+import { DataContext } from "./contexts/Data";
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -61,12 +62,14 @@ function App() {
   }
 
   return (
-    <AccountContext.Provider value={{ account, setAccount }}>
-      <main className="h-dvh flex flex-col">
-        <Header />
-        {currentView}
-      </main>
-    </AccountContext.Provider>
+    <DataContext.Provider value={data}>
+      <AccountContext.Provider value={{ account, setAccount }}>
+        <main className="h-dvh flex flex-col">
+          <Header />
+          {currentView}
+        </main>
+      </AccountContext.Provider>
+    </DataContext.Provider>
   );
 }
 

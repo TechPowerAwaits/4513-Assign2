@@ -7,7 +7,7 @@ function Galleries() {
       <header className="bg-tyrian-purple text-ut-orange border-y border-mimi-pink">
         <H.L2>Galleries</H.L2>
       </header>
-      <GalleryList></GalleryList>
+      <GalleryList />
     </article>
   );
 }
