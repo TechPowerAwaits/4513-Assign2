@@ -15,6 +15,8 @@ function GalleryInfo() {
     );
   }
 
+  console.table(selectedGallery);
+
   const nativeGalleryPostfix = selectedGallery.nativeGalleryName
     ? ` (${selectedGallery.nativeGalleryName})`
     : "";
@@ -26,9 +28,9 @@ function GalleryInfo() {
         {nativeGalleryPostfix}
       </H.L3>
 
+      <p>{selectedGallery.galleryAddress}</p>
       <p>
-        {selectedGallery.galleryAddress}, {selectedGallery.galleryCity},{" "}
-        {SelectedGalleryContext.galleryCountry}
+        {selectedGallery.galleryCity}, {selectedGallery.galleryCountry}
       </p>
       <a href={selectedGallery.galleryWebSite}>
         Gallery Link <sup>[extern]</sup>
