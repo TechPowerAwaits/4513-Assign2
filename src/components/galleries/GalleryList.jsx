@@ -6,7 +6,7 @@ function GalleryList() {
   const { galleries: galleriesData } = use(DataContext);
 
   return (
-    <ul>
+    <ul className="overflow-scroll h-full">
       {galleriesData.map((galleryData) => (
         <GalleryListItem
           galleryData={galleryData}
