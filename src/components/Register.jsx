@@ -8,7 +8,6 @@ import { Account, AccountContext } from "../contexts/Account";
 import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
-import useStateStore from "../hooks/useStateStore";
 
 function Register({ className: passedClasses }) {
   const { setAccount } = use(AccountContext);
@@ -17,7 +16,7 @@ function Register({ className: passedClasses }) {
       "No account will be created and you will be signed in as a guest."
   );
   const [registerStatus, setRegisterStatus] = useState(defaultRegisterStatus);
-  const [formValues, setFormValue] = useStateStore({
+  const [formValues, setFormValues] = useState({
     username: "",
     email: "",
     confirmEmail: "",
@@ -37,43 +36,46 @@ function Register({ className: passedClasses }) {
         <label htmlFor="username">Username:</label>
         <FormField.Text.User
           required
-          onChange={(e) => setFormValue(e.target.name, e.target.value)}
+          onChange={(e) => handleFieldChange(e)}
           name="username"
         />
         <label htmlFor="email">Email:</label>
         <FormField.Email
           required
-          onChange={(e) => setFormValue(e.target.name, e.target.value)}
+          onChange={(e) => handleFieldChange(e)}
           name="email"
         />
         <label htmlFor="confirmEmail">Confirm Email:</label>
         <FormField.Email
           required
           disabled={formValues.email.length === 0}
-          onChange={(e) => setFormValue(e.target.name, e.target.value)}
+          onChange={(e) => handleFieldChange(e)}
           name="confirmEmail"
         />
         <label htmlFor="password">Password:</label>
         <FormField.Password.New
           required
-          onChange={(e) => setFormValue(e.target.name, e.target.value)}
+          onChange={(e) => handleFieldChange(e)}
           name="password"
         />
         <label htmlFor="confirmPassword">Confirm Password:</label>
         <FormField.Password.New
           required
           disabled={formValues.password.length === 0}
-          onChange={(e) => setFormValue(e.target.name, e.target.value)}
+          onChange={(e) => handleFieldChange(e)}
           name="confirmPassword"
         />
         <Status className="col-span-full mx-auto" state={registerStatus} />
         <Button.Primary className="col-span-full mx-auto" type="submit">
-          Login
+          Register
         </Button.Primary>
       </form>
     </section>
   );
 
+  function handleFieldChange(e) {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  }
   async function handleSubmit(e) {
     e.preventDefault();
 
