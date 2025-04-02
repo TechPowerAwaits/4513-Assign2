@@ -2,6 +2,7 @@ import { use } from "react";
 import H from "../H";
 import { SelectedGalleryContext } from "../../contexts/Gallery";
 import Button from "../Button";
+import { Map, Marker, ZoomControl } from "pigeon-maps";
 
 function GalleryInfo() {
   const [selectedGallery, setSelectedGallery] = use(SelectedGalleryContext);
@@ -28,6 +29,16 @@ function GalleryInfo() {
         {nativeGalleryPostfix}
       </H.L3>
 
+      <Map
+        center={[selectedGallery.latitude, selectedGallery.longitude]}
+        zoom={16}
+      >
+        <ZoomControl />
+        <Marker
+          anchor={[selectedGallery.latitude, selectedGallery.longitude]}
+        />
+      </Map>
+
       <p>{selectedGallery.galleryAddress}</p>
       <p>
         {selectedGallery.galleryCity}, {selectedGallery.galleryCountry}
@@ -35,6 +46,7 @@ function GalleryInfo() {
       <a href={selectedGallery.galleryWebSite}>
         Gallery Link <sup>[extern]</sup>
       </a>
+
       <Button.Primary onClick={() => setSelectedGallery(null)}>
         Close
       </Button.Primary>
