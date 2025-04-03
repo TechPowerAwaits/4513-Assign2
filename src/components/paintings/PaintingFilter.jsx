@@ -3,8 +3,9 @@ import { CurrentPaintingsContext } from "../../contexts/Painting";
 import { DataContext } from "../../contexts/Data";
 import FormField from "../FormField";
 import Button from "../Button";
+import H from "../H";
 
-function PaintingFilter() {
+function PaintingFilter({ className: passedClasses }) {
   const fieldId = useId();
   const { paintings: paintingsData, shapes: shapesData } = use(DataContext);
   const [, setCurrentPaintings] = use(CurrentPaintingsContext);
@@ -62,58 +63,68 @@ function PaintingFilter() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor={`${fieldId}-title`}>Title</label>
-      <FormField.Text
-        onChange={(e) => handleFieldChange(e)}
-        name="title"
-        id={`${fieldId}-title`}
-      />
-
-      <label htmlFor={`${fieldId}-artist`}>Artist</label>
-      <FormField.Text
-        onChange={(e) => handleFieldChange(e)}
-        name="artist"
-        id={`${fieldId}-artist`}
-      />
-
-      <label htmlFor={`${fieldId}-gallery`}>Gallery</label>
-      <FormField.Text
-        onChange={(e) => handleFieldChange(e)}
-        name="gallery"
-        id={`${fieldId}-gallery`}
-      />
-
-      <label htmlFor={`${fieldId}-shape`}>Shape</label>
-      <select name="shape" id={`${fieldId}-shape`}>
-        <option value="">No shape selected</option>
-        {shapesData.map((shape) => (
-          <option value={shape.shapeId} key={shape.shapeId}>
-            {shape.shapeName}
-          </option>
-        ))}
-      </select>
-
-      <fieldset>
-        <legend>Years</legend>
+    <section
+      className={`space-y-3 text-ut-orange bg-caribbean-current p-1.5 ${passedClasses ? passedClasses : ""}`}
+    >
+      <H.L3>Painting Filters</H.L3>
+      <form onSubmit={handleSubmit} className="grid grid-cols-2 space-y-3">
+        <label htmlFor={`${fieldId}-title`}>Title</label>
         <FormField.Text
           onChange={(e) => handleFieldChange(e)}
-          name="minYear"
-          id={`${fieldId}-minYear`}
-          placeholder="Minimum Year"
+          name="title"
+          id={`${fieldId}-title`}
         />
 
+        <label htmlFor={`${fieldId}-artist`}>Artist:</label>
         <FormField.Text
           onChange={(e) => handleFieldChange(e)}
-          name="maxYear"
-          id={`${fieldId}-maxYear`}
-          placeholder="Maximum Year"
+          name="artist"
+          id={`${fieldId}-artist`}
         />
-      </fieldset>
 
-      <Button.Secondary type="button">Reset</Button.Secondary>
-      <Button.Primary type="submit">Submit</Button.Primary>
-    </form>
+        <label htmlFor={`${fieldId}-gallery`}>Gallery:</label>
+        <FormField.Text
+          onChange={(e) => handleFieldChange(e)}
+          name="gallery"
+          id={`${fieldId}-gallery`}
+        />
+
+        <label htmlFor={`${fieldId}-shape`}>Shape:</label>
+        <select
+          className="bg-light-cyan text-black"
+          name="shape"
+          id={`${fieldId}-shape`}
+        >
+          <option value="">No shape selected</option>
+          {shapesData.map((shape) => (
+            <option value={shape.shapeId} key={shape.shapeId}>
+              {shape.shapeName}
+            </option>
+          ))}
+        </select>
+
+        <fieldset className="col-span-full grid grid-cols-2 space-y-3">
+          <legend className="col-span-full text-center font-bold">
+            Years:
+          </legend>
+          <label htmlFor={`${fieldId}-minYear`}>Min:</label>
+          <FormField.Text
+            onChange={(e) => handleFieldChange(e)}
+            name="minYear"
+            id={`${fieldId}-minYear`}
+          />
+          <label htmlFor={`${fieldId}-maxYear`}>Max:</label>
+          <FormField.Text
+            onChange={(e) => handleFieldChange(e)}
+            name="maxYear"
+            id={`${fieldId}-maxYear`}
+          />
+        </fieldset>
+
+        <Button.Secondary type="button">Reset</Button.Secondary>
+        <Button.Primary type="submit">Filter</Button.Primary>
+      </form>
+    </section>
   );
 
   function handleFieldChange(e) {
