@@ -2,7 +2,7 @@
  * Purpose: Provides a form for logging into the service.
  */
 
-import { use, useState } from "react";
+import { use, useId, useState } from "react";
 import { Status, StatusState } from "./Status";
 import { Account, AccountContext } from "../contexts/Account";
 import FormField from "./FormField";
@@ -10,6 +10,7 @@ import H from "./H";
 import Button from "./Button";
 
 function Login({ className: passedClasses }) {
+  const fieldId = useId();
   const { setAccount } = use(AccountContext);
   const defaultLoginStatus = new StatusState(
     "Registration is not yet supported. Please login as a guest."
@@ -30,17 +31,19 @@ function Login({ className: passedClasses }) {
         className="grid grid-cols-2 space-y-3"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <label htmlFor="username">Username:</label>
+        <label htmlFor={`${fieldId}-username`}>Username:</label>
         <FormField.Text.User
           required
           disabled={formValues.isGuest}
           onChange={(e) => handleFieldChange(e)}
+          id={`${fieldId}-username`}
           name="username"
         />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor={`${fieldId}-password`}>Password:</label>
         <FormField.Password.Current
           disabled={formValues.isGuest}
           onChange={(e) => handleFieldChange(e)}
+          id={`${fieldId}-password`}
           name="password"
         />
         <Status className="col-span-full mx-auto" state={loginStatus} />
@@ -49,12 +52,13 @@ function Login({ className: passedClasses }) {
             checked={formValues.isGuest}
             value="guest"
             type="checkbox"
+            id={`${fieldId}-isGuest`}
             name="isGuest"
             onChange={() =>
               setFormValues({ ...formValues, isGuest: !formValues.isGuest })
             }
           ></input>
-          <label htmlFor="isGuest">Login as Guest</label>
+          <label htmlFor={`${fieldId}-isGuest`}>Login as Guest</label>
         </fieldset>
         <Button.Primary className="col-span-full mx-auto" type="submit">
           Login
