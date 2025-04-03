@@ -2,7 +2,7 @@
  * Purpose: Provides a form for creating an account with the service.
  */
 
-import { use, useState } from "react";
+import { use, useId, useState } from "react";
 import { Status, StatusState } from "./Status";
 import { Account, AccountContext } from "../contexts/Account";
 import FormField from "./FormField";
@@ -10,6 +10,7 @@ import H from "./H";
 import Button from "./Button";
 
 function Register({ className: passedClasses }) {
+  const fieldId = useId();
   const { setAccount } = use(AccountContext);
   const defaultRegisterStatus = new StatusState(
     "Registration is not yet supported. " +
@@ -33,36 +34,41 @@ function Register({ className: passedClasses }) {
         className="grid grid-cols-2 space-y-3"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <label htmlFor="username">Username:</label>
+        <label htmlFor={`${fieldId}-username`}>Username:</label>
         <FormField.Text.User
           required
           onChange={(e) => handleFieldChange(e)}
+          id={`${fieldId}-username`}
           name="username"
         />
-        <label htmlFor="email">Email:</label>
+        <label htmlFor={`${fieldId}-email`}>Email:</label>
         <FormField.Email
           required
           onChange={(e) => handleFieldChange(e)}
+          id={`${fieldId}-email`}
           name="email"
         />
-        <label htmlFor="confirmEmail">Confirm Email:</label>
+        <label htmlFor={`${fieldId}-confirmEmail`}>Confirm Email:</label>
         <FormField.Email
           required
           disabled={formValues.email.length === 0}
           onChange={(e) => handleFieldChange(e)}
+          id={`${fieldId}-confirmEmail`}
           name="confirmEmail"
         />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor={`${fieldId}-password`}>Password:</label>
         <FormField.Password.New
           required
           onChange={(e) => handleFieldChange(e)}
+          id={`${fieldId}-password`}
           name="password"
         />
-        <label htmlFor="confirmPassword">Confirm Password:</label>
+        <label htmlFor={`${fieldId}-confirmPassword`}>Confirm Password:</label>
         <FormField.Password.New
           required
           disabled={formValues.password.length === 0}
           onChange={(e) => handleFieldChange(e)}
+          id={`${fieldId}-confirmPassword`}
           name="confirmPassword"
         />
         <Status className="col-span-full mx-auto" state={registerStatus} />
