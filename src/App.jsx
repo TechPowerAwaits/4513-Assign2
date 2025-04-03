@@ -39,6 +39,11 @@ function App() {
             import.meta.env.VITE_PAINTINGS_URL ||
               "https://art-api-kafs.onrender.com/api/paintings"
           ),
+          new DataProvider(
+            "shapes",
+            import.meta.env.VITE_SHAPES_URL ||
+              "https://art-api-kafs.onrender.com/api/shapes"
+          ),
         ]);
 
         setData(newData);
