@@ -7,6 +7,7 @@ import Galleries from "./components/galleries/Galleries";
 import DataProvider from "./DataProvider";
 import { setErrorHandler } from "./fetchHandler";
 import { DataContext } from "./contexts/Data";
+import Paintings from "./components/paintings/Paintings";
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -58,7 +59,7 @@ function App() {
 
   if (account) {
     if (data) {
-      currentView = <Galleries />;
+      currentView = <Paintings />;
     } else {
       currentView = <Loading />;
     }
