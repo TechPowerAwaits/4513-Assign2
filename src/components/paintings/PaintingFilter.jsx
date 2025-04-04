@@ -143,7 +143,6 @@ function PaintingFilter({ className: passedClasses }) {
   }
 
   function filterData(formValues, data) {
-    console.log(formValues);
     let filteredPaintings = data;
 
     if (formValues.title) {
