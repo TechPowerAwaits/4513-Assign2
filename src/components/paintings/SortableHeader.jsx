@@ -3,7 +3,13 @@ import { CurrentSortContext } from "../../contexts/Sort";
 
 const ARROW_ENUM = { UP: 0, DOWN: 1 };
 
-function SortableHeader({ sortId, text, setAscending, ...props }) {
+function SortableHeader({
+  sortId,
+  text,
+  setAscending,
+  className: passedClasses,
+  ...props
+}) {
   const [sortCol, setSortCol] = use(CurrentSortContext);
   const [arrowDir, setArrowDir] = useState(ARROW_ENUM.DOWN);
 
@@ -26,6 +32,7 @@ function SortableHeader({ sortId, text, setAscending, ...props }) {
 
   return (
     <button
+      className={`cursor-pointer ${passedClasses}`}
       onClick={() => {
         switch (arrowDir) {
           case ARROW_ENUM.DOWN:
@@ -43,8 +50,8 @@ function SortableHeader({ sortId, text, setAscending, ...props }) {
       }}
       {...props}
     >
-      {text}
-      {arrow}
+      <span className="underline decoration-dotted">{text}</span>
+      <span>{arrow}</span>
     </button>
   );
 }
