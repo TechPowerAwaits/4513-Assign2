@@ -13,6 +13,12 @@ function PaintingListItem({ painting }) {
       <td>{painting.Artists.lastName}</td>
       <td>{painting.title}</td>
       <td>{painting.yearOfWork}</td>
+      <td>{painting.Galleries.galleryName}</td>
+      <td>{painting.medium}</td>
+      <td>
+        {painting.width} <span className="font-semibold">x</span>{" "}
+        {painting.height}
+      </td>
     </tr>
   );
 }

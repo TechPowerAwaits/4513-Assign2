@@ -24,6 +24,8 @@ const sortIdToFunc = {
     a2.firstName > a1.firstName ? -1000 : 1000,
   artistLName: ({ Artists: a1 }, { Artists: a2 }) =>
     a2.lastName > a1.lastName ? -1000 : 1000,
+  gallery: ({ Galleries: g1 }, { Galleries: g2 }) =>
+    g2.galleryName > g1.galleryName ? -1000 : 1000,
 };
 
 /*
@@ -85,6 +87,15 @@ function PaintingList({ defaultSortCol = "title" }) {
                 setAscending={setIsAscending}
               />
             </th>
+            <th>
+              <SortableHeader
+                sortId="gallery"
+                text="Gallery"
+                setAscending={setIsAscending}
+              />
+            </th>
+            <th className="underline">Medium</th>
+            <th className="underline">Dimensions</th>
           </tr>
           <tr>
             <th></th>
