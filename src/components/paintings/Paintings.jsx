@@ -17,7 +17,7 @@ function Paintings() {
         </header>
         <section className="flex h-full">
           <PaintingFilter />
-          <PaintingList paintingsData={filteredPaintingsState[0]} />
+          <PaintingList defaultSortCol="year" />
         </section>
       </article>
     </CurrentPaintingsContext.Provider>
