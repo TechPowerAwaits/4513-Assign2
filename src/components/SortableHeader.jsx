@@ -76,7 +76,7 @@ function SortableHeader({
 
   return (
     <button
-      className={`cursor-pointer ${passedClasses}`}
+      className={`cursor-pointer ${passedClasses ? passedClasses : ""}`}
       onClick={() => toggleSortState()}
       {...props}
     >
