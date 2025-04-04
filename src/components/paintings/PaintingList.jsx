@@ -36,16 +36,42 @@ const sortIdToFunc = {
  * If the paintings data array is empty, a message will be displayed instead of
  * rendering a list of paintings.
  *
+ * The ordering of columns in the list is as follows:
+ * - thumbnail
+ * - title
+ * - year
+ * - artist
+ * - gallery
+ * - medium
+ * - dimensions
+ *
+ * The ordering is fixed and cannot be changed. However, the permittedCols
+ * array can be passed in props. If a given column's name is not listed, it
+ * will not be rendered.
+ *
  * The following defaultSortCol values are supported:
  * - title: for sorting by a painting's title.
  * - year: for sorting by when a painting was made.
  * - artistName: for sorting by an artist's full name.
  * - artistFName: for sorting only by an artist's first name.
  * - artistLName: for sorting only by an artist's last name.
+ * - gallery: for sorting by the name of the gallery where the artwork belongs.
  *
- * The sorting is initially done is ascending order.
+ * The sorting is initially done is ascending order. If no defaultSortCol is
+ * provided, everything is sorted by title.
  */
-function PaintingList({ defaultSortCol = "title" }) {
+function PaintingList({
+  permittedCols = [
+    "thumbnail",
+    "title",
+    "year",
+    "artist",
+    "gallery",
+    "medium",
+    "dimensions",
+  ],
+  defaultSortCol = "title",
+}) {
   const [currentPaintings] = use(CurrentPaintingsContext);
   const sortColState = useState(defaultSortCol);
   const [isAscending, setIsAscending] = useState(true);
@@ -65,37 +91,49 @@ function PaintingList({ defaultSortCol = "title" }) {
       <table>
         <thead>
           <tr>
-            <th></th>
-            <th colSpan={2}>
-              <SortableHeader
-                sortId="artistName"
-                text="Artist"
-                setAscending={setIsAscending}
-              />
-            </th>
-            <th>
-              <SortableHeader
-                sortId="title"
-                text="Title"
-                setAscending={setIsAscending}
-              />
-            </th>
-            <th>
-              <SortableHeader
-                sortId="year"
-                text="Year"
-                setAscending={setIsAscending}
-              />
-            </th>
-            <th>
-              <SortableHeader
-                sortId="gallery"
-                text="Gallery"
-                setAscending={setIsAscending}
-              />
-            </th>
-            <th className="underline">Medium</th>
-            <th className="underline">Dimensions</th>
+            {permittedCols.includes("thumbnail") && <th></th>}
+            {permittedCols.includes("artist") && (
+              <th colSpan={2}>
+                <SortableHeader
+                  sortId="artistName"
+                  text="Artist"
+                  setAscending={setIsAscending}
+                />
+              </th>
+            )}
+            {permittedCols.includes("title") && (
+              <th>
+                <SortableHeader
+                  sortId="title"
+                  text="Title"
+                  setAscending={setIsAscending}
+                />
+              </th>
+            )}
+            {permittedCols.includes("year") && (
+              <th>
+                <SortableHeader
+                  sortId="year"
+                  text="Year"
+                  setAscending={setIsAscending}
+                />
+              </th>
+            )}
+            {permittedCols.includes("gallery") && (
+              <th>
+                <SortableHeader
+                  sortId="gallery"
+                  text="Gallery"
+                  setAscending={setIsAscending}
+                />
+              </th>
+            )}
+            {permittedCols.includes("medium") && (
+              <th className="underline">Medium</th>
+            )}
+            {permittedCols.includes("dimensions") && (
+              <th className="underline">Dimensions</th>
+            )}
           </tr>
           <tr>
             <th></th>
@@ -117,7 +155,11 @@ function PaintingList({ defaultSortCol = "title" }) {
         </thead>
         <tbody>
           {sortedPaintings.map((painting) => (
-            <PaintingListItem painting={painting} key={painting.paintingId} />
+            <PaintingListItem
+              painting={painting}
+              permittedCols={permittedCols}
+              key={painting.paintingId}
+            />
           ))}
         </tbody>
       </table>
