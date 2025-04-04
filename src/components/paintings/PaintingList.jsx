@@ -8,12 +8,13 @@ import { CurrentSortContext } from "../../contexts/Sort";
 import SortableHeader from "../SortableHeader";
 import { CurrentPaintingsContext } from "../../contexts/Painting";
 import H from "../H";
+import { dataSort, sortFuncRunner } from "../../sortHandler";
 
 /*
  * Purpose: Provides a mapping between a given sort id and a sorting function.
  */
 const sortIdToFunc = {
-  title: (p1, p2) => (p2.title > p1.title ? -1000 : 1000),
+  title: dataSort.paintings,
   year: (p1, p2) => p1.yearOfWork - p2.yearOfWork,
   artistName: ({ Artists: a1 }, { Artists: a2 }) =>
     `${a2.firstName} ${a2.lastName}`.trim() >
@@ -22,10 +23,8 @@ const sortIdToFunc = {
       : 1000,
   artistFName: ({ Artists: a1 }, { Artists: a2 }) =>
     a2.firstName > a1.firstName ? -1000 : 1000,
-  artistLName: ({ Artists: a1 }, { Artists: a2 }) =>
-    a2.lastName > a1.lastName ? -1000 : 1000,
-  gallery: ({ Galleries: g1 }, { Galleries: g2 }) =>
-    g2.galleryName > g1.galleryName ? -1000 : 1000,
+  artistLName: ({ Artists: a1 }, { Artists: a2 }) => dataSort.artists(a1, a2),
+  gallery: ({ Galleries: g1 }, { Galleries: g2 }) => dataSort.galleries(g1, g2),
 };
 
 /*
@@ -165,13 +164,6 @@ function PaintingList({
       </table>
     </CurrentSortContext.Provider>
   );
-}
-
-/*
- * Purpose: Runs the given sortFunc against a data array.
- */
-function sortFuncRunner(data, sortFunc, ascending = true) {
-  return data.toSorted((d1, d2) => sortFunc(d1, d2) * (ascending ? 1 : -1));
 }
 
 export default PaintingList;
