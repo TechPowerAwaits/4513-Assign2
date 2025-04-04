@@ -25,8 +25,7 @@ function SortableHeader({ sortId, text, setAscending, ...props }) {
   }
 
   return (
-    <th
-      {...props}
+    <button
       onClick={() => {
         switch (arrowDir) {
           case ARROW_ENUM.DOWN:
@@ -42,10 +41,11 @@ function SortableHeader({ sortId, text, setAscending, ...props }) {
 
         setSortCol(sortId);
       }}
+      {...props}
     >
       {text}
       {arrow}
-    </th>
+    </button>
   );
 }
 

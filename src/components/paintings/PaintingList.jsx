@@ -31,29 +31,37 @@ function PaintingList({ defaultSortCol = "title" }) {
           <tr>
             <th></th>
             <th colSpan={2}>Artist</th>
-            <SortableHeader
-              sortId="title"
-              text="Title"
-              setAscending={setIsAscending}
-            />
-            <SortableHeader
-              sortId="year"
-              text="Year"
-              setAscending={setIsAscending}
-            />
+            <th>
+              <SortableHeader
+                sortId="title"
+                text="Title"
+                setAscending={setIsAscending}
+              />
+            </th>
+            <th>
+              <SortableHeader
+                sortId="year"
+                text="Year"
+                setAscending={setIsAscending}
+              />
+            </th>
           </tr>
           <tr>
             <th></th>
-            <SortableHeader
-              sortId="artistFName"
-              text="FName"
-              setAscending={setIsAscending}
-            />
-            <SortableHeader
-              sortId="artistLName"
-              text="LName"
-              setAscending={setIsAscending}
-            />
+            <th>
+              <SortableHeader
+                sortId="artistFName"
+                text="FName"
+                setAscending={setIsAscending}
+              />
+            </th>
+            <th>
+              <SortableHeader
+                sortId="artistLName"
+                text="LName"
+                setAscending={setIsAscending}
+              />
+            </th>
           </tr>
         </thead>
         <tbody>
