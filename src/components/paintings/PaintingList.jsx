@@ -7,6 +7,7 @@ import PaintingListItem from "./PaintingListItem";
 import { CurrentSortContext } from "../../contexts/Sort";
 import SortableHeader from "./SortableHeader";
 import { CurrentPaintingsContext } from "../../contexts/Painting";
+import H from "../H";
 
 /*
  * Purpose: Provides a mapping between a given sort id and a sorting function.
@@ -52,6 +53,10 @@ function PaintingList({ defaultSortCol = "title" }) {
     sortIdToFunc[sortColState[0]],
     isAscending
   );
+
+  if (currentPaintings.length == 0) {
+    return <H.L3>No paintings found.</H.L3>;
+  }
 
   return (
     <CurrentSortContext.Provider value={sortColState}>
