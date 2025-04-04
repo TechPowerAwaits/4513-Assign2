@@ -4,7 +4,7 @@
  */
 
 import { use, useMemo, useState } from "react";
-import { CurrentSortContext } from "../../contexts/Sort";
+import { CurrentSortContext } from "../contexts/Sort";
 
 /*
  * Purpose: Provides named values for the state of an arrow.

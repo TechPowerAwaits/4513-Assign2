@@ -5,7 +5,7 @@
 import { use, useState } from "react";
 import PaintingListItem from "./PaintingListItem";
 import { CurrentSortContext } from "../../contexts/Sort";
-import SortableHeader from "./SortableHeader";
+import SortableHeader from "../SortableHeader";
 import { CurrentPaintingsContext } from "../../contexts/Painting";
 import H from "../H";
 
