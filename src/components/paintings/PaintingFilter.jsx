@@ -14,6 +14,7 @@ function PaintingFilter({ className: passedClasses }) {
     artists: artistsData,
     galleries: galleriesData,
     genres: genresData,
+    paintingGenres: paintingGenresData,
   } = use(DataContext);
   const [, setCurrentPaintings] = use(CurrentPaintingsContext);
   const [formValues, setFormValues] = useState({
@@ -54,6 +55,7 @@ function PaintingFilter({ className: passedClasses }) {
         <label htmlFor={`${fieldId}-artist`}>Artist:</label>
         <select
           className="bg-light-cyan text-black"
+          onChange={(e) => handleFieldChange(e)}
           name="artist"
           id={`${fieldId}-artist`}
         >
@@ -68,6 +70,7 @@ function PaintingFilter({ className: passedClasses }) {
         <label htmlFor={`${fieldId}-gallery`}>Gallery:</label>
         <select
           className="bg-light-cyan text-black"
+          onChange={(e) => handleFieldChange(e)}
           name="gallery"
           id={`${fieldId}-gallery`}
         >
@@ -82,6 +85,7 @@ function PaintingFilter({ className: passedClasses }) {
         <label htmlFor={`${fieldId}-genre`}>Genre:</label>
         <select
           className="bg-light-cyan text-black"
+          onChange={(e) => handleFieldChange(e)}
           name="genre"
           id={`${fieldId}-genre`}
         >
@@ -96,6 +100,7 @@ function PaintingFilter({ className: passedClasses }) {
         <label htmlFor={`${fieldId}-shape`}>Shape:</label>
         <select
           className="bg-light-cyan text-black"
+          onChange={(e) => handleFieldChange(e)}
           name="shape"
           id={`${fieldId}-shape`}
         >
@@ -138,6 +143,7 @@ function PaintingFilter({ className: passedClasses }) {
   }
 
   function filterData(formValues, data) {
+    console.log(formValues);
     let filteredPaintings = data;
 
     if (formValues.title) {
@@ -160,8 +166,16 @@ function PaintingFilter({ className: passedClasses }) {
     }
 
     if (formValues.genre) {
-      filteredPaintings = filteredPaintings.filter(
-        ({ Genres }) => Genres.genreId === Number.parseInt(formValues.genre)
+      const targetPaintingGenre = paintingGenresData.find(
+        ({ Genre }) => Genre.genreId === Number.parseInt(formValues.genre)
+      );
+
+      const targetPaintingIds = targetPaintingGenre.Paintings.map(
+        (painting) => painting.paintingId
+      );
+
+      filteredPaintings = filteredPaintings.filter(({ paintingId }) =>
+        targetPaintingIds.includes(paintingId)
       );
     }
 
