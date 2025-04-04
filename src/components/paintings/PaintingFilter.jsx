@@ -1,4 +1,5 @@
 import { use, useId, useState } from "react";
+import useToggle from "../../hooks/useToggle";
 import { CurrentPaintingsContext } from "../../contexts/Painting";
 import { DataContext } from "../../contexts/Data";
 import FormField from "../FormField";
@@ -17,6 +18,8 @@ function PaintingFilter({ className: passedClasses }) {
     minYear: "",
     maxYear: "",
   });
+
+  const [formResetKey, resetForm] = useToggle();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,7 +70,11 @@ function PaintingFilter({ className: passedClasses }) {
       className={`space-y-3 text-ut-orange bg-caribbean-current p-1.5 ${passedClasses ? passedClasses : ""}`}
     >
       <H.L3>Painting Filters</H.L3>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 space-y-3">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-2 space-y-3"
+        key={formResetKey}
+      >
         <label htmlFor={`${fieldId}-title`}>Title</label>
         <FormField.Text
           onChange={(e) => handleFieldChange(e)}
@@ -121,7 +128,9 @@ function PaintingFilter({ className: passedClasses }) {
           />
         </fieldset>
 
-        <Button.Secondary type="button">Reset</Button.Secondary>
+        <Button.Secondary type="button" onClick={() => resetFilters()}>
+          Reset
+        </Button.Secondary>
         <Button.Primary type="submit">Filter</Button.Primary>
       </form>
     </section>
@@ -129,6 +138,12 @@ function PaintingFilter({ className: passedClasses }) {
 
   function handleFieldChange(e) {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  }
+
+  function resetFilters() {
+    resetForm();
+    setFormValues({});
+    setCurrentPaintings(paintingsData);
   }
 }
 
