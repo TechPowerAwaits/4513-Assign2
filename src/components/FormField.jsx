@@ -29,9 +29,7 @@ function FormField({
   manualInvalidStyling,
   ...props
 }) {
-  const invalidStyling = manualInvalidStyling
-    ? ""
-    : "[&:user-invalid]:bg-folly";
+  const invalidStyling = manualInvalidStyling ? "" : "user-invalid:bg-folly";
   return (
     <input
       className={`bg-light-cyan text-black disabled:bg-gray ${invalidStyling} ${passedClasses ? passedClasses : ""}`}
