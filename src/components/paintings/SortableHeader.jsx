@@ -30,24 +30,26 @@ function SortableHeader({
       break;
   }
 
+  const toggleSortState = () => {
+    switch (arrowDir) {
+      case ARROW_ENUM.DOWN:
+        setArrowDir(ARROW_ENUM.UP);
+        setAscending(false);
+        break;
+
+      case null:
+      case ARROW_ENUM.UP:
+        setArrowDir(ARROW_ENUM.DOWN);
+        setAscending(true);
+    }
+
+    setSortCol(sortId);
+  };
+
   return (
     <button
       className={`cursor-pointer ${passedClasses}`}
-      onClick={() => {
-        switch (arrowDir) {
-          case ARROW_ENUM.DOWN:
-            setArrowDir(ARROW_ENUM.UP);
-            setAscending(false);
-            break;
-
-          case null:
-          case ARROW_ENUM.UP:
-            setArrowDir(ARROW_ENUM.DOWN);
-            setAscending(true);
-        }
-
-        setSortCol(sortId);
-      }}
+      onClick={() => toggleSortState()}
       {...props}
     >
       <span className="underline decoration-dotted">{text}</span>
