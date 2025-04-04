@@ -8,12 +8,19 @@ import H from "../H";
 
 function PaintingFilter({ className: passedClasses }) {
   const fieldId = useId();
-  const { paintings: paintingsData, shapes: shapesData } = use(DataContext);
+  const {
+    paintings: paintingsData,
+    shapes: shapesData,
+    artists: artistsData,
+    galleries: galleriesData,
+    genres: genresData,
+  } = use(DataContext);
   const [, setCurrentPaintings] = use(CurrentPaintingsContext);
   const [formValues, setFormValues] = useState({
     title: "",
     artist: "",
     gallery: "",
+    genre: "",
     shape: "",
     minYear: "",
     maxYear: "",
@@ -24,45 +31,7 @@ function PaintingFilter({ className: passedClasses }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let filteredPaintings = paintingsData;
-
-    if (formValues.title) {
-      filteredPaintings = filteredPaintings.filter((painting) =>
-        painting.title.startsWith(formValues.title)
-      );
-    }
-
-    if (formValues.artist) {
-      filteredPaintings = filteredPaintings.filter(({ Artists }) =>
-        `${Artists.firstName} ${Artists.lastName}`.includes(formValues.artist)
-      );
-    }
-
-    if (formValues.gallery) {
-      filteredPaintings = filteredPaintings.filter(({ Galleries }) =>
-        Galleries.galleryName.includes(formValues.gallery)
-      );
-    }
-
-    if (formValues.shape) {
-      filteredPaintings = filteredPaintings.filter(
-        ({ Shapes }) => Shapes.shapeId === Number.parseInt(formValues.shape)
-      );
-    }
-
-    if (formValues.minYear) {
-      filteredPaintings = filteredPaintings.filter(
-        ({ yearOfWork }) => yearOfWork >= formValues.minYear
-      );
-    }
-
-    if (formValues.maxYear) {
-      filteredPaintings = filteredPaintings.filter(
-        ({ yearOfWork }) => yearOfWork <= formValues.maxYear
-      );
-    }
-
-    setCurrentPaintings(filteredPaintings);
+    setCurrentPaintings(filterData(formValues, paintingsData));
   };
 
   return (
@@ -83,18 +52,46 @@ function PaintingFilter({ className: passedClasses }) {
         />
 
         <label htmlFor={`${fieldId}-artist`}>Artist:</label>
-        <FormField.Text
-          onChange={(e) => handleFieldChange(e)}
+        <select
+          className="bg-light-cyan text-black"
           name="artist"
           id={`${fieldId}-artist`}
-        />
+        >
+          <option value="">No artist selected</option>
+          {artistsData.map((artist) => (
+            <option value={artist.artistId} key={artist.artistId}>
+              {`${artist.firstName} ${artist.lastName}`.trim()}
+            </option>
+          ))}
+        </select>
 
         <label htmlFor={`${fieldId}-gallery`}>Gallery:</label>
-        <FormField.Text
-          onChange={(e) => handleFieldChange(e)}
+        <select
+          className="bg-light-cyan text-black"
           name="gallery"
           id={`${fieldId}-gallery`}
-        />
+        >
+          <option value="">No gallery selected</option>
+          {galleriesData.map((gallery) => (
+            <option value={gallery.galleryId} key={gallery.galleryId}>
+              {gallery.galleryName}
+            </option>
+          ))}
+        </select>
+
+        <label htmlFor={`${fieldId}-genre`}>Genre:</label>
+        <select
+          className="bg-light-cyan text-black"
+          name="genre"
+          id={`${fieldId}-genre`}
+        >
+          <option value="">No genre selected</option>
+          {genresData.map((genre) => (
+            <option value={genre.genreId} key={genre.genreId}>
+              {genre.genreName}
+            </option>
+          ))}
+        </select>
 
         <label htmlFor={`${fieldId}-shape`}>Shape:</label>
         <select
@@ -138,6 +135,55 @@ function PaintingFilter({ className: passedClasses }) {
 
   function handleFieldChange(e) {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  }
+
+  function filterData(formValues, data) {
+    let filteredPaintings = data;
+
+    if (formValues.title) {
+      filteredPaintings = filteredPaintings.filter((painting) =>
+        painting.title.startsWith(formValues.title)
+      );
+    }
+
+    if (formValues.artist) {
+      filteredPaintings = filteredPaintings.filter(
+        ({ Artists }) => Artists.artistId === Number.parseInt(formValues.artist)
+      );
+    }
+
+    if (formValues.gallery) {
+      filteredPaintings = filteredPaintings.filter(
+        ({ Galleries }) =>
+          Galleries.galleryId === Number.parseInt(formValues.gallery)
+      );
+    }
+
+    if (formValues.genre) {
+      filteredPaintings = filteredPaintings.filter(
+        ({ Genres }) => Genres.genreId === Number.parseInt(formValues.genre)
+      );
+    }
+
+    if (formValues.shape) {
+      filteredPaintings = filteredPaintings.filter(
+        ({ Shapes }) => Shapes.shapeId === Number.parseInt(formValues.shape)
+      );
+    }
+
+    if (formValues.minYear) {
+      filteredPaintings = filteredPaintings.filter(
+        ({ yearOfWork }) => yearOfWork >= formValues.minYear
+      );
+    }
+
+    if (formValues.maxYear) {
+      filteredPaintings = filteredPaintings.filter(
+        ({ yearOfWork }) => yearOfWork <= formValues.maxYear
+      );
+    }
+
+    return filteredPaintings;
   }
 
   function resetFilters() {
