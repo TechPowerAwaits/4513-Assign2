@@ -2,11 +2,8 @@
  * Purpose: Provides the main page that users will see before logging in.
  */
 
-import { Routes, Route, Link, Outlet } from "react-router";
-import Login from "./Login";
+import { Link, Outlet } from "react-router";
 import H from "./H";
-import Button from "./Button";
-import Register from "./Register";
 
 function Home() {
   return (
