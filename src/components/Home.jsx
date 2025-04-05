@@ -1,5 +1,5 @@
 /*
- * Purpose: Provides the main page that users will see before logging in.
+ * Purpose: Provides the main layout that users will see before logging in.
  */
 
 import { Link, Outlet } from "react-router";
