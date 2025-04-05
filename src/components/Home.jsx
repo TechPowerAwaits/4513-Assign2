@@ -2,7 +2,7 @@
  * Purpose: Provides the main page that users will see before logging in.
  */
 
-import { Routes, Route, Link } from "react-router";
+import { Routes, Route, Link, Outlet } from "react-router";
 import Login from "./Login";
 import H from "./H";
 import Button from "./Button";
@@ -16,10 +16,9 @@ function Home() {
           <H.L2>Home</H.L2>
         </Link>
       </header>
-      <Routes>
-        <Route index element={<Login className="mx-8" />} />
-        <Route path="/register" element={<Register className="mx-8" />} />
-      </Routes>
+      <div className="mx-8">
+        <Outlet />
+      </div>
       <footer className="bg-tyrian-purple text-ut-orange text-center">
         <p className="text-xl font-bold">Image Credits:</p>
         Photo by{" "}
