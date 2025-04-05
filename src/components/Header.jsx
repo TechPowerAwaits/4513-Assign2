@@ -8,8 +8,10 @@ import { use } from "react";
 import { AccountContext } from "../contexts/Account";
 import Button from "./Button";
 import { NavLink } from "react-router";
+import { DataContext } from "../contexts/Data";
 
 function Header() {
+  const data = use(DataContext);
   const { account, accountLogout } = use(AccountContext);
   let headerTitle = "Art Browser";
   headerTitle += import.meta.env.DEV ? " DEV" : "";
@@ -22,7 +24,11 @@ function Header() {
         <menu className="flex">
           {account && (
             <li>
-              <Button.Secondary type="button" onClick={() => accountLogout()}>
+              <Button.Secondary
+                disabled={!data}
+                type="button"
+                onClick={() => accountLogout()}
+              >
                 Sign Out
               </Button.Secondary>
             </li>
@@ -38,7 +44,7 @@ function Header() {
             {({ isActive }) => (
               <button
                 className="disabled:text-gray disabled:cursor-not-allowed cursor-pointer"
-                disabled={isActive}
+                disabled={isActive || !data}
               >
                 Galleries
               </button>
@@ -48,7 +54,7 @@ function Header() {
             {({ isActive }) => (
               <button
                 className="disabled:text-gray disabled:cursor-not-allowed cursor-pointer"
-                disabled={isActive}
+                disabled={isActive || !data}
               >
                 Paintings
               </button>
