@@ -34,8 +34,26 @@ function Header() {
       </div>
       {account && (
         <nav className="flex justify-center-safe border-y border-mimi-pink">
-          <NavLink to="/galleries">Galleries</NavLink>
-          <NavLink to="/paintings">Paintings</NavLink>
+          <NavLink to="/galleries">
+            {({ isActive }) => (
+              <button
+                className="disabled:text-gray disabled:cursor-not-allowed cursor-pointer"
+                disabled={isActive}
+              >
+                Galleries
+              </button>
+            )}
+          </NavLink>
+          <NavLink to="/paintings">
+            {({ isActive }) => (
+              <button
+                className="disabled:text-gray disabled:cursor-not-allowed cursor-pointer"
+                disabled={isActive}
+              >
+                Paintings
+              </button>
+            )}
+          </NavLink>
         </nav>
       )}
     </header>
