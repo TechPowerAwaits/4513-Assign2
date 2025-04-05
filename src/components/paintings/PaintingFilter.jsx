@@ -45,7 +45,7 @@ function PaintingFilter({ className: passedClasses }) {
         className="grid grid-cols-2 space-y-3"
         key={formResetKey}
       >
-        <label htmlFor={`${fieldId}-title`}>Title</label>
+        <label htmlFor={`${fieldId}-title`}>Title:</label>
         <FormField.Text
           onChange={(e) => handleFieldChange(e)}
           name="title"
