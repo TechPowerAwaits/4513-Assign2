@@ -80,22 +80,24 @@ function App() {
   return (
     <DataContext.Provider value={data}>
       <AccountContext.Provider value={{ account, setAccount, accountLogout }}>
-        <Header />
-        <main className="h-dvh flex flex-col">
-          <Routes>
-            <Route element={<Home />}>
-              <Route index element={rootView} />
-              <Route path="register" element={<Register />} />
-            </Route>
-            {data && (
-              <>
-                <Route path="/galleries" element={<Galleries />} />
-                <Route path="/paintings" element={<Paintings />} />
-              </>
-            )}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
+        <div className="h-dvh flex flex-col">
+          <Header />
+          <main className="flex-1">
+            <Routes>
+              <Route element={<Home />}>
+                <Route index element={rootView} />
+                <Route path="register" element={<Register />} />
+              </Route>
+              {data && (
+                <>
+                  <Route path="/galleries" element={<Galleries />} />
+                  <Route path="/paintings" element={<Paintings />} />
+                </>
+              )}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </div>
       </AccountContext.Provider>
     </DataContext.Provider>
   );
