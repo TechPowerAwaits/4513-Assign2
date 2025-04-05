@@ -12,6 +12,7 @@ import { dataSort } from "./sortHandler";
 import { Route, Routes, useNavigate } from "react-router";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import NotFound from "./NotFound";
 
 const accountStartPath = "/galleries";
 
@@ -95,6 +96,7 @@ function App() {
                 <Route path="/paintings" element={<Paintings />} />
               </>
             )}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </AccountContext.Provider>
