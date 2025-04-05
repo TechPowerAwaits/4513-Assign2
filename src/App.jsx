@@ -25,7 +25,7 @@ function App() {
     setAccount(null);
   };
 
-  let rootView;
+  let rootView = <Login />;
   let data = null;
 
   if (account) {
@@ -36,7 +36,6 @@ function App() {
         rootView = <Loading />;
 
         const handleData = async () => {
-          console.table(account);
           const newAccount = account.clone();
           if (await newAccount.retrieveData()) {
             setAccount(newAccount);
@@ -51,8 +50,6 @@ function App() {
     } else {
       data = account.data;
     }
-  } else {
-    rootView = <Login />;
   }
 
   return (
