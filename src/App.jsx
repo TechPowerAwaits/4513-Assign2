@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Loading from "./components/Loading";
 import { AccountContext } from "./contexts/Account";
 import Header from "./components/Header";
@@ -9,10 +9,17 @@ import { fetchObjFromJSON, setErrorHandler } from "./fetchHandler";
 import { DataContext } from "./contexts/Data";
 import Paintings from "./components/paintings/Paintings";
 import { dataSort } from "./sortHandler";
+import { Route, Routes } from "react-router";
 
 function App() {
   const [account, setAccount] = useState(null);
   const [data, setData] = useState(null);
+
+  useMemo(() => {
+    if (!account) {
+      setData(null);
+    }
+  }, [account]);
 
   useEffect(() => {
     if (account && !data) {
@@ -58,25 +65,26 @@ function App() {
     }
   }, [account, data]);
 
-  //const currentView = account ? <Galleries /> : <Home />;
-  let currentView;
+  let initialView = <Home />;
 
   if (account) {
-    if (data) {
-      currentView = <Paintings />;
-    } else {
-      currentView = <Loading />;
-    }
-  } else {
-    currentView = <Home />;
+    initialView = <Loading />;
   }
 
   return (
     <DataContext.Provider value={data}>
       <AccountContext.Provider value={{ account, setAccount }}>
+        <Header />
         <main className="h-dvh flex flex-col">
-          <Header />
-          {currentView}
+          <Routes>
+            <Route index element={initialView} />
+            {data && (
+              <>
+                <Route path="/galleries" element={Galleries} />
+                <Route path="/paintings" element={Paintings} />
+              </>
+            )}
+          </Routes>
         </main>
       </AccountContext.Provider>
     </DataContext.Provider>
