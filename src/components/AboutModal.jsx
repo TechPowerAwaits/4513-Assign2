@@ -1,27 +1,22 @@
 import Modal from "react-modal";
 import H from "./H";
-import { useNavigate } from "react-router";
-import { useMemo, useState } from "react";
+import NiceModal, { useModal } from "@ebay/nice-modal-react";
 
-function AboutModal({ ...props }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const navTo = useNavigate();
-
-  useMemo(() => setIsOpen(true), []);
-
+const AboutModal = NiceModal.create(({ ...props }) => {
+  const modal = useModal();
   return (
     <Modal
       contentLabel="About this Project Modal"
-      isOpen={isOpen}
+      isOpen={modal.visible}
       onRequestClose={() => {
-        setIsOpen(false);
-        navTo(-1);
+        modal.hide();
       }}
+      onAfterClose={() => modal.remove()}
       {...props}
     >
       <H.L2>About</H.L2>
     </Modal>
   );
-}
+});
 
 export default AboutModal;

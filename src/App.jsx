@@ -1,3 +1,4 @@
+import initModals from "./modals";
 import { useState } from "react";
 import Loading from "./components/Loading";
 import { AccountContext } from "./contexts/Account";
@@ -15,6 +16,7 @@ import ErrorHandler from "./components/ErrorHandler";
 import AboutModal from "./components/AboutModal";
 
 const accountStartPath = "/galleries";
+initModals();
 
 function App() {
   const [account, setAccount] = useState(null);

@@ -7,8 +7,9 @@ import Logo from "../assets/Logo.png";
 import { use } from "react";
 import { AccountContext } from "../contexts/Account";
 import Button from "./Button";
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
 import { DataContext } from "../contexts/Data";
+import NiceModal from "@ebay/nice-modal-react";
 
 function Header() {
   const data = use(DataContext);
@@ -34,9 +35,12 @@ function Header() {
             </li>
           )}
           <li>
-            <Link to="/about">
-              <Button.Primary type="button">About</Button.Primary>
-            </Link>
+            <Button.Primary
+              type="button"
+              onClick={() => NiceModal.show("about-project")}
+            >
+              About
+            </Button.Primary>
           </li>
         </menu>
       </div>
