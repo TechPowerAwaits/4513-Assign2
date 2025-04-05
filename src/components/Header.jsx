@@ -7,7 +7,7 @@ import Logo from "../assets/Logo.png";
 import { use } from "react";
 import { AccountContext } from "../contexts/Account";
 import Button from "./Button";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { DataContext } from "../contexts/Data";
 
 function Header() {
@@ -34,7 +34,9 @@ function Header() {
             </li>
           )}
           <li>
-            <Button.Primary type="button">About</Button.Primary>
+            <Link to="/about">
+              <Button.Primary type="button">About</Button.Primary>
+            </Link>
           </li>
         </menu>
       </div>
