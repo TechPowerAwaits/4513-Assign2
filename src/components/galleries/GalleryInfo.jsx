@@ -16,8 +16,6 @@ function GalleryInfo() {
     );
   }
 
-  console.table(selectedGallery);
-
   const nativeGalleryPostfix = selectedGallery.nativeGalleryName
     ? ` (${selectedGallery.nativeGalleryName})`
     : "";
