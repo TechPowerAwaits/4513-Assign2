@@ -5,8 +5,10 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Galleries from "./components/galleries/Galleries";
 import DataProvider from "./DataProvider";
-import { setErrorHandler } from "./fetchHandler";
+import { fetchObjFromJSON, setErrorHandler } from "./fetchHandler";
 import { DataContext } from "./contexts/Data";
+import Paintings from "./components/paintings/Paintings";
+import { dataSort } from "./sortHandler";
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -46,6 +48,9 @@ function App() {
           ),
         ]);
 
+        const paintingGenres = await fetchPaintingGenres(newData.genres);
+        newData.paintingGenres = paintingGenres;
+        sortData(newData);
         setData(newData);
       };
 
@@ -58,7 +63,7 @@ function App() {
 
   if (account) {
     if (data) {
-      currentView = <Galleries />;
+      currentView = <Paintings />;
     } else {
       currentView = <Loading />;
     }
@@ -76,6 +81,44 @@ function App() {
       </AccountContext.Provider>
     </DataContext.Provider>
   );
+}
+
+/*
+ * Purpose: Fetching all the paintings that are associated with a genre.
+ *
+ * Returns: An array of Genre and Paintings.
+ */
+async function fetchPaintingGenres(genresData) {
+  const paintingGenresURL =
+    import.meta.env.VITE_PAINTINGS_GENRES_URL ||
+    "https://art-api-kafs.onrender.com/api/paintings/genre";
+  const key = "paintingGenres";
+  let paintingGenres = localStorage.getItem(key);
+
+  if (!paintingGenres) {
+    console.debug("Fetching PaintingGenres.");
+
+    paintingGenres = await Promise.all(
+      genresData.map(async (genre) => {
+        const paintings = await fetchObjFromJSON(
+          `${paintingGenresURL}/${genre.genreId}`
+        );
+        return { Genre: genre, Paintings: paintings };
+      })
+    );
+
+    localStorage.setItem(key, JSON.stringify(paintingGenres));
+  }
+
+  return paintingGenres;
+}
+
+function sortData(data) {
+  for (const dataType in data) {
+    if (dataType in dataSort) {
+      data[dataType].sort(dataSort[dataType]);
+    }
+  }
 }
 
 export default App;
