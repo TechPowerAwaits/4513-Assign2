@@ -14,21 +14,15 @@ class Account {
   static guestPassword = "guest";
 
   /*
-   * Purpose: A readonly variable that indicates whether the account was
-   * authenticated or not.
+   * Purpose: A variable that indicates whether the account was authenticated
+   * or not.
    */
-  #authenticated = false;
-  get authenticated() {
-    return this.#authenticated;
-  }
+  authenticated = false;
 
   /*
-   * Purpose: A readonly variable that contains the data associated with the account.
+   * Purpose: A variable that contains the data associated with the account.
    */
-  #data = null;
-  get data() {
-    return this.#data;
-  }
+  data = null;
 
   /*
    * Purpose: Creates and returns a Guest account.
@@ -37,6 +31,23 @@ class Account {
    */
   static constructGuest() {
     return new Account(Account.guestUsername, Account.guestPassword);
+  }
+
+  /*
+   * Purpose: Clones the given Account instance.
+   */
+  static clone(instance) {
+    const cloneAccount = new Account(instance.username, instance.password);
+    cloneAccount.authenticated = instance.authenticated;
+    cloneAccount.data = instance.data;
+    return cloneAccount;
+  }
+
+  /*
+   * Purpose: Clones the current Account instance.
+   */
+  clone() {
+    return Account.clone(this);
   }
 
   constructor(username, password) {
@@ -60,14 +71,14 @@ class Account {
    * Throws: An Error if authentication fails.
    */
   async authenticate() {
-    if (!this.#authenticated) {
+    if (!this.authenticated) {
       if (!this.isGuest()) {
         throw new Error(
           "Only Guest Accounts are supported. Please login as a guest."
         );
       }
 
-      this.#authenticated = true;
+      this.authenticated = true;
     }
   }
 
@@ -83,12 +94,12 @@ class Account {
     try {
       const data = await accountDataRetriever();
 
-      this.#data = data;
+      this.data = data;
     } catch (error) {
       console.error(error.message);
     }
 
-    return this.#data;
+    return this.data;
   }
 }
 

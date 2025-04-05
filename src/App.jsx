@@ -37,8 +37,9 @@ function App() {
 
         const handleData = async () => {
           console.table(account);
-          if (await account.retrieveData()) {
-            setAccount({ ...account });
+          const newAccount = account.clone();
+          if (await newAccount.retrieveData()) {
+            setAccount(newAccount);
             navTo(accountStartPath);
           } else {
             toggleErr();
