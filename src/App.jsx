@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { AccountContext } from "./contexts/Account";
 import Header from "./components/Header";
@@ -9,26 +9,28 @@ import { fetchObjFromJSON, setErrorHandler } from "./fetchHandler";
 import { DataContext } from "./contexts/Data";
 import Paintings from "./components/paintings/Paintings";
 import { dataSort } from "./sortHandler";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
 import Login from "./components/Login";
 import Register from "./components/Register";
+
+const accountStartPath = "/galleries";
 
 function App() {
   const [account, setAccount] = useState(null);
   const [data, setData] = useState(null);
+  const navTo = useNavigate();
 
-  useMemo(() => {
-    if (!account) {
-      setData(null);
-    }
-  }, [account]);
+  const accountLogout = () => {
+    navTo("/");
+    setAccount(null);
+    setData(null);
+  };
 
   useEffect(() => {
     if (account && !data) {
-      console.debug("Entered data hook.");
-      setErrorHandler((error) => console.error(error.message));
-
       const dataSetter = async () => {
+        console.debug("Entered data hook.");
+        setErrorHandler((error) => console.error(error.message));
         const newData = await DataProvider.acquire([
           new DataProvider(
             "galleries",
@@ -65,28 +67,32 @@ function App() {
 
       dataSetter();
     }
-  }, [account, data]);
 
-  let initialView = <Home />;
+    if (data) {
+      navTo(accountStartPath);
+    }
+  }, [account, data, navTo]);
+
+  let rootView = <Login />;
 
   if (account) {
-    initialView = <Loading />;
+    rootView = <Loading />;
   }
 
   return (
     <DataContext.Provider value={data}>
-      <AccountContext.Provider value={{ account, setAccount }}>
+      <AccountContext.Provider value={{ account, setAccount, accountLogout }}>
         <Header />
         <main className="h-dvh flex flex-col">
           <Routes>
             <Route element={<Home />}>
-              <Route index element={<Login />} />
+              <Route index element={rootView} />
               <Route path="register" element={<Register />} />
             </Route>
             {data && (
               <>
-                <Route path="/galleries" element={Galleries} />
-                <Route path="/paintings" element={Paintings} />
+                <Route path="/galleries" element={<Galleries />} />
+                <Route path="/paintings" element={<Paintings />} />
               </>
             )}
           </Routes>
