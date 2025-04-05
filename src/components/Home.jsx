@@ -21,14 +21,14 @@ function Home() {
         Photo by{" "}
         <a
           className="underline visited:text-spanish-orange hover:text-sandy-brown"
-          href="https://unsplash.com/@brooklyngrace?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          href="https://unsplash.com/@brooklyngrace"
         >
           brooklyn
         </a>{" "}
         on{" "}
         <a
           className="underline visited:text-spanish-orange hover:text-sandy-brown"
-          href="https://unsplash.com/photos/people-in-the-street-painting-MO5qO9xpZhA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          href="https://unsplash.com/photos/people-in-the-street-painting-MO5qO9xpZhA"
         >
           Unsplash
         </a>
