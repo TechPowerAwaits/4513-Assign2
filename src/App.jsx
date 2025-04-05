@@ -13,7 +13,6 @@ import Register from "./components/Register";
 import NotFound from "./NotFound";
 import useToggle from "./hooks/useToggle";
 import ErrorHandler from "./components/ErrorHandler";
-import AboutModal from "./components/AboutModal";
 
 const accountStartPath = "/galleries";
 initModals();
@@ -72,7 +71,6 @@ function App() {
                   <Route path="/paintings" element={<Paintings />} />
                 </>
               )}
-              <Route path="/about" element={<AboutModal />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
