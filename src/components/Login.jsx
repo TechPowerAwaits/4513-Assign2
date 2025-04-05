@@ -8,6 +8,7 @@ import { Account, AccountContext } from "../contexts/Account";
 import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
+import { Link } from "react-router";
 
 function Login({ className: passedClasses }) {
   const fieldId = useId();
@@ -63,6 +64,12 @@ function Login({ className: passedClasses }) {
         <Button.Primary className="col-span-full mx-auto" type="submit">
           Login
         </Button.Primary>
+        <Link
+          className="underline visited:text-spanish-orange hover:text-sandy-brown"
+          to="/register"
+        >
+          Don't have an account? Register here.
+        </Link>
       </form>
     </section>
   );
