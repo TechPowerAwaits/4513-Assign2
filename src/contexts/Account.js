@@ -4,6 +4,7 @@
  */
 
 import { createContext } from "react";
+import accountDataRetriever from "./Account.Data";
 
 /*
  * Purpose: Represents information associated with the given account.
@@ -19,6 +20,14 @@ class Account {
   #authenticated = false;
   get authenticated() {
     return this.#authenticated;
+  }
+
+  /*
+   * Purpose: A readonly variable that contains the data associated with the account.
+   */
+  #data = null;
+  get data() {
+    return this.#data;
   }
 
   /*
@@ -46,8 +55,9 @@ class Account {
   }
 
   /*
-   * Purpose: Verifies the given account information and retrieves data from
-   * relevant servers.
+   * Purpose: Verifies the given account information.
+   *
+   * Throws: An Error if authentication fails.
    */
   async authenticate() {
     if (!this.#authenticated) {
@@ -56,7 +66,29 @@ class Account {
           "Only Guest Accounts are supported. Please login as a guest."
         );
       }
+
+      this.#authenticated = true;
     }
+  }
+
+  /*
+   * Purpose: Retrieves data associated with an account.
+   *
+   * Details: Sets the data variable to an array of data or null if data could
+   * not be retrieved.
+   *
+   * Returns: The data retrieved or null.
+   */
+  async retrieveData() {
+    try {
+      const data = await accountDataRetriever();
+
+      this.#data = data;
+    } catch (error) {
+      console.error(error.message);
+    }
+
+    return this.#data;
   }
 }
 
