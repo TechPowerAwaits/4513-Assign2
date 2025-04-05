@@ -10,6 +10,8 @@ import { DataContext } from "./contexts/Data";
 import Paintings from "./components/paintings/Paintings";
 import { dataSort } from "./sortHandler";
 import { Route, Routes } from "react-router";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -77,7 +79,10 @@ function App() {
         <Header />
         <main className="h-dvh flex flex-col">
           <Routes>
-            <Route index element={initialView} />
+            <Route element={<Home />}>
+              <Route index element={<Login />} />
+              <Route path="register" element={<Register />} />
+            </Route>
             {data && (
               <>
                 <Route path="/galleries" element={Galleries} />
