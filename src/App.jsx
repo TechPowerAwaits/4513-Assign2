@@ -64,13 +64,10 @@ function App() {
         newData.paintingGenres = paintingGenres;
         sortData(newData);
         setData(newData);
+        navTo(accountStartPath);
       };
 
       dataSetter();
-    }
-
-    if (data) {
-      navTo(accountStartPath);
     }
   }, [account, data, navTo]);
 
