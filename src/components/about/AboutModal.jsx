@@ -1,7 +1,7 @@
 import Modal from "react-modal";
-import H from "./H";
+import H from "../H";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
-import Button from "./Button";
+import Button from "../Button";
 
 const AboutModal = NiceModal.create(({ ...props }) => {
   const modal = useModal();

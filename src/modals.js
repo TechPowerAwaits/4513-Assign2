@@ -3,7 +3,7 @@
  */
 
 import NiceModal from "@ebay/nice-modal-react";
-import AboutModal from "./components/AboutModal";
+import AboutModal from "./components/about/AboutModal";
 
 function initModals() {
   NiceModal.register("about-project", AboutModal);
