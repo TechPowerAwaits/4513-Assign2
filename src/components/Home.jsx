@@ -17,8 +17,7 @@ function Home() {
         </Link>
       </header>
       <Routes>
-        <Route index element={<ChoiceButtons className="mx-8" />} />
-        <Route path="/login" element={<Login className="mx-8" />} />
+        <Route index element={<Login className="mx-8" />} />
         <Route path="/register" element={<Register className="mx-8" />} />
       </Routes>
       <footer className="bg-tyrian-purple text-ut-orange text-center">
@@ -39,26 +38,6 @@ function Home() {
         </a>
       </footer>
     </article>
-  );
-}
-
-function ChoiceButtons({ className: passedClasses }) {
-  return (
-    <section className={`p-1.5 ${passedClasses ? passedClasses : ""}`}>
-      <H.L3>What would you like to do?</H.L3>
-      <menu className="flex justify-center gap-4 sm:flex-row flex-col">
-        <li className="mx-auto sm:mx-0">
-          <Link to="/register">
-            <Button.Primary type="button">Create An Account</Button.Primary>
-          </Link>
-        </li>
-        <li className="mx-auto sm:mx-0">
-          <Link to="/login">
-            <Button.Secondary type="button">Sign In</Button.Secondary>
-          </Link>
-        </li>
-      </menu>
-    </section>
   );
 }
 
