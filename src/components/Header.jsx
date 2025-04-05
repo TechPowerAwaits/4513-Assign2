@@ -7,6 +7,7 @@ import Logo from "../assets/Logo.png";
 import { use } from "react";
 import { AccountContext } from "../contexts/Account";
 import Button from "./Button";
+import { NavLink } from "react-router";
 
 function Header() {
   const { account, setAccount } = use(AccountContext);
@@ -14,17 +15,29 @@ function Header() {
   headerTitle += import.meta.env.DEV ? " DEV" : "";
 
   return (
-    <header className="flex justify-between bg-tyrian-purple text-ut-orange">
-      <img src={Logo} alt="Logo" />
-      <H.L1>{headerTitle}</H.L1>
-      <nav className="flex">
-        {account && (
-          <Button.Secondary onClick={() => setAccount(null)}>
-            Sign Out
-          </Button.Secondary>
-        )}
-        <Button.Primary>About</Button.Primary>
-      </nav>
+    <header className="bg-tyrian-purple text-ut-orange">
+      <div className="flex justify-between">
+        <img src={Logo} alt="Logo" />
+        <H.L1>{headerTitle}</H.L1>
+        <menu className="flex">
+          {account && (
+            <li>
+              <Button.Secondary onClick={() => setAccount(null)}>
+                Sign Out
+              </Button.Secondary>
+            </li>
+          )}
+          <li>
+            <Button.Primary>About</Button.Primary>
+          </li>
+        </menu>
+      </div>
+      {account && (
+        <nav className="flex justify-center-safe border-y border-mimi-pink">
+          <NavLink to="/galleries">Galleries</NavLink>
+          <NavLink to="/paintings">Paintings</NavLink>
+        </nav>
+      )}
     </header>
   );
 }
