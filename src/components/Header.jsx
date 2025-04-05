@@ -10,7 +10,7 @@ import Button from "./Button";
 import { NavLink } from "react-router";
 
 function Header() {
-  const { account, setAccount } = use(AccountContext);
+  const { account, accountLogout } = use(AccountContext);
   let headerTitle = "Art Browser";
   headerTitle += import.meta.env.DEV ? " DEV" : "";
 
@@ -22,7 +22,7 @@ function Header() {
         <menu className="flex">
           {account && (
             <li>
-              <Button.Secondary onClick={() => setAccount(null)}>
+              <Button.Secondary onClick={() => accountLogout()}>
                 Sign Out
               </Button.Secondary>
             </li>
