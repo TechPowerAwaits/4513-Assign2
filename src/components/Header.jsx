@@ -22,13 +22,13 @@ function Header() {
         <menu className="flex">
           {account && (
             <li>
-              <Button.Secondary onClick={() => accountLogout()}>
+              <Button.Secondary type="button" onClick={() => accountLogout()}>
                 Sign Out
               </Button.Secondary>
             </li>
           )}
           <li>
-            <Button.Primary>About</Button.Primary>
+            <Button.Primary type="button">About</Button.Primary>
           </li>
         </menu>
       </div>
