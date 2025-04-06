@@ -1,9 +1,9 @@
 import Modal from "react-modal";
-import H from "../H";
+import H from "../../H";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
-import Button from "../Button";
-import Hyperlink from "../Hyperlink";
-import ImageWithFallback from "../ImageWithFallback";
+import Button from "../../Button";
+import Hyperlink from "../../Hyperlink";
+import ImageWithFallback from "../../ImageWithFallback";
 
 const PaintingModal = NiceModal.create(({ data, ...props }) => {
   const modal = useModal();
