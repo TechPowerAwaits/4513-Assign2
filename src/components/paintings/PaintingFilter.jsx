@@ -135,16 +135,18 @@ function PaintingFilter({
           />
         </fieldset>
 
-        <Button.Secondary
-          type="button"
-          onClick={() => {
-            resetFilters();
-            onReset();
-          }}
-        >
-          Reset
-        </Button.Secondary>
-        <Button.Primary type="submit">Filter</Button.Primary>
+        <fieldset className="col-span-full flex justify-center-safe gap-x-2">
+          <Button.Secondary
+            type="button"
+            onClick={() => {
+              resetFilters();
+              onReset();
+            }}
+          >
+            Reset
+          </Button.Secondary>
+          <Button.Primary type="submit">Filter</Button.Primary>
+        </fieldset>
       </form>
     </section>
   );

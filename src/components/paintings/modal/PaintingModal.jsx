@@ -22,14 +22,18 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
       onAfterClose={() => modal.remove()}
       {...props}
     >
-      <menu className="absolute">
-        <Button.Terminate
-          onClick={() => {
-            modal.hide();
-            modal.remove();
-          }}
-        />
-        <Button.SetFavorite />
+      <menu className="flex flex-row-reverse gap-1.5">
+        <li>
+          <Button.Terminate
+            onClick={() => {
+              modal.hide();
+              modal.remove();
+            }}
+          />
+        </li>
+        <li>
+          <Button.SetFavorite />
+        </li>
       </menu>
       <hgroup className="text-center">
         <H.L2>
@@ -40,6 +44,12 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
           {data.medium} Painting
         </p>
         <p>{`Authored by ${artistName}`}</p>
+        <p>
+          <Hyperlink href={data.museumLink}>
+            {data.Galleries.galleryName}, {data.Galleries.galleryCity},{" "}
+            {data.Galleries.galleryCountry} <sup>[extern]</sup>
+          </Hyperlink>
+        </p>
         {data.wikiLink && (
           <p>
             <Hyperlink href={data.wikiLink}>
@@ -49,7 +59,7 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
         )}
       </hgroup>
 
-      <div className="flex">
+      <div className="flex my-5">
         <figure>
           <ImageWithFallback
             className="scale-50"
@@ -60,11 +70,7 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
             {data.copyrightText}
           </figcaption>
         </figure>
-        <aside>
-          <Hyperlink href={data.museumLink}>
-            {data.Galleries.galleryName}, {data.Galleries.galleryCity},{" "}
-            {data.Galleries.galleryCountry} <sup>[extern]</sup>
-          </Hyperlink>
+        <aside className="space-y-2">
           {data.description && (
             <section>
               <H.L3>Description:</H.L3>

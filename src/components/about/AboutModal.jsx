@@ -17,14 +17,17 @@ const AboutModal = NiceModal.create(({ ...props }) => {
       onAfterClose={() => modal.remove()}
       {...props}
     >
-      <Button.Terminate
-        className="absolute"
-        type="button"
-        onClick={() => {
-          modal.hide();
-          modal.remove();
-        }}
-      />
+      <menu className="flex justify-end-safe">
+        <li>
+          <Button.Terminate
+            type="button"
+            onClick={() => {
+              modal.hide();
+              modal.remove();
+            }}
+          />
+        </li>
+      </menu>
       <H.L2>About</H.L2>
 
       <p>
