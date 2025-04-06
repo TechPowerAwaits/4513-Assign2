@@ -55,7 +55,7 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
       </hgroup>
 
       <figure>
-        <ImageWithFallback src={`/paintings/full/${data.imageFileName}`} />
+        <ImageWithFallback src={`/paintings/full/${data.imageFileName}.jpg`} />
         <figcaption>{data.copyrightText}</figcaption>
       </figure>
       <Hyperlink href={data.museumLink}>
