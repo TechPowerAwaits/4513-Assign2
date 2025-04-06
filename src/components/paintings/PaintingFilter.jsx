@@ -6,7 +6,11 @@ import FormField from "../FormField";
 import Button from "../Button";
 import H from "../H";
 
-function PaintingFilter({ className: passedClasses }) {
+function PaintingFilter({
+  onFilter = () => {},
+  onReset = () => {},
+  className: passedClasses,
+}) {
   const fieldId = useId();
   const {
     paintings: paintingsData,
@@ -33,6 +37,7 @@ function PaintingFilter({ className: passedClasses }) {
     e.preventDefault();
 
     setCurrentPaintings(filterData(formValues, paintingsData));
+    onFilter();
   };
 
   return (
@@ -130,7 +135,13 @@ function PaintingFilter({ className: passedClasses }) {
           />
         </fieldset>
 
-        <Button.Secondary type="button" onClick={() => resetFilters()}>
+        <Button.Secondary
+          type="button"
+          onClick={() => {
+            resetFilters();
+            onReset();
+          }}
+        >
           Reset
         </Button.Secondary>
         <Button.Primary type="submit">Filter</Button.Primary>
