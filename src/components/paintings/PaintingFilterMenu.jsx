@@ -6,9 +6,11 @@ import Button from "../Button";
 function PaintingFilterMenu({ isOpen, onClose, ...props }) {
   return (
     <Drawer size={400} open={isOpen} onClose={onClose} direction="right">
-      <Button.Primary className="absolute" onClick={onClose}>
-        X
-      </Button.Primary>
+      <menu className="bg-tyrian-purple flex justify-end-safe">
+        <li>
+          <Button.Terminate onClick={onClose} />
+        </li>
+      </menu>
       <PaintingFilter
         className="h-full"
         onFilter={onClose}
