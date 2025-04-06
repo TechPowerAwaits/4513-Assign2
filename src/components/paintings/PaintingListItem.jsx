@@ -1,8 +1,9 @@
+import NiceModal from "@ebay/nice-modal-react";
 import ImageWithFallback from "../ImageWithFallback";
 
 function PaintingListItem({ painting, permittedCols }) {
   return (
-    <tr>
+    <tr onClick={() => NiceModal.show("painting-modal", { data: painting })}>
       {permittedCols.includes("thumbnail") && (
         <td>
           <ImageWithFallback
