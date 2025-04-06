@@ -23,15 +23,13 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
       {...props}
     >
       <menu className="absolute">
-        <Button.Primary
+        <Button.Terminate
           onClick={() => {
             modal.hide();
             modal.remove();
           }}
-        >
-          X
-        </Button.Primary>
-        <Button.Primary>Fav</Button.Primary>
+        />
+        <Button.SetFavorite />
       </menu>
       <hgroup className="text-center">
         <H.L2>
