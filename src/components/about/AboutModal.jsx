@@ -3,6 +3,7 @@ import H from "../H";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import Button from "../Button";
 import UsedAssetsList from "./UsedAssetsList";
+import Hyperlink from "../Hyperlink";
 
 const AboutModal = NiceModal.create(({ ...props }) => {
   const modal = useModal();
@@ -20,12 +21,9 @@ const AboutModal = NiceModal.create(({ ...props }) => {
 
       <p>
         This project was written by Richard Johnston {"<"}
-        <a
-          className="underline visited:text-spanish-orange hover:text-sandy-brown"
-          href="mailto:techpowerawaits@outlook.com"
-        >
+        <Hyperlink href="mailto:techpowerawaits@outlook.com">
           techpowerawaits@outlook.com
-        </a>
+        </Hyperlink>
         {">"} for a class teaching React.
       </p>
       <p>
@@ -34,12 +32,9 @@ const AboutModal = NiceModal.create(({ ...props }) => {
       </p>
       <p>
         Thanks to{" "}
-        <a
-          className="underline visited:text-spanish-orange hover:text-sandy-brown"
-          href="https://www.randyconnolly.com/"
-        >
+        <Hyperlink href="https://www.randyconnolly.com/">
           Randy Connolly
-        </a>{" "}
+        </Hyperlink>{" "}
         for providing the assignment. It was a great learning opportunity.
       </p>
 
