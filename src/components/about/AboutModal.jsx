@@ -17,6 +17,14 @@ const AboutModal = NiceModal.create(({ ...props }) => {
       onAfterClose={() => modal.remove()}
       {...props}
     >
+      <Button.Terminate
+        className="absolute"
+        type="button"
+        onClick={() => {
+          modal.hide();
+          modal.remove();
+        }}
+      />
       <H.L2>About</H.L2>
 
       <p>
@@ -39,16 +47,6 @@ const AboutModal = NiceModal.create(({ ...props }) => {
       </p>
 
       <UsedAssetsList />
-
-      <Button.Primary
-        type="button"
-        onClick={() => {
-          modal.hide();
-          modal.remove();
-        }}
-      >
-        Close
-      </Button.Primary>
     </Modal>
   );
 });
