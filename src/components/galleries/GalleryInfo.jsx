@@ -3,6 +3,7 @@ import H from "../H";
 import { SelectedGalleryContext } from "../../contexts/Gallery";
 import Button from "../Button";
 import { Map, Marker, ZoomControl } from "pigeon-maps";
+import Hyperlink from "../Hyperlink";
 
 function GalleryInfo() {
   const [selectedGallery, setSelectedGallery] = use(SelectedGalleryContext);
@@ -41,9 +42,9 @@ function GalleryInfo() {
       <p>
         {selectedGallery.galleryCity}, {selectedGallery.galleryCountry}
       </p>
-      <a href={selectedGallery.galleryWebSite}>
+      <Hyperlink href={selectedGallery.galleryWebSite}>
         Gallery Link <sup>[extern]</sup>
-      </a>
+      </Hyperlink>
 
       <Button.Primary onClick={() => setSelectedGallery(null)}>
         Close
