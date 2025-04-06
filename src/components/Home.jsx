@@ -4,6 +4,7 @@
 
 import { Link, Outlet } from "react-router";
 import H from "./H";
+import Hyperlink from "./Hyperlink";
 
 function Home() {
   return (
@@ -19,19 +20,13 @@ function Home() {
       <footer className="bg-tyrian-purple text-ut-orange text-center">
         <p className="text-xl font-bold">Image Credits:</p>
         Photo by{" "}
-        <a
-          className="underline visited:text-spanish-orange hover:text-sandy-brown"
-          href="https://unsplash.com/@brooklyngrace"
-        >
+        <Hyperlink href="https://unsplash.com/@brooklyngrace">
           brooklyn
-        </a>{" "}
+        </Hyperlink>{" "}
         on{" "}
-        <a
-          className="underline visited:text-spanish-orange hover:text-sandy-brown"
-          href="https://unsplash.com/photos/people-in-the-street-painting-MO5qO9xpZhA"
-        >
+        <Hyperlink href="https://unsplash.com/photos/people-in-the-street-painting-MO5qO9xpZhA">
           Unsplash
-        </a>
+        </Hyperlink>
       </footer>
     </article>
   );
