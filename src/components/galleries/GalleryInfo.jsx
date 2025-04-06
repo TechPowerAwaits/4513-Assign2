@@ -46,9 +46,9 @@ function GalleryInfo() {
         Gallery Link <sup>[extern]</sup>
       </Hyperlink>
 
-      <Button.Primary onClick={() => setSelectedGallery(null)}>
+      <Button.Terminate onClick={() => setSelectedGallery(null)}>
         Close
-      </Button.Primary>
+      </Button.Terminate>
     </section>
   );
 }
