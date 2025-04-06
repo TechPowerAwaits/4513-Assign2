@@ -55,21 +55,28 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
         )}
       </hgroup>
 
-      <figure>
-        <ImageWithFallback src={`/paintings/full/${data.imageFileName}.jpg`} />
-        <figcaption>{data.copyrightText}</figcaption>
-      </figure>
-      <Hyperlink href={data.museumLink}>
-        {galleryName}, {data.Galleries.galleryCity},{" "}
-        {data.Galleries.galleryCountry} <sup>[extern]</sup>
-      </Hyperlink>
-      {data.description && (
-        <section>
-          <H.L3>Description:</H.L3>
-          <p className="max-h-40 overflow-y-scroll">{data.description}</p>
-        </section>
-      )}
-      <PaintingColorList dominantColors={data.jsonAnnotations.dominantColors} />
+      <div>
+        <figure>
+          <ImageWithFallback
+            className="scale-40"
+            src={`/paintings/full/${data.imageFileName}.jpg`}
+          />
+          <figcaption className="font-bold">{data.copyrightText}</figcaption>
+        </figure>
+        <Hyperlink href={data.museumLink}>
+          {galleryName}, {data.Galleries.galleryCity},{" "}
+          {data.Galleries.galleryCountry} <sup>[extern]</sup>
+        </Hyperlink>
+        {data.description && (
+          <section>
+            <H.L3>Description:</H.L3>
+            <p className="max-h-40 overflow-y-scroll">{data.description}</p>
+          </section>
+        )}
+        <PaintingColorList
+          dominantColors={data.jsonAnnotations.dominantColors}
+        />
+      </div>
     </Modal>
   );
 });
