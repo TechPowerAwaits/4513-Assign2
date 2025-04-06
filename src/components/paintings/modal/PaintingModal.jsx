@@ -4,6 +4,7 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import Button from "../../Button";
 import Hyperlink from "../../Hyperlink";
 import ImageWithFallback from "../../ImageWithFallback";
+import PaintingColorList from "./PaintingColorList";
 
 const PaintingModal = NiceModal.create(({ data, ...props }) => {
   const modal = useModal();
@@ -68,9 +69,7 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
           <p className="max-h-40 overflow-y-scroll">{data.description}</p>
         </section>
       )}
-      <section>
-        <H.L3>Dominant Colors:</H.L3>
-      </section>
+      <PaintingColorList dominantColors={data.jsonAnnotations.dominantColors} />
     </Modal>
   );
 });
