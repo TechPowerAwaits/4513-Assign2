@@ -7,7 +7,8 @@ function PaintingListItem({ painting, permittedCols }) {
       {permittedCols.includes("thumbnail") && (
         <td>
           <ImageWithFallback
-            src={`https://res.cloudinary.com/funwebdev/image/upload/w_200/art/paintings/square/${painting.imageFileName}.jpg`}
+            className="scale-25"
+            src={`/paintings/square/${painting.imageFileName}.jpg`}
             alt={painting.title}
           />
         </td>
