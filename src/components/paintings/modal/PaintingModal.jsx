@@ -11,10 +11,6 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
   const artistName = data.Artists.firstName
     ? `${data.Artists.firstName} ${data.Artists.lastName}`
     : data.Artists.lastName;
-  let galleryName = data.Galleries.galleryName;
-  if (data.Galleries.galleryNativeName) {
-    galleryName += ` ${data.Galleries.galleryNativeName}`;
-  }
 
   return (
     <Modal
@@ -55,27 +51,32 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
         )}
       </hgroup>
 
-      <div>
+      <div className="flex">
         <figure>
           <ImageWithFallback
-            className="scale-40"
+            className="scale-50"
             src={`/paintings/full/${data.imageFileName}.jpg`}
+            alt={data.title}
           />
-          <figcaption className="font-bold">{data.copyrightText}</figcaption>
+          <figcaption className="font-bold text-center">
+            {data.copyrightText}
+          </figcaption>
         </figure>
-        <Hyperlink href={data.museumLink}>
-          {galleryName}, {data.Galleries.galleryCity},{" "}
-          {data.Galleries.galleryCountry} <sup>[extern]</sup>
-        </Hyperlink>
-        {data.description && (
-          <section>
-            <H.L3>Description:</H.L3>
-            <p className="max-h-40 overflow-y-scroll">{data.description}</p>
-          </section>
-        )}
-        <PaintingColorList
-          dominantColors={data.jsonAnnotations.dominantColors}
-        />
+        <aside>
+          <Hyperlink href={data.museumLink}>
+            {data.Galleries.galleryName}, {data.Galleries.galleryCity},{" "}
+            {data.Galleries.galleryCountry} <sup>[extern]</sup>
+          </Hyperlink>
+          {data.description && (
+            <section>
+              <H.L3>Description:</H.L3>
+              <p className="max-h-40 overflow-y-scroll">{data.description}</p>
+            </section>
+          )}
+          <PaintingColorList
+            dominantColors={data.jsonAnnotations.dominantColors}
+          />
+        </aside>
       </div>
     </Modal>
   );
