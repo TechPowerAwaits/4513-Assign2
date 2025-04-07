@@ -15,6 +15,7 @@ import ErrorHandler from "./components/ErrorHandler";
 import Artists from "./components/artists/Artists";
 import Genres from "./components/genres/Genres";
 import { Favorite, FavoriteContext } from "./contexts/Favorite";
+import { ToastContainer } from "react-fox-toast";
 
 const accountStartPath = "/galleries";
 
@@ -64,6 +65,7 @@ function App() {
     <DataContext.Provider value={data}>
       <FavoriteContext.Provider value={[favorite, refreshFavorites]}>
         <AccountContext.Provider value={{ account, setAccount, accountLogout }}>
+          <ToastContainer />
           <div className="h-dvh flex flex-col">
             <Header />
             <main className="flex-1">
