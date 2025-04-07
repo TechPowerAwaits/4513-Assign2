@@ -30,18 +30,9 @@ function Header() {
       <div className="flex justify-between items-center-safe">
         <img src={Logo} alt="Logo" />
         <H.L1>{headerTitle}</H.L1>
-        <menu className="flex mr-2">
+        <menu className="flex mr-2 gap-x-3">
           {account && (
             <>
-              <li>
-                <Button.Secondary
-                  disabled={favorite && favorite.isEmpty()}
-                  type="button"
-                  onClick={() => toggleFav()}
-                >
-                  Fav
-                </Button.Secondary>
-              </li>
               <li>
                 <Button.Secondary
                   disabled={!data}
@@ -50,6 +41,15 @@ function Header() {
                 >
                   Sign Out
                 </Button.Secondary>
+              </li>
+              <li>
+                <Button.Primary
+                  disabled={favorite && favorite.isEmpty()}
+                  type="button"
+                  onClick={() => toggleFav()}
+                >
+                  Fav
+                </Button.Primary>
               </li>
             </>
           )}
