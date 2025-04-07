@@ -22,9 +22,9 @@ function Paintings({ className: passedClasses = "" }) {
           isOpen={filterOpen}
           onClose={() => toggleFilterOpen()}
         />
-        <section className="flex h-full mx-3">
+        <section className="flex h-full mx-3 gap-x-1">
           <Button.Primary
-            className="mb-auto"
+            className="mb-auto sticky top-0"
             type="button"
             onClick={() => toggleFilterOpen()}
           >
