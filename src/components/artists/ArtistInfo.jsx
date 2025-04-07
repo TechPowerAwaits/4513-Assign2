@@ -33,7 +33,7 @@ function ArtistInfo() {
         {selectedArtist.artistLink && (
           <p>
             <Hyperlink src={selectedArtist.artistLink}>
-              Artist Link <sup>[extern]</sup>
+              More Info <sup>[extern]</sup>
             </Hyperlink>
           </p>
         )}
