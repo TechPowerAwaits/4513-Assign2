@@ -46,7 +46,10 @@ const fullColFormat = [
   "dimensions",
 ];
 
-function PaintingList({ defaultSortCol = "title" }) {
+function PaintingList({
+  defaultSortCol = "title",
+  className: passedClasses = "",
+}) {
   const [currentPaintings] = use(CurrentPaintingsContext);
 
   if (currentPaintings.length == 0) {
@@ -54,7 +57,7 @@ function PaintingList({ defaultSortCol = "title" }) {
   }
 
   return (
-    <ul className="grid grid-cols-4 auto-rows-min gap-x-1">
+    <ul className={`grid grid-cols-4 auto-rows-min gap-x-1 ${passedClasses}`}>
       <PaintingListCommon
         permittedCols={regularColFormat}
         defaultSortCol={defaultSortCol}
@@ -63,7 +66,10 @@ function PaintingList({ defaultSortCol = "title" }) {
   );
 }
 
-function PaintingListCompact({ defaultSortCol = "title" }) {
+function PaintingListCompact({
+  defaultSortCol = "title",
+  className: passedClasses = "",
+}) {
   const [currentPaintings] = use(CurrentPaintingsContext);
 
   if (currentPaintings.length == 0) {
@@ -71,7 +77,7 @@ function PaintingListCompact({ defaultSortCol = "title" }) {
   }
 
   return (
-    <ul className="grid grid-cols-3 auto-rows-min gap-x-1">
+    <ul className={`grid grid-cols-3 auto-rows-min gap-x-1 ${passedClasses}`}>
       <PaintingListCommon
         permittedCols={compactColFormat}
         defaultSortCol={defaultSortCol}
@@ -80,7 +86,7 @@ function PaintingListCompact({ defaultSortCol = "title" }) {
   );
 }
 
-function PaintingListFull({ defaultSortCol = "title" }) {
+function PaintingListFull({ defaultSortCol = "title", passedClasses = "" }) {
   const [currentPaintings] = use(CurrentPaintingsContext);
 
   if (currentPaintings.length == 0) {
@@ -88,7 +94,7 @@ function PaintingListFull({ defaultSortCol = "title" }) {
   }
 
   return (
-    <ul className="grid grid-cols-7 auto-rows-min gap-x-1">
+    <ul className={`grid grid-cols-7 auto-rows-min gap-x-1 ${passedClasses}`}>
       <PaintingListCommon
         permittedCols={fullColFormat}
         defaultSortCol={defaultSortCol}
