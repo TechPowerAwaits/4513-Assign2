@@ -9,7 +9,7 @@ function PaintingListItem({ painting, permittedCols }) {
       {permittedCols.includes("thumbnail") && (
         <li className="cursor-pointer" onClick={clickHandler}>
           <ImageWithFallback
-            className="scale-25"
+            className="max-w-6/10 max-h-6/10"
             src={`/paintings/square/${painting.imageFileName}.jpg`}
             alt={painting.title}
           />
