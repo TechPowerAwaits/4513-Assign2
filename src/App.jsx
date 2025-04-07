@@ -15,13 +15,15 @@ import useToggle from "./hooks/useToggle";
 import ErrorHandler from "./components/ErrorHandler";
 import Artists from "./components/artists/Artists";
 import Genres from "./components/genres/Genres";
-import { FavoriteContext } from "./contexts/Favorite";
+import { Favorite, FavoriteContext } from "./contexts/Favorite";
 
 const accountStartPath = "/galleries";
 initModals();
 
 function App() {
   const [account, setAccount] = useState(null);
+  const [favorite, setFavorite] = useState(null);
+  const refreshFavorites = () => setFavorite(new Favorite());
   const [err, toggleErr] = useToggle();
   const navTo = useNavigate();
 
@@ -32,7 +34,6 @@ function App() {
 
   let rootView = <Login />;
   let data = null;
-  let favorite = null;
 
   if (account) {
     if (err) {
@@ -55,13 +56,15 @@ function App() {
       }
     } else {
       data = account.data;
-      favorite = account.favorite;
+      if (!favorite) {
+        refreshFavorites();
+      }
     }
   }
 
   return (
     <DataContext.Provider value={data}>
-      <FavoriteContext.Provider value={favorite}>
+      <FavoriteContext.Provider value={[favorite, refreshFavorites]}>
         <AccountContext.Provider value={{ account, setAccount, accountLogout }}>
           <div className="h-dvh flex flex-col">
             <Header />

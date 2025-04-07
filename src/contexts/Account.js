@@ -5,7 +5,6 @@
 
 import { createContext } from "react";
 import accountDataRetriever from "./Account.Data";
-import Favorite from "./Account.Fav";
 
 /*
  * Purpose: Represents information associated with the given account.
@@ -41,7 +40,6 @@ class Account {
     const cloneAccount = new Account(instance.username, instance.password);
     cloneAccount.authenticated = instance.authenticated;
     cloneAccount.data = instance.data;
-    cloneAccount.favorite = new Favorite();
     return cloneAccount;
   }
 
@@ -97,7 +95,6 @@ class Account {
       const data = await accountDataRetriever();
 
       this.data = data;
-      this.favorite = new Favorite();
     } catch (error) {
       console.error(error.message);
     }

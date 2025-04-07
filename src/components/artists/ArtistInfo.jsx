@@ -4,8 +4,10 @@ import { SelectedArtistContext } from "../../contexts/Artist";
 import Button from "../Button";
 import Hyperlink from "../Hyperlink";
 import ImageWithFallback from "../ImageWithFallback";
+import { FavoriteContext } from "../../contexts/Favorite";
 
 function ArtistInfo() {
+  const [favorite, refreshFavorites] = use(FavoriteContext);
   const [selectedArtist, setSelectedArtist] = use(SelectedArtistContext);
   if (!selectedArtist) {
     return (
@@ -56,7 +58,26 @@ function ArtistInfo() {
 
       <menu className="flex justify-center-safe gap-x-2">
         <li>
-          <Button.SetFavorite />
+          {!favorite.hasArtist(selectedArtist) ? (
+            <Button.SetFavorite
+              onClick={() => {
+                if (favorite.appendArtist(selectedArtist)) {
+                  console.log("Successfully added artist.");
+                  refreshFavorites();
+                } else {
+                  console.log("Failed to add artist");
+                }
+              }}
+            />
+          ) : (
+            <Button.RemoveFavorite
+              onClick={() => {
+                favorite.removeArtist(selectedArtist);
+                console.log("Successfully removed artist.");
+                refreshFavorites();
+              }}
+            />
+          )}
         </li>
         <li>
           <Button.Terminate onClick={() => setSelectedArtist(null)}>
