@@ -54,7 +54,8 @@ async function accountDataRetriever() {
  * Details: The painting details that are fetched are normally minimalistic. It
  * only contains the year of work, title, and id. So, the retrieved data has to
  * be mapped to previously-processed Paintings data. The mapped PaintingGenres
- * data is not stored as that would result in more data duplication.
+ * data is not stored as it ensures that the data being handled from cache and
+ * the data newly fetched is the same.
  *
  * Returns: An array of Genre and Paintings.
  */
