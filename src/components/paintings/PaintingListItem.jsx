@@ -2,39 +2,52 @@ import NiceModal from "@ebay/nice-modal-react";
 import ImageWithFallback from "../ImageWithFallback";
 
 function PaintingListItem({ painting, permittedCols }) {
+  const clickHandler = () =>
+    NiceModal.show("painting-modal", { data: painting });
   return (
-    <tr
-      className="cursor-pointer"
-      onClick={() => NiceModal.show("painting-modal", { data: painting })}
-    >
+    <>
       {permittedCols.includes("thumbnail") && (
-        <td>
+        <li className="cursor-pointer" onClick={clickHandler}>
           <ImageWithFallback
             className="scale-25"
             src={`/paintings/square/${painting.imageFileName}.jpg`}
             alt={painting.title}
           />
-        </td>
+        </li>
       )}
       {permittedCols.includes("artist") && (
         <>
-          <td>{painting.Artists.firstName}</td>
-          <td>{painting.Artists.lastName}</td>
+          <li className="cursor-pointer" onClick={clickHandler}>
+            {painting.Artists.firstName}
+          </li>
+          <li className="cursor-pointer" onClick={clickHandler}>
+            {painting.Artists.lastName}
+          </li>
         </>
       )}
-      {permittedCols.includes("title") && <td>{painting.title}</td>}
-      {permittedCols.includes("year") && <td>{painting.yearOfWork}</td>}
-      {permittedCols.includes("gallery") && (
-        <td>{painting.Galleries.galleryName}</td>
+      {permittedCols.includes("title") && (
+        <li className="cursor-pointer" onClick={clickHandler}>
+          {painting.title}
+        </li>
       )}
-      {permittedCols.includes("medium") && <td>{painting.medium}</td>}
+      {permittedCols.includes("year") && (
+        <li className="cursor-pointer" onClick={clickHandler}>
+          {painting.yearOfWork}
+        </li>
+      )}
+      {permittedCols.includes("gallery") && (
+        <li className="cursor-pointer" onClick={clickHandler}>
+          {painting.Galleries.galleryName}
+        </li>
+      )}
+      {permittedCols.includes("medium") && <li>{painting.medium}</li>}
       {permittedCols.includes("dimensions") && (
-        <td>
+        <li className="cursor-pointer" onClick={clickHandler}>
           {painting.width} <span className="font-semibold">x</span>{" "}
           {painting.height}
-        </td>
+        </li>
       )}
-    </tr>
+    </>
   );
 }
 

@@ -6,7 +6,7 @@
  * PaintingList provides the following column format:
  *   thumbnail, artist, title, year
  * PaintingListFull provides the following column format:
- *   thumbnail, title, year, artist, gallery, medium, dimensions
+ *   thumbnail, artist, title, year, gallery, medium, dimensions
  *
  * All columns that are defined in a particular format can be used as the
  * defaultSortCol with the exception of `medium` and `dimensions`.
@@ -41,9 +41,9 @@ const compactColFormat = ["thumbnail", "title", "year"];
 const regularColFormat = ["thumbnail", "artist", "title", "year"];
 const fullColFormat = [
   "thumbnail",
+  "artist",
   "title",
   "year",
-  "artist",
   "gallery",
   "medium",
   "dimensions",
@@ -57,12 +57,12 @@ function PaintingList({ defaultSortCol = "title" }) {
   }
 
   return (
-    <table>
+    <ul className="grid grid-cols-5 auto-rows-min">
       <PaintingListCommon
         permittedCols={regularColFormat}
         defaultSortCol={defaultSortCol}
       />
-    </table>
+    </ul>
   );
 }
 
@@ -74,12 +74,12 @@ function PaintingListCompact({ defaultSortCol = "title" }) {
   }
 
   return (
-    <table>
+    <ul className="grid grid-cols-3 auto-rows-min">
       <PaintingListCommon
         permittedCols={compactColFormat}
         defaultSortCol={defaultSortCol}
       />
-    </table>
+    </ul>
   );
 }
 
@@ -91,12 +91,12 @@ function PaintingListFull({ defaultSortCol = "title" }) {
   }
 
   return (
-    <table>
+    <ul className="grid grid-cols-8 auto-rows-min">
       <PaintingListCommon
         permittedCols={fullColFormat}
         defaultSortCol={defaultSortCol}
       />
-    </table>
+    </ul>
   );
 }
 
@@ -135,15 +135,13 @@ function PaintingListCommon({ permittedCols, defaultSortCol }) {
         permittedCols={permittedCols}
         setAscending={setIsAscending}
       />
-      <tbody>
-        {sortedPaintings.map((painting) => (
-          <PaintingListItem
-            painting={painting}
-            permittedCols={permittedCols}
-            key={painting.paintingId}
-          />
-        ))}
-      </tbody>
+      {sortedPaintings.map((painting) => (
+        <PaintingListItem
+          painting={painting}
+          permittedCols={permittedCols}
+          key={painting.paintingId}
+        />
+      ))}
     </CurrentSortContext.Provider>
   );
 }

@@ -2,72 +2,70 @@ import SortableHeader from "../SortableHeader";
 
 function PaintingHeaders({ permittedCols, setAscending }) {
   return (
-    <thead>
-      <tr>
-        {permittedCols.includes("thumbnail") && <th></th>}
-        {permittedCols.includes("artist") && (
-          <th colSpan={2}>
-            <SortableHeader
-              sortId="artistName"
-              text="Artist"
-              setAscending={setAscending}
-            />
-          </th>
-        )}
-        {permittedCols.includes("title") && (
-          <th>
-            <SortableHeader
-              sortId="title"
-              text="Title"
-              setAscending={setAscending}
-            />
-          </th>
-        )}
-        {permittedCols.includes("year") && (
-          <th>
-            <SortableHeader
-              sortId="year"
-              text="Year"
-              setAscending={setAscending}
-            />
-          </th>
-        )}
-        {permittedCols.includes("gallery") && (
-          <th>
-            <SortableHeader
-              sortId="gallery"
-              text="Gallery"
-              setAscending={setAscending}
-            />
-          </th>
-        )}
-        {permittedCols.includes("medium") && (
-          <th className="underline">Medium</th>
-        )}
-        {permittedCols.includes("dimensions") && (
-          <th className="underline">Dimensions</th>
-        )}
-      </tr>
+    <>
+      {permittedCols.includes("thumbnail") && <li></li>}
       {permittedCols.includes("artist") && (
-        <tr>
-          <th></th>
-          <th>
+        <li className="col-span-2">
+          <SortableHeader
+            sortId="artistName"
+            text="Artist"
+            setAscending={setAscending}
+          />
+        </li>
+      )}
+      {permittedCols.includes("title") && (
+        <li>
+          <SortableHeader
+            sortId="title"
+            text="Title"
+            setAscending={setAscending}
+          />
+        </li>
+      )}
+      {permittedCols.includes("year") && (
+        <li>
+          <SortableHeader
+            sortId="year"
+            text="Year"
+            setAscending={setAscending}
+          />
+        </li>
+      )}
+      {permittedCols.includes("gallery") && (
+        <li>
+          <SortableHeader
+            sortId="gallery"
+            text="Gallery"
+            setAscending={setAscending}
+          />
+        </li>
+      )}
+      {permittedCols.includes("medium") && (
+        <li className="underline">Medium</li>
+      )}
+      {permittedCols.includes("dimensions") && (
+        <li className="underline">Dimensions</li>
+      )}
+      {permittedCols.includes("artist") && (
+        <>
+          <li></li>
+          <li>
             <SortableHeader
               sortId="artistFName"
               text="FName"
               setAscending={setAscending}
             />
-          </th>
-          <th>
+          </li>
+          <li>
             <SortableHeader
               sortId="artistLName"
               text="LName"
               setAscending={setAscending}
             />
-          </th>
-        </tr>
+          </li>
+        </>
       )}
-    </thead>
+    </>
   );
 }
 
