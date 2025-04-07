@@ -7,7 +7,7 @@ function GalleryListItem({ galleryData }) {
   return (
     <li>
       <button
-        className="hover:scale-105"
+        className="hover:scale-105 cursor-pointer"
         onClick={() => setSelectedGallery(galleryData)}
       >
         {galleryData.galleryName}
