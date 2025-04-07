@@ -20,7 +20,9 @@ function GenreInfo() {
     <section>
       <hgroup className="text-center">
         <H.L3>{selectedGenre.genreName}</H.L3>
-        <p>{selectedGenre.description}</p>
+        <p className="max-h-24 overflow-y-scroll">
+          {selectedGenre.description}
+        </p>
         {selectedGenre.wikiLink && (
           <p>
             <Hyperlink src={selectedGenre.wikiLink}>

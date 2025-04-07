@@ -28,10 +28,12 @@ function Genres({ className: passedClasses = "" }) {
           </header>
           <section className="flex">
             <GenreList className="px-3 overflow-y-scroll max-w-fit max-h-96" />
-            <GenreInfo />
-            {selectedGenreState[0] && (
-              <PaintingList className="overflow-y-scroll max-h-96" />
-            )}
+            <div className="flex flex-col">
+              <GenreInfo />
+              {selectedGenreState[0] && (
+                <PaintingList className="overflow-y-scroll max-h-96" />
+              )}
+            </div>
           </section>
         </article>
       </CurrentPaintingsContext.Provider>
