@@ -1,31 +1,20 @@
 import Modal from "react-modal";
 import H from "../H";
-import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import Button from "../Button";
 import UsedAssetsList from "./UsedAssetsList";
 import Hyperlink from "../Hyperlink";
 
-const AboutModal = NiceModal.create(({ ...props }) => {
-  const modal = useModal();
+function AboutModal({ isOpen, toggleOpen, ...props }) {
   return (
     <Modal
       contentLabel="About this Project Modal"
-      isOpen={modal.visible}
-      onRequestClose={() => {
-        modal.hide();
-      }}
-      onAfterClose={() => modal.remove()}
+      isOpen={isOpen}
+      onRequestClose={() => toggleOpen()}
       {...props}
     >
       <menu className="flex justify-end-safe">
         <li>
-          <Button.Terminate
-            type="button"
-            onClick={() => {
-              modal.hide();
-              modal.remove();
-            }}
-          />
+          <Button.Terminate type="button" onClick={() => toggleOpen()} />
         </li>
       </menu>
       <H.L2>About</H.L2>
@@ -52,6 +41,6 @@ const AboutModal = NiceModal.create(({ ...props }) => {
       <UsedAssetsList />
     </Modal>
   );
-});
+}
 
 export default AboutModal;
