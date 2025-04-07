@@ -70,7 +70,7 @@ function GalleryInfo() {
             <Button.RemoveFavorite
               onClick={() => {
                 favorite.removeGallery(selectedGallery);
-                console.log("Successfully removed gallery.");
+                toast.success("The gallery has been removed.");
                 refreshFavorites();
               }}
             />

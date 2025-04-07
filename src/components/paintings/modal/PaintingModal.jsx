@@ -47,7 +47,7 @@ function PaintingModal({ data, isOpen, toggleOpen, ...props }) {
             <Button.RemoveFavorite
               onClick={() => {
                 favorite.removePainting(data);
-                console.log("Successfully removed painting.");
+                toast.success("The painting has been removed.");
                 refreshFavorites();
               }}
             />

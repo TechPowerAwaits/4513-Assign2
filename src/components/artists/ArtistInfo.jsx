@@ -74,7 +74,7 @@ function ArtistInfo() {
             <Button.RemoveFavorite
               onClick={() => {
                 favorite.removeArtist(selectedArtist);
-                console.log("Successfully removed artist.");
+                toast.success("The artist has been removed.");
                 refreshFavorites();
               }}
             />
