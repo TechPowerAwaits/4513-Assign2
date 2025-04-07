@@ -11,31 +11,47 @@ import { NavLink } from "react-router";
 import { DataContext } from "../contexts/Data";
 import useToggle from "../hooks/useToggle";
 import AboutModal from "./about/AboutModal";
+import { FavoriteContext } from "../contexts/Favorite";
+import FavoriteModal from "./FavoriteModal/FavoriteModal";
 
 function Header() {
   const [isAboutOpen, toggleAbout] = useToggle();
+  const [isFavOpen, toggleFav] = useToggle();
   const data = use(DataContext);
   const { account, accountLogout } = use(AccountContext);
+  const [favorite] = use(FavoriteContext);
   let headerTitle = "Art Browser";
   headerTitle += import.meta.env.DEV ? " DEV" : "";
 
   return (
     <header className="bg-tyrian-purple text-ut-orange">
       <AboutModal isOpen={isAboutOpen} toggleOpen={toggleAbout} />
+      <FavoriteModal isOpen={isFavOpen} toggleOpen={toggleFav} />
       <div className="flex justify-between items-center-safe">
         <img src={Logo} alt="Logo" />
         <H.L1>{headerTitle}</H.L1>
         <menu className="flex mr-2">
           {account && (
-            <li>
-              <Button.Secondary
-                disabled={!data}
-                type="button"
-                onClick={() => accountLogout()}
-              >
-                Sign Out
-              </Button.Secondary>
-            </li>
+            <>
+              <li>
+                <Button.Secondary
+                  disabled={favorite && favorite.isEmpty()}
+                  type="button"
+                  onClick={() => toggleFav()}
+                >
+                  Fav
+                </Button.Secondary>
+              </li>
+              <li>
+                <Button.Secondary
+                  disabled={!data}
+                  type="button"
+                  onClick={() => accountLogout()}
+                >
+                  Sign Out
+                </Button.Secondary>
+              </li>
+            </>
           )}
           <li>
             <Button.Primary type="button" onClick={() => toggleAbout()}>

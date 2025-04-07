@@ -84,6 +84,13 @@ class Favorite {
     localStorage.setItem(Favorite.paintingsKey, JSON.stringify(this.paintings));
   }
 
+  removeAll() {
+    this.galleries = this.artists = this.paintings = [];
+    localStorage.setItem(Favorite.paintingsKey, JSON.stringify(this.paintings));
+    localStorage.setItem(Favorite.artistsKey, JSON.stringify(this.artists));
+    localStorage.setItem(Favorite.galleriesKey, JSON.stringify(this.galleries));
+  }
+
   hasGallery(gallery) {
     return Boolean(
       this.galleries.find((g) => g.galleryId === gallery.galleryId)
