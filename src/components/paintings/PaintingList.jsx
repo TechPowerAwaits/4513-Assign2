@@ -31,9 +31,6 @@ const sortIdToFunc = {
     `${a1.firstName} ${a1.lastName}`.trim()
       ? -1000
       : 1000,
-  artistFName: ({ Artists: a1 }, { Artists: a2 }) =>
-    a2.firstName > a1.firstName ? -1000 : 1000,
-  artistLName: ({ Artists: a1 }, { Artists: a2 }) => dataSort.artists(a1, a2),
   gallery: ({ Galleries: g1 }, { Galleries: g2 }) => dataSort.galleries(g1, g2),
 };
 
