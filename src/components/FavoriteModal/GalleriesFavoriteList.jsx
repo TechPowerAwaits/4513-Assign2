@@ -14,7 +14,7 @@ function GalleriesFavoriteList({ ...props }) {
     <SelectedGalleryContext value={[selectedGallery, setSelectedGallery]}>
       <section {...props}>
         <H.L3>Galleries</H.L3>
-        <ul>
+        <ul className="h-72 overflow-y-scroll min-w-fit">
           {favorite.galleries.map((gallery) => (
             <GalleriesFavoriteListItem data={gallery} key={gallery.galleryId} />
           ))}

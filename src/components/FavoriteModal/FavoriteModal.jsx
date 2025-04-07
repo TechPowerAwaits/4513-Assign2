@@ -30,21 +30,22 @@ function FavoriteModal({ isOpen, toggleOpen, ...props }) {
       </menu>
       <H.L2>Favorites</H.L2>
 
-      <div className="flex-row">
+      <div className="flex justify-around space-y-2 mt-2">
         <GalleriesFavoriteList />
         <ArtistsFavoriteList />
         <PaintingsFavoriteList />
       </div>
-      <Button.Terminate
-        className="mx-auto"
-        onClick={() => {
-          favorite.removeAll();
-          refreshFavorites();
-          toast.success("All favorites were successfully removed.");
-        }}
-      >
-        Remove all
-      </Button.Terminate>
+      <div className="flex justify-center">
+        <Button.Terminate
+          onClick={() => {
+            favorite.removeAll();
+            refreshFavorites();
+            toast.success("All favorites were successfully removed.");
+          }}
+        >
+          Remove all
+        </Button.Terminate>
+      </div>
     </Modal>
   );
 }
