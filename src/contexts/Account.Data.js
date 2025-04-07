@@ -48,6 +48,9 @@ async function accountDataRetriever() {
 /*
  * Purpose: Fetching all the paintings that are associated with a genre.
  *
+ * Details: The painting details that are fetched are minimalistic. It only
+ * contains the year of work, title, and id.
+ *
  * Returns: An array of Genre and Paintings.
  */
 async function fetchPaintingGenres(genresData) {
@@ -55,9 +58,10 @@ async function fetchPaintingGenres(genresData) {
     import.meta.env.VITE_PAINTINGS_GENRES_URL ||
     "https://art-api-kafs.onrender.com/api/paintings/genre";
   const key = "paintingGenres";
-  let paintingGenres = localStorage.getItem(key);
+  const paintingGenresJSON = localStorage.getItem(key);
+  let paintingGenres = null;
 
-  if (!paintingGenres) {
+  if (!paintingGenresJSON) {
     console.debug("Fetching PaintingGenres.");
 
     paintingGenres = await Promise.all(
@@ -70,6 +74,8 @@ async function fetchPaintingGenres(genresData) {
     );
 
     localStorage.setItem(key, JSON.stringify(paintingGenres));
+  } else {
+    paintingGenres = JSON.parse(paintingGenresJSON);
   }
 
   return paintingGenres;
