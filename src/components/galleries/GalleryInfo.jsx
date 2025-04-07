@@ -5,6 +5,7 @@ import Button from "../Button";
 import { Map, Marker, ZoomControl } from "pigeon-maps";
 import Hyperlink from "../Hyperlink";
 import { FavoriteContext } from "../../contexts/Favorite";
+import { toast } from "react-fox-toast";
 
 function GalleryInfo() {
   const [selectedGallery, setSelectedGallery] = use(SelectedGalleryContext);
@@ -58,10 +59,10 @@ function GalleryInfo() {
             <Button.SetFavorite
               onClick={() => {
                 if (favorite.appendGallery(selectedGallery)) {
-                  console.log("Successfully added gallery.");
+                  toast.success("A gallery has been added to favorites.");
                   refreshFavorites();
                 } else {
-                  console.log("Failed to add gallery");
+                  toast.error("The gallery can not be added to favorites.");
                 }
               }}
             />

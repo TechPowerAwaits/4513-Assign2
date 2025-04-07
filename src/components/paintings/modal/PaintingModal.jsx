@@ -6,6 +6,7 @@ import Hyperlink from "../../Hyperlink";
 import ImageWithFallback from "../../ImageWithFallback";
 import PaintingColorList from "./PaintingColorList";
 import { FavoriteContext } from "../../../contexts/Favorite";
+import { toast } from "react-fox-toast";
 
 function PaintingModal({ data, isOpen, toggleOpen, ...props }) {
   const artistName = data.Artists.firstName
@@ -35,10 +36,10 @@ function PaintingModal({ data, isOpen, toggleOpen, ...props }) {
             <Button.SetFavorite
               onClick={() => {
                 if (favorite.appendPainting(data)) {
-                  console.log("Successfully added painting.");
+                  toast.success("A painting has been added to favorites.");
                   refreshFavorites();
                 } else {
-                  console.log("Failed to add painting");
+                  toast.error("The gallery can not be added to favorites.");
                 }
               }}
             />

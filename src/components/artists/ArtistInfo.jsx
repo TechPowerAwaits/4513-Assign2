@@ -5,6 +5,7 @@ import Button from "../Button";
 import Hyperlink from "../Hyperlink";
 import ImageWithFallback from "../ImageWithFallback";
 import { FavoriteContext } from "../../contexts/Favorite";
+import { toast } from "react-fox-toast";
 
 function ArtistInfo() {
   const [favorite, refreshFavorites] = use(FavoriteContext);
@@ -62,10 +63,10 @@ function ArtistInfo() {
             <Button.SetFavorite
               onClick={() => {
                 if (favorite.appendArtist(selectedArtist)) {
-                  console.log("Successfully added artist.");
+                  toast.success("An artist has been added to favorites.");
                   refreshFavorites();
                 } else {
-                  console.log("Failed to add artist");
+                  toast.error("The artist can not be added to favorites.");
                 }
               }}
             />
