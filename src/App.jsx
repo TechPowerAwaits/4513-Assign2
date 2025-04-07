@@ -1,4 +1,3 @@
-import initModals from "./modals";
 import { useState } from "react";
 import Loading from "./components/Loading";
 import { AccountContext } from "./contexts/Account";
@@ -18,7 +17,6 @@ import Genres from "./components/genres/Genres";
 import { Favorite, FavoriteContext } from "./contexts/Favorite";
 
 const accountStartPath = "/galleries";
-initModals();
 
 function App() {
   const [account, setAccount] = useState(null);

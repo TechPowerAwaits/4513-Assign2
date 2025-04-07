@@ -9,9 +9,11 @@ import { AccountContext } from "../contexts/Account";
 import Button from "./Button";
 import { NavLink } from "react-router";
 import { DataContext } from "../contexts/Data";
-import NiceModal from "@ebay/nice-modal-react";
+import useToggle from "../hooks/useToggle";
+import AboutModal from "./about/AboutModal";
 
 function Header() {
+  const [isAboutOpen, toggleAbout] = useToggle();
   const data = use(DataContext);
   const { account, accountLogout } = use(AccountContext);
   let headerTitle = "Art Browser";
@@ -19,6 +21,7 @@ function Header() {
 
   return (
     <header className="bg-tyrian-purple text-ut-orange">
+      <AboutModal isOpen={isAboutOpen} toggleOpen={toggleAbout} />
       <div className="flex justify-between items-center-safe">
         <img src={Logo} alt="Logo" />
         <H.L1>{headerTitle}</H.L1>
@@ -35,10 +38,7 @@ function Header() {
             </li>
           )}
           <li>
-            <Button.Primary
-              type="button"
-              onClick={() => NiceModal.show("about-project")}
-            >
+            <Button.Primary type="button" onClick={() => toggleAbout()}>
               About
             </Button.Primary>
           </li>

@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ebay/nice-modal-react": "^1.2.13",
     "@tailwindcss/vite": "^4.0.12",
     "pigeon-maps": "^0.22.1",
     "react": "^19.0.0",

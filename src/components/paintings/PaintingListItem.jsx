@@ -1,4 +1,3 @@
-import NiceModal from "@ebay/nice-modal-react";
 import ImageWithFallback from "../ImageWithFallback";
 import PaintingModal from "./modal/PaintingModal";
 import useToggle from "../../hooks/useToggle";
