@@ -54,7 +54,7 @@ function PaintingList({ defaultSortCol = "title" }) {
   }
 
   return (
-    <ul className="grid grid-cols-5 auto-rows-min">
+    <ul className="grid grid-cols-4 auto-rows-min gap-x-1">
       <PaintingListCommon
         permittedCols={regularColFormat}
         defaultSortCol={defaultSortCol}
@@ -71,7 +71,7 @@ function PaintingListCompact({ defaultSortCol = "title" }) {
   }
 
   return (
-    <ul className="grid grid-cols-3 auto-rows-min">
+    <ul className="grid grid-cols-3 auto-rows-min gap-x-1">
       <PaintingListCommon
         permittedCols={compactColFormat}
         defaultSortCol={defaultSortCol}
@@ -88,7 +88,7 @@ function PaintingListFull({ defaultSortCol = "title" }) {
   }
 
   return (
-    <ul className="grid grid-cols-8 auto-rows-min">
+    <ul className="grid grid-cols-7 auto-rows-min gap-x-1">
       <PaintingListCommon
         permittedCols={fullColFormat}
         defaultSortCol={defaultSortCol}
@@ -96,20 +96,6 @@ function PaintingListFull({ defaultSortCol = "title" }) {
     </ul>
   );
 }
-
-/*
- * Purpose: Lists all paintings sorted initially by the given defaultSortCol.
- *
- * Details: PaintingList.Compact provides the following column format:
- *   thumbnail, title, year
- * PaintingList.Regular provides the following column format:
- *   thumbnail, artist, title, year
- * PaintingList.Full provides the following column format:
- *   thumbnail, title, year, artist, gallery, medium, dimensions
- *
- * All columns that are defined in a particular format can be used as the
- * defaultSortCol with the exception of `medium` and `dimensions`.
- */
 
 function PaintingListEmpty() {
   return <H.L3>No paintings found.</H.L3>;
