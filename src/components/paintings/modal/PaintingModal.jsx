@@ -1,3 +1,4 @@
+import { use } from "react";
 import Modal from "react-modal";
 import H from "../../H";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
@@ -5,12 +6,14 @@ import Button from "../../Button";
 import Hyperlink from "../../Hyperlink";
 import ImageWithFallback from "../../ImageWithFallback";
 import PaintingColorList from "./PaintingColorList";
+import { FavoriteContext } from "../../../contexts/Favorite";
 
 const PaintingModal = NiceModal.create(({ data, ...props }) => {
   const modal = useModal();
   const artistName = data.Artists.firstName
     ? `${data.Artists.firstName} ${data.Artists.lastName}`
     : data.Artists.lastName;
+  const [favorite, refreshFavorites] = use(FavoriteContext);
 
   return (
     <Modal
@@ -32,7 +35,26 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
           />
         </li>
         <li>
-          <Button.SetFavorite />
+          {!favorite.hasPainting(data) ? (
+            <Button.SetFavorite
+              onClick={() => {
+                if (favorite.appendPainting(data)) {
+                  console.log("Successfully added painting.");
+                  refreshFavorites();
+                } else {
+                  console.log("Failed to add painting");
+                }
+              }}
+            />
+          ) : (
+            <Button.RemoveFavorite
+              onClick={() => {
+                favorite.removePainting(data);
+                console.log("Successfully removed painting.");
+                refreshFavorites();
+              }}
+            />
+          )}
         </li>
       </menu>
       <hgroup className="text-center">
