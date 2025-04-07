@@ -31,6 +31,8 @@ function GalleryInfo() {
       <Map
         center={[selectedGallery.latitude, selectedGallery.longitude]}
         zoom={16}
+        width={300}
+        height={200}
       >
         <ZoomControl />
         <Marker
@@ -38,17 +40,26 @@ function GalleryInfo() {
         />
       </Map>
 
-      <p>{selectedGallery.galleryAddress}</p>
-      <p>
+      <p className="text-center">{selectedGallery.galleryAddress}</p>
+      <p className="text-center">
         {selectedGallery.galleryCity}, {selectedGallery.galleryCountry}
       </p>
-      <Hyperlink href={selectedGallery.galleryWebSite}>
-        Gallery Link <sup>[extern]</sup>
-      </Hyperlink>
+      <p className="text-center">
+        <Hyperlink href={selectedGallery.galleryWebSite}>
+          Gallery Link <sup>[extern]</sup>
+        </Hyperlink>
+      </p>
 
-      <Button.Terminate onClick={() => setSelectedGallery(null)}>
-        Close
-      </Button.Terminate>
+      <menu className="flex justify-center-safe gap-x-2">
+        <li>
+          <Button.SetFavorite />
+        </li>
+        <li>
+          <Button.Terminate onClick={() => setSelectedGallery(null)}>
+            Close
+          </Button.Terminate>
+        </li>
+      </menu>
     </section>
   );
 }
