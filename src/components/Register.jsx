@@ -9,7 +9,7 @@ import FormField from "./FormField";
 import H from "./H";
 import Button from "./Button";
 
-function Register({ className: passedClasses }) {
+function Register({ className: passedClasses = "" }) {
   const fieldId = useId();
   const { setAccount } = use(AccountContext);
   const defaultRegisterStatus = new StatusState(
@@ -27,7 +27,7 @@ function Register({ className: passedClasses }) {
 
   return (
     <section
-      className={`space-y-3 text-ut-orange bg-midnight-green p-1.5 ${passedClasses ? passedClasses : ""}`}
+      className={`space-y-3 text-ut-orange bg-midnight-green p-1.5 ${passedClasses}`}
     >
       <H.L3>Register</H.L3>
       <form

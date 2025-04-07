@@ -24,7 +24,7 @@
  */
 
 function FormField({
-  className: passedClasses,
+  className: passedClasses = "",
   children,
   manualInvalidStyling,
   ...props
@@ -32,7 +32,7 @@ function FormField({
   const invalidStyling = manualInvalidStyling ? "" : "user-invalid:bg-folly";
   return (
     <input
-      className={`bg-light-cyan text-black disabled:bg-gray ${invalidStyling} ${passedClasses ? passedClasses : ""}`}
+      className={`bg-light-cyan text-black disabled:bg-gray ${invalidStyling} ${passedClasses}`}
       {...props}
     >
       {children}

@@ -31,7 +31,7 @@ function SortableHeader({
   sortId,
   text,
   setAscending,
-  className: passedClasses,
+  className: passedClasses = "",
   ...props
 }) {
   const [sortCol, setSortCol] = use(CurrentSortContext);
@@ -76,7 +76,7 @@ function SortableHeader({
 
   return (
     <button
-      className={`cursor-pointer ${passedClasses ? passedClasses : ""}`}
+      className={`cursor-pointer ${passedClasses}`}
       onClick={() => toggleSortState()}
       {...props}
     >

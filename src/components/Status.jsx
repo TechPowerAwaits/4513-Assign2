@@ -29,7 +29,7 @@ class StatusState {
   }
 }
 
-function Status({ state, className: passedClasses }) {
+function Status({ state, className: passedClasses = "" }) {
   const defaultStatusState = new StatusState(
     "No state has been set. Please contact the developers.",
     false
@@ -43,7 +43,7 @@ function Status({ state, className: passedClasses }) {
 
   return (
     <section
-      className={`${bgColor} text-ut-orange text-center px-3 py-1 rounded-3xl ${passedClasses ? passedClasses : ""}`}
+      className={`${bgColor} text-ut-orange text-center px-3 py-1 rounded-3xl ${passedClasses}`}
     >
       <H.L4>Status:</H.L4>
       {state.msg}
