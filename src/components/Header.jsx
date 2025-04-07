@@ -19,7 +19,7 @@ function Header() {
 
   return (
     <header className="bg-tyrian-purple text-ut-orange">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center-safe">
         <img src={Logo} alt="Logo" />
         <H.L1>{headerTitle}</H.L1>
         <menu className="flex mr-2">
@@ -46,6 +46,16 @@ function Header() {
       </div>
       {account && (
         <nav className="flex justify-evenly border-y border-mimi-pink">
+          <NavLink to="/artists">
+            {({ isActive }) => (
+              <button
+                className="disabled:text-gray disabled:cursor-not-allowed cursor-pointer"
+                disabled={isActive || !data}
+              >
+                Artists
+              </button>
+            )}
+          </NavLink>
           <NavLink to="/galleries">
             {({ isActive }) => (
               <button

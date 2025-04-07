@@ -13,6 +13,7 @@ import Register from "./components/Register";
 import NotFound from "./NotFound";
 import useToggle from "./hooks/useToggle";
 import ErrorHandler from "./components/ErrorHandler";
+import Artists from "./components/artists/Artists";
 
 const accountStartPath = "/galleries";
 initModals();
@@ -67,6 +68,7 @@ function App() {
               </Route>
               {data && (
                 <>
+                  <Route path="/artists" element={<Artists />} />
                   <Route path="/galleries" element={<Galleries />} />
                   <Route path="/paintings" element={<Paintings />} />
                 </>
