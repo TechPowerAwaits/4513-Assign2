@@ -8,7 +8,7 @@ import PaintingList from "../paintings/PaintingList";
 import { DataContext } from "../../contexts/Data";
 import { CurrentPaintingsContext } from "../../contexts/Painting";
 
-function Galleries() {
+function Galleries({ className: passedClasses = "" }) {
   const { paintings: paintingsData } = use(DataContext);
   const selectedGalleryState = useState(null);
   const filteredPaintings = selectedGalleryState[0]
@@ -21,12 +21,12 @@ function Galleries() {
   return (
     <SelectedGalleryContext.Provider value={selectedGalleryState}>
       <CurrentPaintingsContext.Provider value={[filteredPaintings]}>
-        <article className="h-full">
+        <article className={passedClasses}>
           <header className="bg-tyrian-purple text-ut-orange border-y border-mimi-pink">
             <H.L2>Galleries</H.L2>
           </header>
-          <section className="flex h-full">
-            <GalleryList />
+          <section className="flex">
+            <GalleryList className="px-3" />
             <GalleryInfo />
             {selectedGalleryState[0] && (
               <PaintingList

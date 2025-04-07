@@ -3,7 +3,10 @@ import ImageWithFallback from "../ImageWithFallback";
 
 function PaintingListItem({ painting, permittedCols }) {
   return (
-    <tr onClick={() => NiceModal.show("painting-modal", { data: painting })}>
+    <tr
+      className="cursor-pointer"
+      onClick={() => NiceModal.show("painting-modal", { data: painting })}
+    >
       {permittedCols.includes("thumbnail") && (
         <td>
           <ImageWithFallback
