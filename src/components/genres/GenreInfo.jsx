@@ -34,9 +34,6 @@ function GenreInfo() {
 
       <menu className="flex justify-center-safe gap-x-2">
         <li>
-          <Button.SetFavorite />
-        </li>
-        <li>
           <Button.Terminate onClick={() => setSelectedGenre(null)}>
             Close
           </Button.Terminate>
