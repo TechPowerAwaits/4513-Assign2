@@ -66,6 +66,16 @@ function Header() {
               </button>
             )}
           </NavLink>
+          <NavLink to="/genres">
+            {({ isActive }) => (
+              <button
+                className="disabled:text-gray disabled:cursor-not-allowed cursor-pointer"
+                disabled={isActive || !data}
+              >
+                Genres
+              </button>
+            )}
+          </NavLink>
           <NavLink to="/paintings">
             {({ isActive }) => (
               <button

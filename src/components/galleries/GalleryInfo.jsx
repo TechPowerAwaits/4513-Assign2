@@ -46,7 +46,7 @@ function GalleryInfo() {
       </p>
       <p className="text-center">
         <Hyperlink href={selectedGallery.galleryWebSite}>
-          Gallery Link <sup>[extern]</sup>
+          More Info <sup>[extern]</sup>
         </Hyperlink>
       </p>
 
