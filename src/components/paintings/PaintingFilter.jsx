@@ -9,7 +9,7 @@ import H from "../H";
 function PaintingFilter({
   onFilter = () => {},
   onReset = () => {},
-  className: passedClasses,
+  className: passedClasses = "",
 }) {
   const fieldId = useId();
   const {
@@ -42,7 +42,7 @@ function PaintingFilter({
 
   return (
     <section
-      className={`space-y-3 text-ut-orange bg-caribbean-current p-1.5 ${passedClasses ? passedClasses : ""}`}
+      className={`space-y-3 text-ut-orange bg-caribbean-current p-1.5 ${passedClasses}`}
     >
       <H.L3>Painting Filters</H.L3>
       <form

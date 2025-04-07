@@ -10,61 +10,49 @@
  */
 
 class H {
-  static L1({ children, className: passedClasses }) {
+  static L1({ children, className: passedClasses = "" }) {
     return (
-      <h1
-        className={`text-3xl font-bold text-center ${passedClasses ? passedClasses : ""}`}
-      >
+      <h1 className={`text-3xl font-bold text-center ${passedClasses}`}>
         {children}
       </h1>
     );
   }
 
-  static L2({ children, className: passedClasses }) {
+  static L2({ children, className: passedClasses = "" }) {
     return (
-      <h2
-        className={`text-2xl font-bold text-center ${passedClasses ? passedClasses : ""}`}
-      >
+      <h2 className={`text-2xl font-bold text-center ${passedClasses}`}>
         {children}
       </h2>
     );
   }
 
-  static L3({ children, className: passedClasses }) {
+  static L3({ children, className: passedClasses = "" }) {
     return (
-      <h3
-        className={`text-xl font-bold text-center ${passedClasses ? passedClasses : ""}`}
-      >
+      <h3 className={`text-xl font-bold text-center ${passedClasses}`}>
         {children}
       </h3>
     );
   }
 
-  static L4({ children, className: passedClasses }) {
+  static L4({ children, className: passedClasses = "" }) {
     return (
-      <h4
-        className={`text-lg font-bold text-center ${passedClasses ? passedClasses : ""}`}
-      >
+      <h4 className={`text-lg font-bold text-center ${passedClasses}`}>
         {children}
       </h4>
     );
   }
 
-  static L5({ children, className: passedClasses }) {
+  static L5({ children, className: passedClasses = "" }) {
     return (
-      <h5
-        className={`underline font-bold text-center ${passedClasses ? passedClasses : ""}`}
-      >
+      <h5 className={`underline font-bold text-center ${passedClasses}`}>
         {children}
       </h5>
     );
   }
 
-  static L6({ children, className: passedClasses }) {
+  static L6({ children, className: passedClasses = "" }) {
     return (
-      <h6
-        className={`underline font-medium text-center ${passedClasses ? passedClasses : ""}`}
-      >
+      <h6 className={`underline font-medium text-center ${passedClasses}`}>
         {children}
       </h6>
     );
