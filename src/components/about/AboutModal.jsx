@@ -2,6 +2,7 @@ import Modal from "react-modal";
 import H from "../H";
 import Button from "../Button";
 import UsedAssetsList from "./UsedAssetsList";
+import UsedComponentsList from "./UsedComponentsList";
 import Hyperlink from "../Hyperlink";
 
 function AboutModal({ isOpen, toggleOpen, ...props }) {
@@ -20,7 +21,11 @@ function AboutModal({ isOpen, toggleOpen, ...props }) {
       <H.L2>About</H.L2>
 
       <p>
-        This project was written by Richard Johnston {"<"}
+        This{" "}
+        <Hyperlink href="https://github.com/TechPowerAwaits/4513-Assign2">
+          project
+        </Hyperlink>{" "}
+        was written by Richard Johnston {"<"}
         <Hyperlink href="mailto:techpowerawaits@outlook.com">
           techpowerawaits@outlook.com
         </Hyperlink>
@@ -39,6 +44,7 @@ function AboutModal({ isOpen, toggleOpen, ...props }) {
       </p>
 
       <UsedAssetsList />
+      <UsedComponentsList />
     </Modal>
   );
 }
