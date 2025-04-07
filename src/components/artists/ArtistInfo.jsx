@@ -30,21 +30,23 @@ function ArtistInfo() {
     <section>
       <hgroup className="text-center">
         <H.L3>{artistName}</H.L3>
-        <p>{lifeText}</p>
         {selectedArtist.artistLink && (
           <p>
             <Hyperlink src={selectedArtist.artistLink}>
-              Gallery Link <sup>[extern]</sup>
+              Artist Link <sup>[extern]</sup>
             </Hyperlink>
           </p>
         )}
       </hgroup>
 
-      <ImageWithFallback
-        className="max-w-1/2 max-h-1/2 mx-auto"
-        src={`/artists/full/${selectedArtist.artistId}.jpg`}
-        alt={artistName}
-      />
+      <figure>
+        <ImageWithFallback
+          className="max-w-7/10 max-h-7/10 mx-auto"
+          src={`/artists/full/${selectedArtist.artistId}.jpg`}
+          alt={artistName}
+        />
+        <figcaption className="text-center">{lifeText}</figcaption>
+      </figure>
 
       {selectedArtist.description && (
         <div className="mx-auto overflow-y-scroll max-h-32">
