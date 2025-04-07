@@ -42,7 +42,7 @@ function ArtistInfo() {
 
       <ImageWithFallback
         className="max-w-1/2 max-h-1/2 mx-auto"
-        href={`/artists/full/${selectedArtist.artistId}.jpg`}
+        src={`/artists/full/${selectedArtist.artistId}.jpg`}
         alt={artistName}
       />
 
