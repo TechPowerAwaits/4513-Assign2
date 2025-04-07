@@ -87,81 +87,81 @@ function PaintingList({
 
   return (
     <CurrentSortContext.Provider value={sortColState}>
-      <ul className="grid auto-rows-min grid-cols-7 gap-x-1">
-        <li></li>
-        <li className="col-span-2">
-          {permittedCols.includes("artist") && (
-            <SortableHeader
-              sortId="artistName"
-              text="Artist"
-              setAscending={setIsAscending}
-            />
-          )}
-        </li>
-        <li>
-          {permittedCols.includes("title") && (
-            <SortableHeader
-              sortId="title"
-              text="Title"
-              setAscending={setIsAscending}
-            />
-          )}
-        </li>
-        <li>
-          {permittedCols.includes("year") && (
-            <SortableHeader
-              sortId="year"
-              text="Year"
-              setAscending={setIsAscending}
-            />
-          )}
-        </li>
-        <li>
-          {permittedCols.includes("gallery") && (
-            <SortableHeader
-              sortId="gallery"
-              text="Gallery"
-              setAscending={setIsAscending}
-            />
-          )}
-        </li>
-        <li className="underline">
-          {permittedCols.includes("medium") && "Medium"}
-        </li>
-        <li className="underline">
-          {permittedCols.includes("dimensions") && "Dimensions"}
-        </li>
-        {permittedCols.includes("artist") && (
-          <>
-            <li></li>
-            <li>
+      <table>
+        <thead>
+          <tr>
+            {permittedCols.includes("thumbnail") && <th></th>}
+            {permittedCols.includes("artist") && (
+              <th colSpan={2}>
+                <SortableHeader
+                  sortId="artistName"
+                  text="Artist"
+                  setAscending={setIsAscending}
+                />
+              </th>
+            )}
+            {permittedCols.includes("title") && (
+              <th>
+                <SortableHeader
+                  sortId="title"
+                  text="Title"
+                  setAscending={setIsAscending}
+                />
+              </th>
+            )}
+            {permittedCols.includes("year") && (
+              <th>
+                <SortableHeader
+                  sortId="year"
+                  text="Year"
+                  setAscending={setIsAscending}
+                />
+              </th>
+            )}
+            {permittedCols.includes("gallery") && (
+              <th>
+                <SortableHeader
+                  sortId="gallery"
+                  text="Gallery"
+                  setAscending={setIsAscending}
+                />
+              </th>
+            )}
+            {permittedCols.includes("medium") && (
+              <th className="underline">Medium</th>
+            )}
+            {permittedCols.includes("dimensions") && (
+              <th className="underline">Dimensions</th>
+            )}
+          </tr>
+          <tr>
+            <th></th>
+            <th>
               <SortableHeader
                 sortId="artistFName"
                 text="FName"
                 setAscending={setIsAscending}
               />
-            </li>
-            <li>
+            </th>
+            <th>
               <SortableHeader
                 sortId="artistLName"
                 text="LName"
                 setAscending={setIsAscending}
               />
-            </li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </>
-        )}
-        {sortedPaintings.map((painting) => (
-          <PaintingListItem
-            painting={painting}
-            permittedCols={permittedCols}
-            key={painting.paintingId}
-          />
-        ))}
-      </ul>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedPaintings.map((painting) => (
+            <PaintingListItem
+              painting={painting}
+              permittedCols={permittedCols}
+              key={painting.paintingId}
+            />
+          ))}
+        </tbody>
+      </table>
     </CurrentSortContext.Provider>
   );
 }
