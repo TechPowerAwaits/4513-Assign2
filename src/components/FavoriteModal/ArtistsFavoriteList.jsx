@@ -14,7 +14,7 @@ function ArtistsFavoriteList({ ...props }) {
     <SelectedArtistContext value={[selectedArtist, setSelectedArtist]}>
       <section {...props}>
         <H.L3>Artists</H.L3>
-        <ul>
+        <ul className="h-72 overflow-y-scroll min-w-fit">
           {favorite.artists.map((artist) => (
             <ArtistsFavoriteListItem data={artist} key={artist.artistId} />
           ))}
@@ -23,7 +23,7 @@ function ArtistsFavoriteList({ ...props }) {
           className="mx-auto"
           disabled={selectedArtist == null}
           onClick={() => {
-            favorite.removePainting(selectedArtist);
+            favorite.removeArtist(selectedArtist);
             toast.success("The selected artist was successfully removed.");
             setSelectedArtist(null);
             refreshFavorites();

@@ -14,7 +14,7 @@ function PaintingsFavoriteList({ ...props }) {
     <SelectedPaintingContext value={[selectedPainting, setSelectedPainting]}>
       <section {...props}>
         <H.L3>Paintings</H.L3>
-        <ul>
+        <ul className="h-72 overflow-y-scroll min-w-fit">
           {favorite.paintings.map((painting) => (
             <PaintingsFavoriteListItem
               data={painting}
