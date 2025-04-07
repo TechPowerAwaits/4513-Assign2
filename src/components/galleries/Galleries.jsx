@@ -28,11 +28,7 @@ function Galleries({ className: passedClasses = "" }) {
           <section className="flex">
             <GalleryList className="px-3" />
             <GalleryInfo />
-            {selectedGalleryState[0] && (
-              <PaintingList
-                permittedCols={["thumbnail", "artist", "title", "year"]}
-              />
-            )}
+            {selectedGalleryState[0] && <PaintingList />}
           </section>
         </article>
       </CurrentPaintingsContext.Provider>

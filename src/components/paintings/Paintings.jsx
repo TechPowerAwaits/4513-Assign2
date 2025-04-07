@@ -2,8 +2,7 @@ import { use, useState } from "react";
 import { DataContext } from "../../contexts/Data";
 import { CurrentPaintingsContext } from "../../contexts/Painting";
 import H from "../H";
-import PaintingList from "./PaintingList";
-import PaintingFilter from "./PaintingFilter";
+import { PaintingListFull } from "./PaintingList";
 import PaintingFilterMenu from "./PaintingFilterMenu";
 import useToggle from "../../hooks/useToggle";
 import Button from "../Button";
@@ -31,7 +30,7 @@ function Paintings({ className: passedClasses = "" }) {
           >
             Filter
           </Button.Primary>
-          <PaintingList defaultSortCol="year" />
+          <PaintingListFull defaultSortCol="year" />
         </section>
       </article>
     </CurrentPaintingsContext.Provider>
