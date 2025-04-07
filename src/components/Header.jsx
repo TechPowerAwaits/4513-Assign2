@@ -22,7 +22,7 @@ function Header() {
       <div className="flex justify-between">
         <img src={Logo} alt="Logo" />
         <H.L1>{headerTitle}</H.L1>
-        <menu className="flex">
+        <menu className="flex mr-2">
           {account && (
             <li>
               <Button.Secondary
@@ -45,7 +45,7 @@ function Header() {
         </menu>
       </div>
       {account && (
-        <nav className="flex justify-center-safe border-y border-mimi-pink">
+        <nav className="flex justify-evenly border-y border-mimi-pink">
           <NavLink to="/galleries">
             {({ isActive }) => (
               <button
