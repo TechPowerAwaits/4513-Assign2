@@ -40,7 +40,6 @@ async function fetchCachedObjFromJSON(key, url) {
  * Returns: The fetched object.
  */
 async function fetchObjFromJSON(url) {
-  console.debug(`Fetching from ${url}.`);
   let data = null;
 
   const resp = await respCheckedFetch(url);
