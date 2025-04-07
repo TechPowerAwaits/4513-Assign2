@@ -15,6 +15,7 @@ import useToggle from "./hooks/useToggle";
 import ErrorHandler from "./components/ErrorHandler";
 import Artists from "./components/artists/Artists";
 import Genres from "./components/genres/Genres";
+import { FavoriteContext } from "./contexts/Favorite";
 
 const accountStartPath = "/galleries";
 initModals();
@@ -31,6 +32,7 @@ function App() {
 
   let rootView = <Login />;
   let data = null;
+  let favorite = null;
 
   if (account) {
     if (err) {
@@ -53,33 +55,36 @@ function App() {
       }
     } else {
       data = account.data;
+      favorite = account.favorite;
     }
   }
 
   return (
     <DataContext.Provider value={data}>
-      <AccountContext.Provider value={{ account, setAccount, accountLogout }}>
-        <div className="h-dvh flex flex-col">
-          <Header />
-          <main className="flex-1">
-            <Routes>
-              <Route element={<Home />}>
-                <Route index element={rootView} />
-                <Route path="register" element={<Register />} />
-              </Route>
-              {data && (
-                <>
-                  <Route path="/artists" element={<Artists />} />
-                  <Route path="/galleries" element={<Galleries />} />
-                  <Route path="/genres" element={<Genres />} />
-                  <Route path="/paintings" element={<Paintings />} />
-                </>
-              )}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
-      </AccountContext.Provider>
+      <FavoriteContext.Provider value={favorite}>
+        <AccountContext.Provider value={{ account, setAccount, accountLogout }}>
+          <div className="h-dvh flex flex-col">
+            <Header />
+            <main className="flex-1">
+              <Routes>
+                <Route element={<Home />}>
+                  <Route index element={rootView} />
+                  <Route path="register" element={<Register />} />
+                </Route>
+                {data && (
+                  <>
+                    <Route path="/artists" element={<Artists />} />
+                    <Route path="/galleries" element={<Galleries />} />
+                    <Route path="/genres" element={<Genres />} />
+                    <Route path="/paintings" element={<Paintings />} />
+                  </>
+                )}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+          </div>
+        </AccountContext.Provider>
+      </FavoriteContext.Provider>
     </DataContext.Provider>
   );
 }
