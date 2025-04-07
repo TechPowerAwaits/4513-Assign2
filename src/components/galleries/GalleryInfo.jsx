@@ -4,9 +4,11 @@ import { SelectedGalleryContext } from "../../contexts/Gallery";
 import Button from "../Button";
 import { Map, Marker, ZoomControl } from "pigeon-maps";
 import Hyperlink from "../Hyperlink";
+import { FavoriteContext } from "../../contexts/Favorite";
 
 function GalleryInfo() {
   const [selectedGallery, setSelectedGallery] = use(SelectedGalleryContext);
+  const [favorite, refreshFavorites] = use(FavoriteContext);
   if (!selectedGallery) {
     return (
       <section>
@@ -52,7 +54,26 @@ function GalleryInfo() {
 
       <menu className="flex justify-center-safe gap-x-2">
         <li>
-          <Button.SetFavorite />
+          {!favorite.hasGallery(selectedGallery) ? (
+            <Button.SetFavorite
+              onClick={() => {
+                if (favorite.appendGallery(selectedGallery)) {
+                  console.log("Successfully added gallery.");
+                  refreshFavorites();
+                } else {
+                  console.log("Failed to add gallery");
+                }
+              }}
+            />
+          ) : (
+            <Button.RemoveFavorite
+              onClick={() => {
+                favorite.removeGallery(selectedGallery);
+                console.log("Successfully removed gallery.");
+                refreshFavorites();
+              }}
+            />
+          )}
         </li>
         <li>
           <Button.Terminate onClick={() => setSelectedGallery(null)}>
