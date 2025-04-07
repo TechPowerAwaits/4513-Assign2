@@ -46,25 +46,6 @@ function PaintingHeaders({ permittedCols, setAscending }) {
       {permittedCols.includes("dimensions") && (
         <li className="underline">Dimensions</li>
       )}
-      {permittedCols.includes("artist") && (
-        <>
-          <li></li>
-          <li>
-            <SortableHeader
-              sortId="artistFName"
-              text="FName"
-              setAscending={setAscending}
-            />
-          </li>
-          <li>
-            <SortableHeader
-              sortId="artistLName"
-              text="LName"
-              setAscending={setAscending}
-            />
-          </li>
-        </>
-      )}
     </>
   );
 }
