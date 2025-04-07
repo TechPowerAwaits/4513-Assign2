@@ -5,7 +5,7 @@ function PaintingHeaders({ permittedCols, setAscending }) {
     <>
       {permittedCols.includes("thumbnail") && <li></li>}
       {permittedCols.includes("artist") && (
-        <li className="col-span-2">
+        <li>
           <SortableHeader
             sortId="artistName"
             text="Artist"

@@ -4,6 +4,9 @@ import ImageWithFallback from "../ImageWithFallback";
 function PaintingListItem({ painting, permittedCols }) {
   const clickHandler = () =>
     NiceModal.show("painting-modal", { data: painting });
+  const artistName =
+    `${painting.Artists.firstName} ${painting.Artists.lastName}`.trim();
+
   return (
     <>
       {permittedCols.includes("thumbnail") && (
@@ -16,14 +19,9 @@ function PaintingListItem({ painting, permittedCols }) {
         </li>
       )}
       {permittedCols.includes("artist") && (
-        <>
-          <li className="cursor-pointer" onClick={clickHandler}>
-            {painting.Artists.firstName}
-          </li>
-          <li className="cursor-pointer" onClick={clickHandler}>
-            {painting.Artists.lastName}
-          </li>
-        </>
+        <li className="cursor-pointer" onClick={clickHandler}>
+          {artistName}
+        </li>
       )}
       {permittedCols.includes("title") && (
         <li className="cursor-pointer" onClick={clickHandler}>
