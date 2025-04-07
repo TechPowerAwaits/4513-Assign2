@@ -1,14 +1,21 @@
 import NiceModal from "@ebay/nice-modal-react";
 import ImageWithFallback from "../ImageWithFallback";
+import PaintingModal from "./modal/PaintingModal";
+import useToggle from "../../hooks/useToggle";
 
 function PaintingListItem({ painting, permittedCols }) {
-  const clickHandler = () =>
-    NiceModal.show("painting-modal", { data: painting });
+  const clickHandler = () => togglePaintingModal();
   const artistName =
     `${painting.Artists.firstName} ${painting.Artists.lastName}`.trim();
+  const [paintingModalOpen, togglePaintingModal] = useToggle();
 
   return (
     <>
+      <PaintingModal
+        isOpen={paintingModalOpen}
+        toggleOpen={togglePaintingModal}
+        data={painting}
+      />
       {permittedCols.includes("thumbnail") && (
         <li className="cursor-pointer" onClick={clickHandler}>
           <ImageWithFallback

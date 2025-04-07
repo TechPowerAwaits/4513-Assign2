@@ -1,15 +1,13 @@
 import { use } from "react";
 import Modal from "react-modal";
 import H from "../../H";
-import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import Button from "../../Button";
 import Hyperlink from "../../Hyperlink";
 import ImageWithFallback from "../../ImageWithFallback";
 import PaintingColorList from "./PaintingColorList";
 import { FavoriteContext } from "../../../contexts/Favorite";
 
-const PaintingModal = NiceModal.create(({ data, ...props }) => {
-  const modal = useModal();
+function PaintingModal({ data, isOpen, toggleOpen, ...props }) {
   const artistName = data.Artists.firstName
     ? `${data.Artists.firstName} ${data.Artists.lastName}`
     : data.Artists.lastName;
@@ -18,19 +16,17 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
   return (
     <Modal
       contentLabel="Painting Modal"
-      isOpen={modal.visible}
+      isOpen={isOpen}
       onRequestClose={() => {
-        modal.hide();
+        toggleOpen();
       }}
-      onAfterClose={() => modal.remove()}
       {...props}
     >
       <menu className="flex flex-row-reverse gap-1.5">
         <li>
           <Button.Terminate
             onClick={() => {
-              modal.hide();
-              modal.remove();
+              toggleOpen();
             }}
           />
         </li>
@@ -106,6 +102,6 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
       </div>
     </Modal>
   );
-});
+}
 
 export default PaintingModal;
