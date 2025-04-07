@@ -1,3 +1,7 @@
+/*
+ * Purpose: Manages all favorites.
+ */
+
 class Favorite {
   static galleriesKey = "galleriesFav";
   static artistsKey = "artistsFav";
@@ -47,7 +51,7 @@ class Favorite {
   }
 
   appendPaintings(painting) {
-    if (this.artists.find((p) => p.paintingId === painting.paintingId)) {
+    if (this.paintings.find((p) => p.paintingId === painting.paintingId)) {
       return false;
     } else {
       this.paintings.push(painting);
@@ -57,6 +61,33 @@ class Favorite {
       );
       return true;
     }
+  }
+
+  removeGallery(gallery) {
+    this.galleries = this.galleries.filter(
+      (g) => g.galleryId === gallery.galleryId
+    );
+    localStorage.setItem(Favorite.galleriesKey, JSON.stringify(this.galleries));
+  }
+
+  removeArtist(artist) {
+    this.artists = this.artists.filter((a) => a.artistId === artist.artistId);
+    localStorage.setItem(Favorite.artistsKey, JSON.stringify(this.artists));
+  }
+
+  removePainting(painting) {
+    this.paintings = this.paintings.filter(
+      (p) => p.paintingId === painting.paintingId
+    );
+    localStorage.setItem(Favorite.paintingsKey, JSON.stringify(this.paintings));
+  }
+
+  isEmpty() {
+    return (
+      this.galleries.length === 0 &&
+      this.artists.length === 0 &&
+      this.paintings.length === 0
+    );
   }
 }
 
