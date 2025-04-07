@@ -5,10 +5,10 @@
 import { use, useState } from "react";
 import PaintingListItem from "./PaintingListItem";
 import { CurrentSortContext } from "../../contexts/Sort";
-import SortableHeader from "../SortableHeader";
 import { CurrentPaintingsContext } from "../../contexts/Painting";
 import H from "../H";
 import { dataSort, sortFuncRunner } from "../../sortHandler";
+import PaintingHeaders from "./PaintingHeaders";
 
 /*
  * Purpose: Provides a mapping between a given sort id and a sorting function.
@@ -88,70 +88,10 @@ function PaintingList({
   return (
     <CurrentSortContext.Provider value={sortColState}>
       <table>
-        <thead>
-          <tr>
-            {permittedCols.includes("thumbnail") && <th></th>}
-            {permittedCols.includes("artist") && (
-              <th colSpan={2}>
-                <SortableHeader
-                  sortId="artistName"
-                  text="Artist"
-                  setAscending={setIsAscending}
-                />
-              </th>
-            )}
-            {permittedCols.includes("title") && (
-              <th>
-                <SortableHeader
-                  sortId="title"
-                  text="Title"
-                  setAscending={setIsAscending}
-                />
-              </th>
-            )}
-            {permittedCols.includes("year") && (
-              <th>
-                <SortableHeader
-                  sortId="year"
-                  text="Year"
-                  setAscending={setIsAscending}
-                />
-              </th>
-            )}
-            {permittedCols.includes("gallery") && (
-              <th>
-                <SortableHeader
-                  sortId="gallery"
-                  text="Gallery"
-                  setAscending={setIsAscending}
-                />
-              </th>
-            )}
-            {permittedCols.includes("medium") && (
-              <th className="underline">Medium</th>
-            )}
-            {permittedCols.includes("dimensions") && (
-              <th className="underline">Dimensions</th>
-            )}
-          </tr>
-          <tr>
-            <th></th>
-            <th>
-              <SortableHeader
-                sortId="artistFName"
-                text="FName"
-                setAscending={setIsAscending}
-              />
-            </th>
-            <th>
-              <SortableHeader
-                sortId="artistLName"
-                text="LName"
-                setAscending={setIsAscending}
-              />
-            </th>
-          </tr>
-        </thead>
+        <PaintingHeaders
+          permittedCols={permittedCols}
+          setAscending={setIsAscending}
+        />
         <tbody>
           {sortedPaintings.map((painting) => (
             <PaintingListItem
