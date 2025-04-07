@@ -1,5 +1,15 @@
 /*
- * Purpose: Provides a component that renders a sortable list of paintings.
+ * Purpose: Lists all paintings sorted initially by the given defaultSortCol.
+ *
+ * Details: PaintingListCompact provides the following column format:
+ *   thumbnail, title, year
+ * PaintingList provides the following column format:
+ *   thumbnail, artist, title, year
+ * PaintingListFull provides the following column format:
+ *   thumbnail, title, year, artist, gallery, medium, dimensions
+ *
+ * All columns that are defined in a particular format can be used as the
+ * defaultSortCol with the exception of `medium` and `dimensions`.
  */
 
 import { use, useState } from "react";
@@ -27,50 +37,88 @@ const sortIdToFunc = {
   gallery: ({ Galleries: g1 }, { Galleries: g2 }) => dataSort.galleries(g1, g2),
 };
 
+const compactColFormat = ["thumbnail", "title", "year"];
+const regularColFormat = ["thumbnail", "artist", "title", "year"];
+const fullColFormat = [
+  "thumbnail",
+  "title",
+  "year",
+  "artist",
+  "gallery",
+  "medium",
+  "dimensions",
+];
+
+function PaintingList({ defaultSortCol = "title" }) {
+  const [currentPaintings] = use(CurrentPaintingsContext);
+
+  if (currentPaintings.length == 0) {
+    return <PaintingListEmpty />;
+  }
+
+  return (
+    <table>
+      <PaintingListCommon
+        permittedCols={regularColFormat}
+        defaultSortCol={defaultSortCol}
+      />
+    </table>
+  );
+}
+
+function PaintingListCompact({ defaultSortCol = "title" }) {
+  const [currentPaintings] = use(CurrentPaintingsContext);
+
+  if (currentPaintings.length == 0) {
+    return <PaintingListEmpty />;
+  }
+
+  return (
+    <table>
+      <PaintingListCommon
+        permittedCols={compactColFormat}
+        defaultSortCol={defaultSortCol}
+      />
+    </table>
+  );
+}
+
+function PaintingListFull({ defaultSortCol = "title" }) {
+  const [currentPaintings] = use(CurrentPaintingsContext);
+
+  if (currentPaintings.length == 0) {
+    return <PaintingListEmpty />;
+  }
+
+  return (
+    <table>
+      <PaintingListCommon
+        permittedCols={fullColFormat}
+        defaultSortCol={defaultSortCol}
+      />
+    </table>
+  );
+}
+
 /*
  * Purpose: Lists all paintings sorted initially by the given defaultSortCol.
  *
- * Details: The component requires the CurrentPaintingsContext to be an array
- * with the first element of the array containing an array of paintings data.
- * If the paintings data array is empty, a message will be displayed instead of
- * rendering a list of paintings.
+ * Details: PaintingList.Compact provides the following column format:
+ *   thumbnail, title, year
+ * PaintingList.Regular provides the following column format:
+ *   thumbnail, artist, title, year
+ * PaintingList.Full provides the following column format:
+ *   thumbnail, title, year, artist, gallery, medium, dimensions
  *
- * The ordering of columns in the list is as follows:
- * - thumbnail
- * - title
- * - year
- * - artist
- * - gallery
- * - medium
- * - dimensions
- *
- * The ordering is fixed and cannot be changed. However, the permittedCols
- * array can be passed in props. If a given column's name is not listed, it
- * will not be rendered.
- *
- * The following defaultSortCol values are supported:
- * - title: for sorting by a painting's title.
- * - year: for sorting by when a painting was made.
- * - artistName: for sorting by an artist's full name.
- * - artistFName: for sorting only by an artist's first name.
- * - artistLName: for sorting only by an artist's last name.
- * - gallery: for sorting by the name of the gallery where the artwork belongs.
- *
- * The sorting is initially done is ascending order. If no defaultSortCol is
- * provided, everything is sorted by title.
+ * All columns that are defined in a particular format can be used as the
+ * defaultSortCol with the exception of `medium` and `dimensions`.
  */
-function PaintingList({
-  permittedCols = [
-    "thumbnail",
-    "title",
-    "year",
-    "artist",
-    "gallery",
-    "medium",
-    "dimensions",
-  ],
-  defaultSortCol = "title",
-}) {
+
+function PaintingListEmpty() {
+  return <H.L3>No paintings found.</H.L3>;
+}
+
+function PaintingListCommon({ permittedCols, defaultSortCol }) {
   const [currentPaintings] = use(CurrentPaintingsContext);
   const sortColState = useState(defaultSortCol);
   const [isAscending, setIsAscending] = useState(true);
@@ -81,29 +129,24 @@ function PaintingList({
     isAscending
   );
 
-  if (currentPaintings.length == 0) {
-    return <H.L3>No paintings found.</H.L3>;
-  }
-
   return (
     <CurrentSortContext.Provider value={sortColState}>
-      <table>
-        <PaintingHeaders
-          permittedCols={permittedCols}
-          setAscending={setIsAscending}
-        />
-        <tbody>
-          {sortedPaintings.map((painting) => (
-            <PaintingListItem
-              painting={painting}
-              permittedCols={permittedCols}
-              key={painting.paintingId}
-            />
-          ))}
-        </tbody>
-      </table>
+      <PaintingHeaders
+        permittedCols={permittedCols}
+        setAscending={setIsAscending}
+      />
+      <tbody>
+        {sortedPaintings.map((painting) => (
+          <PaintingListItem
+            painting={painting}
+            permittedCols={permittedCols}
+            key={painting.paintingId}
+          />
+        ))}
+      </tbody>
     </CurrentSortContext.Provider>
   );
 }
 
 export default PaintingList;
+export { PaintingListCompact, PaintingListFull };
