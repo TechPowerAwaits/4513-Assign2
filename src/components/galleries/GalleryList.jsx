@@ -6,7 +6,7 @@ function GalleryList({ className: passedClasses = "" }) {
   const { galleries: galleriesData } = use(DataContext);
 
   return (
-    <ul className={`overflow-scroll h-full ${passedClasses}`}>
+    <ul className={passedClasses}>
       {galleriesData.map((galleryData) => (
         <GalleryListItem
           galleryData={galleryData}

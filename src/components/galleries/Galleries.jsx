@@ -26,9 +26,11 @@ function Galleries({ className: passedClasses = "" }) {
             <H.L2>Galleries</H.L2>
           </header>
           <section className="flex">
-            <GalleryList className="px-3" />
+            <GalleryList className="px-3 overflow-y-scroll min-w-fit max-h-96" />
             <GalleryInfo />
-            {selectedGalleryState[0] && <PaintingList />}
+            {selectedGalleryState[0] && (
+              <PaintingList className="overflow-y-scroll max-h-96" />
+            )}
           </section>
         </article>
       </CurrentPaintingsContext.Provider>
