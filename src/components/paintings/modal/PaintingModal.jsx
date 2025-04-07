@@ -59,10 +59,10 @@ const PaintingModal = NiceModal.create(({ data, ...props }) => {
         )}
       </hgroup>
 
-      <div className="flex my-5">
+      <div className="flex justify-between my-5">
         <figure>
           <ImageWithFallback
-            className="scale-50"
+            className="max-w-9/10 max-h-9/10 mx-auto"
             src={`/paintings/full/${data.imageFileName}.jpg`}
             alt={data.title}
           />
