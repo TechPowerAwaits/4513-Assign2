@@ -6,7 +6,7 @@ function ArtistList({ className: passedClasses = "" }) {
   const { artists: artistsData } = use(DataContext);
 
   return (
-    <ul className={passedClasses}>
+    <ul className={`space-y-2 ${passedClasses}`}>
       {artistsData.map((artistData) => (
         <ArtistListItem artistData={artistData} key={artistData.artistId} />
       ))}

@@ -26,7 +26,7 @@ function Artists({ className: passedClasses = "" }) {
             <H.L2>Artists</H.L2>
           </header>
           <section className="flex">
-            <ArtistList className="px-3 overflow-y-scroll min-w-fit max-h-96" />
+            <ArtistList className="px-3 overflow-y-scroll max-w-fit max-h-96" />
             <ArtistInfo />
             {selectedArtistState[0] && (
               <PaintingListCompact className="overflow-y-scroll max-h-96" />
