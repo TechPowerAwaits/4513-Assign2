@@ -178,17 +178,9 @@ function PaintingFilter({
     }
 
     if (formValues.genre) {
-      const targetPaintingGenre = paintingGenresData.find(
+      filteredPaintings = paintingGenresData.find(
         ({ Genre }) => Genre.genreId === Number.parseInt(formValues.genre)
-      );
-
-      const targetPaintingIds = targetPaintingGenre.Paintings.map(
-        (painting) => painting.paintingId
-      );
-
-      filteredPaintings = filteredPaintings.filter(({ paintingId }) =>
-        targetPaintingIds.includes(paintingId)
-      );
+      ).Paintings;
     }
 
     if (formValues.shape) {

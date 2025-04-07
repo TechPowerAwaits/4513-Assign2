@@ -38,7 +38,10 @@ async function accountDataRetriever() {
   console.debug("Entered data hook.");
   const newData = await DataProvider.acquire(dataProviders);
 
-  const paintingGenres = await fetchPaintingGenres(newData.genres);
+  const paintingGenres = await fetchPaintingGenres(
+    newData.genres,
+    newData.paintings
+  );
   newData.paintingGenres = paintingGenres;
   sortData(newData);
 
@@ -48,12 +51,14 @@ async function accountDataRetriever() {
 /*
  * Purpose: Fetching all the paintings that are associated with a genre.
  *
- * Details: The painting details that are fetched are minimalistic. It only
- * contains the year of work, title, and id.
+ * Details: The painting details that are fetched are normally minimalistic. It
+ * only contains the year of work, title, and id. So, the retrieved data has to
+ * be mapped to previously-processed Paintings data. The mapped PaintingGenres
+ * data is not stored as that would result in more data duplication.
  *
  * Returns: An array of Genre and Paintings.
  */
-async function fetchPaintingGenres(genresData) {
+async function fetchPaintingGenres(genresData, paintingsData) {
   const paintingGenresURL =
     import.meta.env.VITE_PAINTINGS_GENRES_URL ||
     "https://art-api-kafs.onrender.com/api/paintings/genre";
@@ -77,6 +82,20 @@ async function fetchPaintingGenres(genresData) {
   } else {
     paintingGenres = JSON.parse(paintingGenresJSON);
   }
+
+  paintingGenres = await Promise.all(
+    paintingGenres.map(async (paintingGenre) => {
+      const handledPaintings = await Promise.all(
+        paintingGenre.Paintings.map(async (simplePainting) =>
+          paintingsData.find(
+            (painting) => painting.paintingId === simplePainting.paintingId
+          )
+        )
+      );
+
+      return { ...paintingGenre, Paintings: handledPaintings };
+    })
+  );
 
   return paintingGenres;
 }
