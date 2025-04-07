@@ -5,6 +5,7 @@
 import { createContext } from "react";
 
 const CurrentPaintingsContext = createContext(null);
+const SelectedPaintingContext = createContext(null);
 
 /*
  * Purpose: Provides an example Painting.
@@ -92,4 +93,4 @@ const paintingTestData = [
   },
 ];
 
-export { CurrentPaintingsContext, paintingTestData };
+export { CurrentPaintingsContext, SelectedPaintingContext, paintingTestData };
